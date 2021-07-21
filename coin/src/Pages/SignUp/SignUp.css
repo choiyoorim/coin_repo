@@ -41,7 +41,7 @@ body {
     flex-direction: column;
   }
   
-  input {
+  .input_email, .input_pwd, .input_repwd, .input_nick {
     font-size: 15px;
     background-color: #eae8e6;
     width: 285px;
@@ -63,7 +63,7 @@ body {
     width: 70px;
   }
   
-  button {
+  .btn {
     background-color: #6c8ba7;
     height: 50px;
     width: 320px;

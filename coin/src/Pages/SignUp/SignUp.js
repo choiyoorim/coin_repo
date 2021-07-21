@@ -1,6 +1,7 @@
 import React from "react";
-import LoginHeader from "../Components/LoginHeader";
-import SignUpContent from "../Components/SignUpContent";
+import LoginHeader from "../../Components/LoginHeader";
+import SignUpContent from "../../Components/SignUpContent";
+import './SignUp.css'
 
 class SignUp extends React.Component {
   render() {
