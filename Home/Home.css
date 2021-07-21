@@ -1,0 +1,21 @@
+html{
+   background-color: #CFDCE8;
+}
+.Home{
+   text-align: center;
+}
+.header_h1{
+   font-size: 50px;
+   margin-top: 5%;
+   color: #354356;
+}
+.explain{
+   background-color: white;
+   padding: 0px 200px 200px;
+   font-size: 20px;    
+}
+.btn1{
+   padding: 10px 50px 10px 50px;
+   background-color: #6C8BA7;
+}
+
