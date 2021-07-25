@@ -9,7 +9,7 @@ class Sendmail extends Component{
                     <b>새로운 비밀번호</b> &nbsp; <input type="password" placeholder="Password" id="password1" class = "pw1_input" />
                     <br/>
                     <br/>
-                    <b>비밀번호 재확인</b> &nbsp; <input type="password" placeholder="Confirm Password" id = "password2" class = "pw1_input" />
+                    <b>비밀번호 재확인</b> &nbsp; <input type="password" placeholder="Confirm Password" id = "password2" class = "pw2_input" />
                     <br />
                     <button type ="submit" name = "pwConfirm" class = "btn2">확인</button>
                 </form>

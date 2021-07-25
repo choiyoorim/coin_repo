@@ -10,7 +10,6 @@ function Main() {
           <h2>Board</h2>
         </BoardInfo>
       </BoardContent>
-
       <Menu />
     </>
   );
