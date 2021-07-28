@@ -3,7 +3,7 @@
     margin-bottom:50px;
     text-align: center;
     color: #354356;
-    font-size: 60px;
+    font-size: 45px;
 }
 
 .email_h3{
@@ -12,16 +12,22 @@
 }
 
 .btn3{
-    height: 25px;
-    width: 200px;
     margin-left: 43.5%;
     background-color: #6C8BA7;
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
 }
 
 .email_input{
-    width: 300px;
-    height: 50px;
-    margin-left: 40.5%;
+    width: 285px;
+    height: 40px;
+    font-size: 15px;
+    background-color: #eae8e6;
+    margin: 5px 0px;
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
+    margin-left: 40%;
 }
 
 .linkFindK{

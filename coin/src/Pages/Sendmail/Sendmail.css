@@ -1,29 +1,29 @@
+.Sendmail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .confirm{
-    margin-top: 200px;
+    margin-top: 170px;
     font-size: 25px;
     text-align: left;
-    margin-left: 34%;
 }
 
-.password1{
-    width: 300px;
-    height: 50px;
-}
-
-.password2{
-    width: 300px;
-    height: 50px;
+.pw1_input, .pw2_input{
+    width: 285px;
+    height: 40px;
+    font-size: 15px;
+    background-color: #eae8e6;
+    margin: 5px 0px;
+    border-radius: 5px;
+    padding: 5px 15px 5px 15px;
 }
 
 .btn2{
-    height: 30px; 
-    width: 100px;
-    margin-left: 410px;
-    margin-top: 30px;
-    background-color: #6C8BA7;
-}
-
-.pw1_input{
-    width: 300px;
+    background-color: #6c8ba7;
     height: 50px;
+    width: 320px;
+    border-radius: 5px;
 }
