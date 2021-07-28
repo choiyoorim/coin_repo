@@ -5,7 +5,7 @@ class LoginHeader extends Component {
     return (
       <div className="header">
         <h1>
-          <a href="/login" style={{ color: "#354356" }}>
+          <a href="/" style={{ color: "#354356" }}>
             CO-IN
           </a>
         </h1>

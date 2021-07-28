@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import { createGlobalStyle } from "styled-components";
-import InfoTemplate from '../../Components/InfoTemplate';
-import ProfilePic from '../../Components/ProfilePic';
-import Profile from '../../Components/Profile';
-import InfoChangeTemplate from '../../Components/InfoChangeTemplate';
-import TextInput from '../../Components/TextInput';
-import { Link } from 'react-router-dom';
+import InfoTemplate from "../../Components/InfoTemplate";
+import ProfilePic from "../../Components/ProfilePic";
+import Profile from "../../Components/Profile";
+import InfoChangeTemplate from "../../Components/InfoChangeTemplate";
+import TextInput from "../../Components/TextInput";
+import { Link } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -105,32 +105,40 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-function MyPage(){
-    return(
-        <>
-            <GlobalStyle/>
-            <InfoTemplate>
-                <ProfilePic/>
-                <Profile/>
-            </InfoTemplate>
-            <InfoChangeTemplate>
-                <h2>연동계정 1</h2><TextInput init={"사용자1"}/>
-                <h2>연동계정 2</h2><TextInput init={"사용자2"}/>
-                <h2>연동계정 3</h2><TextInput init={"사용자3"}/>
-                <h2>회원 닉네임</h2><TextInput init={"닉네임"}/>
-                <button className="editprofile-button">수정사항 저장</button>
-                <h2 id="editpw-box">비밀번호 수정</h2>
-                <Link to="/sendmail"><button className="editpw-button">비밀번호 수정</button></Link>
-                <h2 id="email-box">이메일 수신 동의 여부</h2>
-                <div id="check-block">
-                <h3>동의합니다</h3>
-                <input className="check-box" type="checkbox"></input>
-                </div>
-                <h2 id='last-box'>탈퇴하기</h2>
-                <button className="withdraw-button">탈퇴하기</button>
-            </InfoChangeTemplate>
-        </>
-    )
+function MyPage() {
+  return (
+    <>
+      <GlobalStyle />
+      <InfoTemplate>
+        <ProfilePic />
+        <Profile />
+      </InfoTemplate>
+      <InfoChangeTemplate>
+        <h2>연동계정 1</h2>
+        <TextInput init={"사용자1"} />
+        <h2>연동계정 2</h2>
+        <TextInput init={"사용자2"} />
+        <h2>연동계정 3</h2>
+        <TextInput init={"사용자3"} />
+        <h2>회원 닉네임</h2>
+        <TextInput init={"닉네임"} />
+        <button className="editprofile-button">수정사항 저장</button>
+        <h2 id="editpw-box">비밀번호 수정</h2>
+        <Link to="/sendmail">
+          <button className="editpw-button">비밀번호 수정</button>
+        </Link>
+        <h2 id="email-box">이메일 수신 동의 여부</h2>
+        <div id="check-block">
+          <h3>동의합니다</h3>
+          <input className="check-box" type="checkbox"></input>
+        </div>
+        <h2 id="last-box">탈퇴하기</h2>
+        <Link to="/quit">
+          <button className="withdraw-button">탈퇴하기</button>
+        </Link>
+      </InfoChangeTemplate>
+    </>
+  );
 }
 
 export default MyPage;
