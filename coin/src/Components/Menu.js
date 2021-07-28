@@ -66,12 +66,22 @@ class Menu extends React.Component {
     this.state = { isToggleOn: false };
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
+  
+
+  childFunction = (data) => {
+    this.props.parentFunction(data);
+  }
+  
+  parentSecondFunction = (data) => {
+    this.childFunction(data);
+  }
 
   onMenuHandler() {
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
     console.log(this.state);
+
   }
 
   render() {
@@ -81,7 +91,7 @@ class Menu extends React.Component {
         <button className="menu" onClick={this.onMenuHandler}>
           메뉴
         </button>
-        {this.state.isToggleOn && <MenuActive />}
+        {this.state.isToggleOn && <MenuActive parentSecondFunction={this.parentSecondFunction}/>}
       </div>
     );
   }
