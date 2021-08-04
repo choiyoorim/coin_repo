@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     opacity: 0.6;
     position: absolute;
     border-radius: 35px;
-    height: 350px;
+    height: 400px;
     width: 250px;
     right: 30px;
     bottom: 30px;
@@ -66,22 +66,20 @@ class Menu extends React.Component {
     this.state = { isToggleOn: false };
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
-  
 
   childFunction = (data) => {
     this.props.parentFunction(data);
-  }
-  
+  };
+
   parentSecondFunction = (data) => {
     this.childFunction(data);
-  }
+  };
 
   onMenuHandler() {
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
     console.log(this.state);
-
   }
 
   render() {
@@ -91,7 +89,9 @@ class Menu extends React.Component {
         <button className="menu" onClick={this.onMenuHandler}>
           메뉴
         </button>
-        {this.state.isToggleOn && <MenuActive parentSecondFunction={this.parentSecondFunction}/>}
+        {this.state.isToggleOn && (
+          <MenuActive parentSecondFunction={this.parentSecondFunction} />
+        )}
       </div>
     );
   }
