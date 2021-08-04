@@ -23,7 +23,8 @@
 
 .btn2{
     background-color: #6c8ba7;
-    height: 50px;
-    width: 320px;
+    height: 40px;
+    width: 150px;
     border-radius: 5px;
+    margin-left: auto;
 }

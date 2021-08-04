@@ -5,11 +5,9 @@ class LoginContent extends Component {
     return (
       <div className="content">
         <form class = "loginContent">
-          <input className="input_email" type="email" placeholder="email" />
+          <input className="input_id" type="id" placeholder="id" />
           <br />
-
           <input className="input_pwd" type="password" placeholder="password" />
-
           <br />
           <button className="btn" type="submit">Login</button>
           <br />
