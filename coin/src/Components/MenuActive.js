@@ -37,10 +37,8 @@ class MenuActive extends Component {
           <a href="/mypage">개인설정</a>
         </div>
         <div className="control">
-           <a onClick={this.openModal}>도움말</a>
+           <a onClick={this.openModal} style={{cursor:'pointer'}}>도움말</a>
            <PopUp open={this.state.modalOpen} close={this.closeModal} title="제목">
-             일단 이런 식으로 만들어놓고 수정하기 
-             어디를 누르면 어떻게 된다는 문구 표기
           </PopUp>
         </div>
       </div>      
