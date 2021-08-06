@@ -6,6 +6,7 @@ import Profile from "../../Components/Profile";
 import InfoChangeTemplate from "../../Components/InfoChangeTemplate";
 import TextInput from "../../Components/TextInput";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 const GlobalStyle = createGlobalStyle`
     body{

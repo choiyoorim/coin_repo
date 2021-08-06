@@ -1,10 +1,10 @@
 import React from "react";
 import LoginHeader from "../../Components/LoginHeader";
 import LoginContent from "../../Components/LoginContent";
+import { withRouter } from "react-router-dom";
 import './Login.css'
 
-class Login extends React.Component {
-  render() {
+function Login({history}) {
     return (
       <div className="wrap-login">
         <LoginHeader />
@@ -12,6 +12,6 @@ class Login extends React.Component {
       </div>
     );
   }
-}
+
 
 export default Login;

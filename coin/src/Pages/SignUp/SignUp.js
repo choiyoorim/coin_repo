@@ -1,17 +1,19 @@
-import React from "react";
+import React,{useEffect} from "react";
 import LoginHeader from "../../Components/LoginHeader";
 import SignUpContent from "../../Components/SignUpContent";
 import './SignUp.css'
+import axios from "axios";
+import { withRouter } from "react-router";
 
-class SignUp extends React.Component {
-  render() {
+function SignUp(){
+  
     return (
       <div className="wrap-login">
         <LoginHeader />
         <SignUpContent />
       </div>
     );
-  }
 }
+
 
 export default SignUp;

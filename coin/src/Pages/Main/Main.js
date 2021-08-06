@@ -3,7 +3,7 @@ import reactDom from 'react-dom';
 import BoardContent from '../../Components/Board/BoardContent';
 import BoardInfo from '../../Components/Board/BoardInfo';
 import Menu from '../../Components/Menu';
-
+import { withRouter } from 'react-router';
 
 
 class Main extends Component{

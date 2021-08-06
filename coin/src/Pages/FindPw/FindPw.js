@@ -1,6 +1,7 @@
 import "./FindPw.css"
 import React, { Component } from 'react';
 import emailjs from 'emailjs-com';
+import { withRouter } from "react-router";
 
 class FindPw extends Component{
     render(){

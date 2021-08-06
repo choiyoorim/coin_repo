@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { createGlobalStyle } from "styled-components";
 import { createBrowserHistory } from "history";
 import LoginHeader from "../../Components/LoginHeader";
-
+import { withRouter } from "react-router";
 const BrowserHistory = createBrowserHistory();
 
 const GlobalStyle = createGlobalStyle`

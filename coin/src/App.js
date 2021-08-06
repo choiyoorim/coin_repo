@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import axios from "axios"
 
 import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
 
@@ -11,19 +12,22 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SendMail from "./Pages/Sendmail/Sendmail";
 import FindPw from "./Pages/FindPw/FindPw";
 import Quit from "./Pages/Quit/Quit";
+import Auth from './hoc/auth';
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Route exact path="/" component={Home} />
+       <Switch>
+        <Route exact path="/" component={Auth(Home,null)} />
         <Route path="/login" component={Login} />
-        <Route path="/main" component={Main} />
-        <Route path="/mypage" component={MyPage} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/sendmail" component={SendMail} />
-        <Route path="/findpw" component={FindPw} />
-        <Route path="/quit" component={Quit} />
+        <Route path="/main" component={Auth(Main,true)} />
+        <Route path="/mypage" component={Auth(MyPage,true)} />
+        <Route path="/signup" component={Auth(SignUp,false)} />
+        <Route path="/sendmail" component={Auth(SendMail,null)} />
+        <Route path="/findpw" component={Auth(FindPw,null)} />
+        <Route path="/quit" component={Auth(Quit,true)} />
+        </Switch>
       </BrowserRouter>
     </>
   );
