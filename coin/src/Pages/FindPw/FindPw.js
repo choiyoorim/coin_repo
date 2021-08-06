@@ -1,7 +1,6 @@
 import "./FindPw.css"
 import React, { Component } from 'react';
 import emailjs from 'emailjs-com';
-import { withRouter } from "react-router";
 
 class FindPw extends Component{
     render(){
@@ -18,10 +17,12 @@ class FindPw extends Component{
         return(
             <div class="Findpw">
                 <h1 class = "email_h1">이메일 입력</h1>
-                <div class="findpw">
-                    <form onSubmit={sendEmail}>
+                <div>
+                    <form class = "findpw" onSubmit={sendEmail}>
                         <input type="email" name="user_email" class="email_input" placeholder="email" />
+                        <br />
                         <h3 class = "email_h3">유효하지 않은 이메일은 보내지지 않습니다.</h3>
+                        <br />
                         <button type='submit' class = "btn3">이메일 전송하기</button>
                     </form>
                 </div>
