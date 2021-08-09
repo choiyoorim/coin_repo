@@ -33,6 +33,7 @@ async function getContributions(token, username) {
 function ContributionData() {
   const data2 = {};
   const data = getContributions(
+    "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",
     "plum-king"
   ).then(
     (result) => {

@@ -32,6 +32,7 @@ const GlobalStyle = createGlobalStyle`
     width: 250px;
     right: 30px;
     bottom: 30px;
+    z-index: 3;
   }
   
   .toggleMenu > * {
