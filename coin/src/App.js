@@ -10,7 +10,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SendMail from "./Pages/Sendmail/Sendmail";
 import FindPw from "./Pages/FindPw/FindPw";
 import Quit from "./Pages/Quit/Quit";
-import CalendarTest from "./Pages/CalendarTest";
+import GithubTest from "./Pages/GithubTest";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route path="/sendmail" component={SendMail} />
         <Route path="/findpw" component={FindPw} />
         <Route path="/quit" component={Quit} />
+        <Route path="/github" component={GithubTest} />
       </BrowserRouter>
     </>
   );
