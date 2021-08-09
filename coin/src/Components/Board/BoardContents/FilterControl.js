@@ -33,14 +33,10 @@ const StyledDiv = styled.div`
   }
 
   .control-input {
-    outline: none;
-    width: 150px;
-    background-color: aliceblue;
-    padding: 0;
-    margin: 0 10px 0 0;
-    border: none;
-
-    border-radius: 0px;
+    text-decoration: none;
+    padding-top: 3px;
+    padding-left: 3px;
+    color: #354356;
     display: block;
   }
 `;
@@ -76,15 +72,14 @@ class FilterControl extends Component {
               </a>
             </li>
             <li className="control-li">
-              <input
+              <a
+              href="/delete"
                 className="control-input"
                 onClick={function (e) {
                   e.preventDefault();
                   this.props.onChangeMode("delete");
                 }.bind(this)}
-                type="button"
-                value="현재 북마크 삭제하기"
-              ></input>
+              >현재 북마크 삭제하기</a>
             </li>
           </ul>
         </div>

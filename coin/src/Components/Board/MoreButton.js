@@ -11,6 +11,9 @@ const StyledBtn = styled.div`
     border-radius: 20px;
     background-color: aliceblue;
     font-weight: 900;
+    text-align: center;
+    position: relative;
+    right: 13px;  
   }
 `;
 

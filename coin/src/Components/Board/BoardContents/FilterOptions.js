@@ -33,7 +33,7 @@ class FilterOptions extends Component {
             id="valuename"
             value={this.state.value}
             onChange={this.changeOption.bind(this, "value")}
-            style={{ height: 30, width: 80, borderRadius: 5, padding: 5 }}
+            style={{ height: 30, width: 80, borderRadius: 5, padding: 5, position: "relative", right: 15 }}
           >
             {valueArray.map(function (option) {
               return (

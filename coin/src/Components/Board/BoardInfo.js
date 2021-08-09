@@ -37,10 +37,14 @@ const BoardInfo = ({ onDrag, text }) => {
     return (
       <BoardInfoBlock>
         <div className="boardheader" onMouseDown={handleMouseDown}>
-          <h3 className="stop-dragging">{text}</h3>
+          <h3 className="stop-dragging">&nbsp; {text}</h3>
         </div>
+        { text != "github" &&
+        <div>
         <FilterForm data={options} content={contents} />
-      </BoardInfoBlock>
+        </div>
+        }
+        </BoardInfoBlock>
     );
   }
 };

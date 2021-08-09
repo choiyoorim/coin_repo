@@ -80,7 +80,8 @@ function BoardContent(props){
         <div className = "boardcontent" ref={boardRef}>
             <Resizer onResize={handleResize}></Resizer>
             <BoardInfo onDrag = {handleDrag} text={props.text}/>
-                                       {props.text == "github" && <div> 
+                {props.text == "github" && 
+                <div> 
                 <br/> <CalendarTest></CalendarTest> <br /> 
                 커밋 아직 안했으면 "아직 커밋 전입니다" <br/>
                 커밋 했으면 "커밋 완료!"<br />
