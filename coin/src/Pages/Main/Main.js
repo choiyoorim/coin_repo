@@ -42,7 +42,7 @@ class Main extends Component{
             </BoardContent>)
         return(
             <>
-                <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} ondrop = "return false" ondragover="return false">
+                <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} oncontextmenu="return false" ondragstart="return false" onselectstart="return false" >
                     <img src={face} alt="여기요" style={mainProfile}/>
                     <span><b> 아이디 들어갈 부분</b> 님</span>
                 </div>

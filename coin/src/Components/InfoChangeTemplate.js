@@ -11,6 +11,9 @@ const InfoChangeTemplateBlock = styled.div`
     background-color:#F9FBFD;
     border-radius:20px;
     overflow-y:scroll;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 function InfoChangeTemplate({children}){

@@ -1,7 +1,11 @@
 import "./App.css";
+<<<<<<< HEAD
 import React from "react";
 import axios from "axios"
 
+=======
+import React, {useState} from "react";
+>>>>>>> feature/issue-#10-github
 import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
 
 import Home from "./Pages/Home/Home";
@@ -13,6 +17,7 @@ import SendMail from "./Pages/Sendmail/Sendmail";
 import FindPw from "./Pages/FindPw/FindPw";
 import Quit from "./Pages/Quit/Quit";
 import Auth from './hoc/auth';
+import GithubTest from "./Pages/GithubTest";
 
 function App() {
   return (
@@ -27,6 +32,7 @@ function App() {
         <Route path="/sendmail" component={Auth(SendMail,null)} />
         <Route path="/findpw" component={Auth(FindPw,null)} />
         <Route path="/quit" component={Auth(Quit,true)} />
+        <Route path="/github" component={GithubTest} />
         </Switch>
       </BrowserRouter>
     </>

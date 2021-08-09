@@ -12,6 +12,11 @@ const GlobalStyle = createGlobalStyle`
     body{
         background: #cfdce8;
     }
+    .profileForm{
+      justify-content: center;
+      align-items: center;
+    }
+
     h2{
         width:500px;
         color:#354356;
@@ -104,12 +109,31 @@ const GlobalStyle = createGlobalStyle`
         position:relative;
         top:40px;
     }
+    .go-to-main{
+      width:130px;
+      height:30px;
+      background-color: #cfdce8;
+      border-radius: 10px;
+      text-align:center;
+      display:inline-block;
+      border:0;
+      outline:0;
+      font-size:15px;
+      position:relative;
+      top:200px;
+      left: 8px;
+      }
+
+    .go-to-main:hover{
+      background-color:#6C8BA7;
+  }
 `;
 
 function MyPage() {
   return (
     <>
       <GlobalStyle />
+      <div class="profileForm">
       <InfoTemplate>
         <ProfilePic />
         <Profile />
@@ -138,6 +162,7 @@ function MyPage() {
           <button className="withdraw-button">탈퇴하기</button>
         </Link>
       </InfoChangeTemplate>
+      </div>
     </>
   );
 }

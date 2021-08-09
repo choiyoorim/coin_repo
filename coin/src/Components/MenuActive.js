@@ -64,7 +64,7 @@ class MenuActive extends Component {
             title="제목"
           ></PopUp>
         </div>
-      </div>
+      </div>      
     );
   }
 }

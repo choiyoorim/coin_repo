@@ -1,3 +1,4 @@
+  
 var express = require('express');
 const path = require('path');
 var router = express.Router();
@@ -81,7 +82,6 @@ router.get('/user/auth',authUtil,(req,res) =>{
         id: req.body.id,
     })
 })
-
 
 
 module.exports = router;
