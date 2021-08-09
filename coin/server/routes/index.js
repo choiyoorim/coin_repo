@@ -1,4 +1,3 @@
-  
 var express = require('express');
 const path = require('path');
 var router = express.Router();
@@ -60,7 +59,9 @@ router.post("/user/login",(req,res) =>{
                         const jwkToken = jwt.sign(params2[0],secretKey,options);
                         console.log(jwkToken);
                         return res
-                                .cookie("x_auth", jwkToken)
+                                .cookie("x_auth", jwkToken,{
+                                    maxAge:3600000
+                                })
                                 .status(200)
                                 .json({ loginSuccess: true, userId: req.body.id });
                     }
@@ -81,6 +82,13 @@ router.get('/user/auth',authUtil,(req,res) =>{
         isAuth:true,
         id: req.body.id,
     })
+})
+
+router.get('/user/logout',authUtil,(req,res)=>{
+    console.log("여기까지 온다!")
+    return res.clearCookie('x_auth')
+              .status(200)
+              .json({ success: true,  });
 })
 
 

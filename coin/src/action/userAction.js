@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER,LOGOUT_USER } from "./types";
 import {request} from '../utils/axios';
 
 const USER_URL = "api/user";
@@ -23,6 +23,15 @@ export function authUser(){
     const data = request("get",USER_URL+"/auth");
     return{
         type:AUTH_USER,
+        payload:data,
+    }
+}
+
+
+export function logoutUser(){
+    const data = request("get",USER_URL+"/logout");
+    return{
+        type:LOGOUT_USER,
         payload:data,
     }
 }

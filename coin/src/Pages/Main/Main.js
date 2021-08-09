@@ -4,6 +4,10 @@ import BoardContent from '../../Components/Board/BoardContent';
 import BoardInfo from '../../Components/Board/BoardInfo';
 import Menu from '../../Components/Menu';
 import face from '../../img/face.PNG';
+import { logoutUser } from '../../action/userAction';
+import * as actions from '../../../src/action/userAction';
+import {request} from '../../utils/axios';
+import LogoutButton from '../../Components/LogoutButton';
 
 const mainProfile = {
     width: '45px',
@@ -22,8 +26,8 @@ class Main extends Component{
                 {id:1,
                 text:'github'
                 }
-            ]
-        }
+            ],
+        };
     }
 
     
@@ -36,15 +40,19 @@ class Main extends Component{
     }
 
     render(){
-        
         const titleList = this.state.board.map(name => 
             <BoardContent key = {name.id} text = {name.text}>
             </BoardContent>)
+
+        
+
         return(
             <>
-                <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} oncontextmenu="return false" ondragstart="return false" onselectstart="return false" >
+                <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} ondrop = "return false" ondragover="return false">
                     <img src={face} alt="여기요" style={mainProfile}/>
-                    <span><b> 아이디 들어갈 부분</b> 님</span>
+                    <span><b> 아이디 들어갈 부분</b> 님
+                        <LogoutButton></LogoutButton>
+                    </span>
                 </div>
 
                 <div>{titleList}</div>                  

@@ -18,6 +18,7 @@ export default function (SpecificComponent,option,adminRoute=null){
                 
                 if(!res.payload.isAuth) {
                     if(option) {
+                        alert('로그인하세요')
                         props.history.push('/login')
                     }
                 } 
