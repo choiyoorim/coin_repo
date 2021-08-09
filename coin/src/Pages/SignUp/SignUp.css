@@ -1,77 +1,75 @@
 body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #cfdce8;
-    color: #354356;
-  }
-  
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-      monospace;
-  }
-  
-  .wrap-login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .header {
-    color: #354356;
-    display: flex;
-    text-align: center;
-  }
-  
-  #content-signup {
-    margin-left: 75px;
-  }
-  #content-signup a {
-    margin-right: 75px;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input_id, .input_email, .input_pwd, .input_repwd, .input_nick {
-    font-size: 15px;
-    background-color: #eae8e6;
-    width: 285px;
-    height: 30px;
-    margin: 5px 0px;
-    border-radius: 5px;
-    padding: 5px 15px 5px 15px;
-  }
-  
-  #email-input {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  #email-input button {
-    font-size: 12px;
-    margin: 5px;
-    height: 44px;
-    width: 70px;
-  }
-  
-  .btn {
-    background-color: #6c8ba7;
-    height: 50px;
-    width: 320px;
-    border-radius: 5px;
-  }
-  
-  a {
-    text-align: center;
-    text-decoration: none;
-    color: #6c8ba7;
-  }
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #CFDCE8;
+  color: #354356;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+.wrap-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+.header {
+  color: #354356;
+  display: flex;
+  text-align: center;
+}
+#content-signup {
+  margin-left: 75px;
+}
+#content-signup a {
+  margin-right: 75px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+}
+.input_id, .input_email, .input_pwd, .input_repwd, .input_nick {
+  font-size: 15px;
+  background-color: #EAE8E6;
+  width: 285px;
+  height: 30px;
+  margin: 5px 0px;
+  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
+}
+
+#id-input button {
+  font-size: 12px;
+  margin: 5px;
+  height: 44px;
+  width: 70px;
+}
+
+#email-input {
+  display: flex;
+  flex-direction: row;
+}
+#email-input button {
+  font-size: 12px;
+  margin: 5px;
+  height: 44px;
+  width: 70px;
+}
+.btn {
+  background-color: #6C8BA7;
+  height: 50px;
+  width: 320px;
+  border-radius: 5px;
+}
+a {
+  text-align: center;
+  text-decoration: none;
+  color: #6C8BA7;
+}

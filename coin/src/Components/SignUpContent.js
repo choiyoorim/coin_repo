@@ -86,7 +86,7 @@ function SignUpContent({history}) {
           <input class="input_nick"required type="text" placeholder="nickname" onChange={onNicknameHandler}/>
 
           <br />
-          <button class="btn" type="submit" onClick={this.onclick}>Sign Up</button>
+          <button class="btn" type="submit">Sign Up</button>
           <br />
           <a target="_blank" id="kakao-login" href="#">
             카카오톡으로 가입하기
