@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import BoardContent from './BoardContent';
-
+import moment from "moment";
+import 'moment/locale/ko';
 
 const BoardInfoBlock = styled.div`
     border-bottom: 2px solid #6C8BA7;
@@ -40,13 +41,19 @@ const BoardInfo=({onDrag,text})=>{
 
     const handleMouseDown = () => setMouseDown(true);
 
+    //오늘 날짜 띄우는 코드
+    //const nowTime = moment().format('YYYY-MM-DD');
+    //console.log(nowTime);
+
     if(true){
         return(
-                <BoardInfoBlock>
-                    <div className = "boardheader" onMouseDown={handleMouseDown}>
-                        <h3 className="stop-dragging">{text}</h3>
-                    </div>
-                </BoardInfoBlock>
+                <>
+                    <BoardInfoBlock>
+                        <div className = "boardheader" onMouseDown={handleMouseDown}>
+                            <h3 className="stop-dragging">&nbsp;{text}</h3>  
+                        </div>
+                    </BoardInfoBlock>
+                </>
         );
     }
     

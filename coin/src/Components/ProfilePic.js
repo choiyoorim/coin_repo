@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const PicTemplateBlock = styled.div`
     width:200px;
     height:200px;
-
     position:relative;
     background: #6C8BA7;
     border-radius: 100px;

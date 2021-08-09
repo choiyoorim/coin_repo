@@ -71,6 +71,7 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
   }
   .modal > section {
+    position: relaive;
     width: 100%;
     height: 100%;
     margin:0 auto;
@@ -80,7 +81,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   .modal > section > .popUpTitle button {
-    position: absolute;
+    position: relative;
     top: 10px;
     left: 13px;
     font-size: 30px;
