@@ -1,11 +1,6 @@
 import "./App.css";
-<<<<<<< HEAD
-import React from "react";
-import axios from "axios"
-
-=======
 import React, {useState} from "react";
->>>>>>> feature/issue-#10-github
+import axios from "axios"
 import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
 
 import Home from "./Pages/Home/Home";
