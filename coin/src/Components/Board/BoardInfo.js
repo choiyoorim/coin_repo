@@ -15,6 +15,7 @@ const BoardInfoBlock = styled.div`
 const BoardInfo = ({ onDrag, text }) => {
   const [mouseDown, setMouseDown] = useState(false);
   const options = [{ id: 0, value: "All" }];
+  const options_baek = [{id: 0, value: "내가 풀 문제"}, {id: 1, value: "내가 맞은 문제"}, {id: 2, value: "내가 틀린 문제"}, {id:3, value: "제출했지만 만점이 아닌 문제"}];
   const contents = [];
   useEffect(() => {
     const handleMouseUp = () => setMouseDown(false);
@@ -39,9 +40,14 @@ const BoardInfo = ({ onDrag, text }) => {
         <div className="boardheader" onMouseDown={handleMouseDown}>
           <h3 className="stop-dragging">&nbsp; {text}</h3>
         </div>
-        { text != "github" &&
+        { text != "github" && text != "baekjoon" &&
         <div>
         <FilterForm data={options} content={contents} />
+        </div>
+        }
+        { text == "baekjoon" &&
+        <div>
+        <FilterForm data={options_baek} content={contents} />
         </div>
         }
         </BoardInfoBlock>

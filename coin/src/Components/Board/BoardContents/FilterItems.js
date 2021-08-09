@@ -51,7 +51,8 @@ class FilterItems extends Component {
             <div
               className="filter-name"
               onClick={() => {
-                window.location.href = item.link;
+                var openNewWindow = window.open("about:blank");
+                openNewWindow.location.href = item.link;
               }}
             >
               {item.name}
