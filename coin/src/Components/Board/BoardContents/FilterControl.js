@@ -7,10 +7,6 @@ const StyledDiv = styled.div`
     margin: 0;
     left: 120px;
     width: 180px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
   .control-ul {
     position: absolute;

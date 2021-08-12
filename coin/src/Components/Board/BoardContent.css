@@ -11,6 +11,11 @@
   left: 50px;
   box-sizing: border-box;
   box-shadow: 2px 2px 1px #6c8ba7;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .option-container {
@@ -26,4 +31,24 @@
   padding: 10px 10px 8px 10px;
   border-bottom: 2px solid #6c8ba7;
   font-size: 18px;
+}
+
+.item-container {
+  overflow-y: scroll;
+}
+
+.item-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.item-container::-webkit-scrollbar-thumb {
+  background-color: #6c8ba7;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+
+.item-container::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
 }

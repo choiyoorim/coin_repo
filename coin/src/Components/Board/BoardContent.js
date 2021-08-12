@@ -14,6 +14,7 @@ import ItemUpdate from "./BoardContents/ItemUpdate";
 
 function BoardContent(props) {
   const boardRef = useRef(null);
+  const itemRef = useRef(null);
   const [options, setoptions] = useState([{ id: 0, value: "All" }]);
   const [contents, setcontents] = useState([]);
 
@@ -42,12 +43,15 @@ function BoardContent(props) {
 
   const handleResize = (direction, movementX, movementY) => {
     const board = boardRef.current;
+    const item = itemRef.current;
     if (!board) return;
+    if (!item) return;
 
     const { width, height, x, y } = board.getBoundingClientRect();
     const resizeTop = () => {
       board.style.height = `${height - movementY}px`;
       board.style.top = `${y + movementY}`;
+      item.style.height = `${height + movementY - 150}px`;
     };
 
     const resizeRight = () => {
@@ -56,6 +60,7 @@ function BoardContent(props) {
 
     const resizeBottom = () => {
       board.style.height = `${height + movementY}px`;
+      item.style.height = `${height + movementY - 150}px`;
     };
 
     const resizeLeft = () => {
@@ -253,7 +258,9 @@ function BoardContent(props) {
       </div>
       {hidden && <ItemCreate onSubmit={createItems} />}
 
-      <ItemRead data={filteredItem} onChangeItem={changeItems} />
+      <div className="item-container" ref={itemRef}>
+        <ItemRead data={filteredItem} onChangeItem={changeItems} />
+      </div>
 
       {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}
 

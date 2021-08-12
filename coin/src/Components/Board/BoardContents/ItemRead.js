@@ -52,6 +52,9 @@ class ItemRead extends Component {
                 var openNewWindow = window.open("about:blank");
                 openNewWindow.location.href = item.link;
               }}
+              style={{
+                cursor: "pointer",
+              }}
             >
               {item.title}
             </div>

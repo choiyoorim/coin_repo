@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const BoardInfoBlock = styled.div`
-  border-bottom: 2px solid #6c8ba7;
+  // border-bottom: 2px solid #6c8ba7;
   h3.stop-dragging {
     -ms-user-select: none;
     -moz-user-select: -moz-none;
@@ -37,7 +37,7 @@ const BoardInfo = ({ onDrag, text }) => {
       <div className="board">
         <BoardInfoBlock>
           <div className="boardheader" onMouseDown={handleMouseDown}>
-            <h3 className="stop-dragging">{text}</h3>
+            <h3 className="stop-dragging">&nbsp;&nbsp;{text}</h3>
           </div>
         </BoardInfoBlock>
       </div>

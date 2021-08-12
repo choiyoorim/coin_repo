@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class FilterOptions extends Component {
+class FilterRead extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,4 +45,4 @@ class FilterOptions extends Component {
     );
   }
 }
-export default FilterOptions;
+export default FilterRead;
