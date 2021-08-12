@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import FilterForm from "./BoardContents/FilterForm";
-import BoardContent from "./BoardContent";
+
 const BoardInfoBlock = styled.div`
-  border-bottom: 2px solid #6C8BA7;
+  border-bottom: 2px solid #6c8ba7;
   h3.stop-dragging {
     -ms-user-select: none;
     -moz-user-select: -moz-none;
@@ -12,10 +11,10 @@ const BoardInfoBlock = styled.div`
     user-select: none;
   }
 `;
+
 const BoardInfo = ({ onDrag, text }) => {
   const [mouseDown, setMouseDown] = useState(false);
-  const options = [{ id: 0, value: "All" }];
-  const contents = [];
+
   useEffect(() => {
     const handleMouseUp = () => setMouseDown(false);
     window.addEventListener("mouseup", handleMouseUp);
@@ -35,12 +34,13 @@ const BoardInfo = ({ onDrag, text }) => {
   const handleMouseDown = () => setMouseDown(true);
   if (true) {
     return (
-      <BoardInfoBlock>
-        <div className="boardheader" onMouseDown={handleMouseDown}>
-          <h3 className="stop-dragging">{text}</h3>
-        </div>
-        <FilterForm data={options} content={contents} />
-      </BoardInfoBlock>
+      <div className="board">
+        <BoardInfoBlock>
+          <div className="boardheader" onMouseDown={handleMouseDown}>
+            <h3 className="stop-dragging">{text}</h3>
+          </div>
+        </BoardInfoBlock>
+      </div>
     );
   }
 };

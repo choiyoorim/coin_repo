@@ -1,14 +1,29 @@
-.boardcontent{
-    width:300px;
-    height:700px;
-    min-width: 300px;
-    min-height: 600px;
-    background-color:#F9FBFD;
-    border-radius: 10px;
+.boardcontent {
+  width: 300px;
+  height: 700px;
+  min-width: 300px;
+  min-height: 600px;
+  background-color: #f9fbfd;
+  border-radius: 10px;
 
-    position:absolute;
-    top:50px;
-    left:50px;
-    box-sizing: border-box;
-    box-shadow: 2px 2px 1px #6C8BA7;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  box-sizing: border-box;
+  box-shadow: 2px 2px 1px #6c8ba7;
+}
+
+.option-container {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 2px solid #6c8ba7;
+  padding: 5px 15px 4px 5px;
+}
+
+.item-createtab {
+  cursor: pointer;
+  background-color: #f9fbfd;
+  padding: 10px 10px 8px 10px;
+  border-bottom: 2px solid #6c8ba7;
+  font-size: 18px;
 }

@@ -24,3 +24,5 @@ yarn-error.log*
 
 db_info.js
 server/config/
+
+GithubToken.js

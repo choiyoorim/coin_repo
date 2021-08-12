@@ -1,4 +1,9 @@
 import React from "react";
+import moment from "moment";
+
+let now = moment().format("YYYY-MM-DD");
+
+const token = require("./GithubToken");
 async function getContributions(token, username) {
   const headers = {
     Authorization: `bearer ${token}`,
@@ -6,7 +11,7 @@ async function getContributions(token, username) {
   const body = {
     query: `query {
           user(login: "${username}") {
-            contributionsCollection(from: "2021-08-01T00:00:00Z" to:"2021-08-01T00:00:00Z") {
+            contributionsCollection(from: "${now}T00:00:00Z" to:"${now}T00:00:00Z") {
               contributionCalendar {
                 weeks {
                   contributionDays {
@@ -32,9 +37,7 @@ async function getContributions(token, username) {
 }
 function ContributionData() {
   const data2 = {};
-  const data = getContributions(
-    "plum-king"
-  ).then(
+  const data = getContributions(token, "plum-king").then(
     (result) => {
       console.log(result);
     },

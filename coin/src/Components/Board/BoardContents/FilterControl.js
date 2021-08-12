@@ -3,10 +3,14 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   .control-div {
-    position: relative;
-    margin: 0px;
+    position: absolute;
+    margin: 0;
+    left: 120px;
     width: 180px;
-    float: right;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   .control-ul {
     position: absolute;
@@ -28,20 +32,8 @@ const StyledDiv = styled.div`
     display: block;
   }
 
-  .control-li *:hover {
+  .control-li :hover {
     background-color: rgba(108, 139, 167, 0.1);
-  }
-
-  .control-input {
-    outline: none;
-    width: 150px;
-    background-color: aliceblue;
-    padding: 0;
-    margin: 0 10px 0 0;
-    border: none;
-
-    border-radius: 0px;
-    display: block;
   }
 `;
 
@@ -76,15 +68,16 @@ class FilterControl extends Component {
               </a>
             </li>
             <li className="control-li">
-              <input
-                className="control-input"
+              <a
+                href="/delete"
+                className="control-a"
                 onClick={function (e) {
                   e.preventDefault();
                   this.props.onChangeMode("delete");
                 }.bind(this)}
-                type="button"
-                value="현재 북마크 삭제하기"
-              ></input>
+              >
+                현재 북마크 삭제하기
+              </a>
             </li>
           </ul>
         </div>

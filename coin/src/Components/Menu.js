@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F9FBFD;
     color: #354356;
     opacity: 0.6;
-    position: absolute;
+    position: fixed;
     border-radius: 35px;
     height: 350px;
     width: 250px;

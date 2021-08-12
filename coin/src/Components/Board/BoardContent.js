@@ -1,95 +1,275 @@
-import React,{useState,useRef} from 'react';
-import Draggable from 'react-draggable';
-import Resizer from './Resizer';
-import { Direction } from './Direction';
-import './BoardContent.css';
-import BoardInfo from './BoardInfo';
-import CalendarTest from '../../Pages/CalendarTest';
+import React, { useState, useRef, useEffect } from "react";
+import Draggable from "react-draggable";
+import Resizer from "./Resizer";
+import { Direction } from "./Direction";
+import "./BoardContent.css";
+import BoardInfo from "./BoardInfo";
 
-function BoardContent(props){
-    const boardRef = useRef(null);
+import FilterRead from "./BoardContents/FilterRead";
+import MoreButton from "./MoreButton";
 
-    const handleDrag = (movementX,movementY)=>{
-        const board = boardRef.current;
-        if(!board) return;
+import ItemRead from "./BoardContents/ItemRead";
+import ItemCreate from "./BoardContents/ItemCreate";
+import ItemUpdate from "./BoardContents/ItemUpdate";
 
-        const {x,y} = board.getBoundingClientRect();
+function BoardContent(props) {
+  const boardRef = useRef(null);
+  const [options, setoptions] = useState([{ id: 0, value: "All" }]);
+  const [contents, setcontents] = useState([]);
 
-        board.style.left = `${x + movementX}px`;
-        board.style.top = `${y + movementY}px`;
+  const [selectedOpValue, setselectedOpValue] = useState({
+    id: 0,
+    value: "All",
+  });
+  const [filteredItem, setfilteredItem] = useState(contents);
+
+  const [hidden, sethidden] = useState(false);
+  const [itemMode, setitemMode] = useState({ mode: "read", item_id: 0 });
+
+  useEffect(() => {
+    filterItems(selectedOpValue.id);
+  }, [contents]);
+
+  const handleDrag = (movementX, movementY) => {
+    const board = boardRef.current;
+    if (!board) return;
+
+    const { x, y } = board.getBoundingClientRect();
+
+    board.style.left = `${x + movementX}px`;
+    board.style.top = `${y + movementY}px`;
+  };
+
+  const handleResize = (direction, movementX, movementY) => {
+    const board = boardRef.current;
+    if (!board) return;
+
+    const { width, height, x, y } = board.getBoundingClientRect();
+    const resizeTop = () => {
+      board.style.height = `${height - movementY}px`;
+      board.style.top = `${y + movementY}`;
+    };
+
+    const resizeRight = () => {
+      board.style.width = `${width + movementX}px`;
+    };
+
+    const resizeBottom = () => {
+      board.style.height = `${height + movementY}px`;
+    };
+
+    const resizeLeft = () => {
+      board.style.width = `${width - movementX}px`;
+      board.style.left = `${x + movementX}px`;
+    };
+
+    switch (direction) {
+      case Direction.TopLeft:
+        resizeTop();
+        resizeLeft();
+        break;
+      case Direction.Top:
+        resizeTop();
+        break;
+      case Direction.TopRight:
+        resizeTop();
+        resizeRight();
+        break;
+      case Direction.Right:
+        resizeRight();
+        break;
+      case Direction.BottomRight:
+        resizeBottom();
+        resizeRight();
+        break;
+      case Direction.Bottom:
+        resizeBottom();
+        break;
+      case Direction.BottomLeft:
+        resizeBottom();
+        resizeLeft();
+        break;
+      case Direction.Left:
+        resizeLeft();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const filterItems = (val) => {
+    val = parseInt(val);
+
+    let i = 0;
+    while (i < options.length) {
+      if (val === options[i].id) {
+        setselectedOpValue(options[i]);
+        break;
+      }
+      i = i + 1;
+    }
+    if (val !== 0) {
+      setfilteredItem(
+        contents.filter(function (item) {
+          return item.option_id === val;
+        })
+      );
+    } else {
+      setfilteredItem(contents);
+    }
+  };
+
+  const changeOption = (mode, value) => {
+    let _options = options.concat();
+    let _contents = contents.concat();
+
+    switch (mode) {
+      case "delete":
+        setoptions(_options.filter((op) => op.id !== selectedOpValue.id));
+        setselectedOpValue({ id: 0, value: "All" });
+        setcontents(
+          _contents.filter((co) => co.option_id !== selectedOpValue.id)
+        );
+        break;
+
+      case "create":
+        const lastIndex = _options[_options.length - 1].id;
+        _options.push({
+          id: lastIndex + 1,
+          value: value,
+        });
+        setoptions(_options);
+        break;
+
+      case "update":
+        var i = 0;
+        while (i < _options.length) {
+          if (_options[i].id === selectedOpValue.id) {
+            _options[i] = {
+              id: _options[i].id,
+              value: value,
+            };
+            break;
+          }
+          i = i + 1;
+        }
+        setoptions(_options);
+    }
+  };
+
+  const changeItems = (_mode, _id) => {
+    _id = parseInt(_id);
+    setitemMode({
+      mode: _mode,
+      item_id: _id,
+    });
+  };
+
+  const updateItems = (_mode, _id) => {
+    let article = null;
+
+    var _contents = contents.concat();
+    var i = 0;
+    var editItem = {};
+    while (i < _contents.length) {
+      if (_id === _contents[i].id) {
+        editItem = _contents[i];
+        break;
+      }
+      i = i + 1;
     }
 
-    const handleResize = (direction,movementX,movementY)=>{
-        const board = boardRef.current;
-        if(!board) return;
+    if (_mode === "item-update") {
+      article = (
+        <ItemUpdate
+          data={editItem}
+          optionValue={editItem.option_id} //현재 옵션 전달 = 2
+          allOptions={options} //옵션 배열 전달
+          onSubmit={function (_option_id, _title, _link, _desc) {
+            _contents[i] = {
+              id: _id,
+              option_id: _option_id,
+              title: _title,
+              link: _link,
+              desc: _desc,
+            };
 
-        const {width,height,x,y} = board.getBoundingClientRect();
-        const resizeTop = () => {
-            board.style.height = `${height-movementY}px`;
-            board.style.top = `${y+movementY}`;
-        }
+            setitemMode({ mode: "read", item_id: null });
+            setcontents(_contents);
+          }}
+        ></ItemUpdate>
+      );
+    } else if (_mode === "item-delete") {
+      if (window.confirm("현재 아이템를 삭제합니다.")) {
+        _contents.splice(i, 1);
+        setcontents(_contents);
+        setitemMode({ mode: "read", item_id: null });
+        alert("삭제되었습니다.");
+      }
+    }
 
-        const resizeRight = () => {
-            board.style.width = `${width + movementX}px`;
-        }
+    return article;
+  };
 
-        const resizeBottom = () => {
-            board.style.height = `${height + movementY}px`;
-        } 
+  const createItems = (_title, _link, _desc) => {
+    let _contents = contents.concat();
+    let lastIndex = 0;
+    if (_contents.length !== 0) {
+      lastIndex = _contents[_contents.length - 1].id + 1;
+    }
+    _contents.push({
+      id: lastIndex,
+      option_id: selectedOpValue.id,
+      title: _title,
+      link: _link,
+      desc: _desc,
+    });
+    setcontents(_contents);
+    sethidden(false);
+  };
 
-        const resizeLeft = () => {
-            board.style.width = `${width - movementX}px`;
-            board.style.left = `${x + movementX}px`
-        }
+  const onCreateHandler = () => {
+    sethidden(true);
+  };
 
-        switch(direction){
-            case Direction.TopLeft:
-                resizeTop();
-                resizeLeft();
-                break;
-            case Direction.Top:
-                resizeTop();
-                break;
-            case Direction.TopRight:
-                resizeTop();
-                resizeRight();
-                break;
-            case Direction.Right:
-                resizeRight();
-                break;
-            case Direction.BottomRight:
-                resizeBottom();
-                resizeRight();
-                break;
-            case Direction.Bottom:
-                resizeBottom();
-                break;
-            case Direction.BottomLeft:
-                resizeBottom();
-                resizeLeft();
-                break;
-            case Direction.Left:
-                resizeLeft();
-                break;
-            default:
-                break
-        }
-    }                                                                                                                                                                         
+  return (
+    <div className="boardcontent" ref={boardRef}>
+      <Resizer onResize={handleResize}></Resizer>
+      <BoardInfo onDrag={handleDrag} text={props.text} />
+      <div className="option-container">
+        <FilterRead
+          optionValue={selectedOpValue.id} //현재 옵션 전달
+          allOptions={options} //전체 옵션
+          changeOption={filterItems} //함수 처리
+        />
 
-    return(
-        <div className = "boardcontent" ref={boardRef}>
-            <Resizer onResize={handleResize}></Resizer>
-            <BoardInfo onDrag = {handleDrag} text={props.text}/>
-                                       {props.text == "github" && <div> 
-                <br/> <CalendarTest></CalendarTest> <br /> 
-                커밋 아직 안했으면 "아직 커밋 전입니다" <br/>
-                커밋 했으면 "커밋 완료!"<br />
-                같은 문구 띄우기
-                </div>
-            }
-        </div>
-                
-    );
+        {props.text === "bookmark" || "programmers" ? (
+          <MoreButton currOption={selectedOpValue} changeBoard={changeOption} />
+        ) : null}
+      </div>
+
+      <div className="item-createtab" onClick={onCreateHandler}>
+        내용 추가하기
+      </div>
+      {hidden && <ItemCreate onSubmit={createItems} />}
+
+      <ItemRead data={filteredItem} onChangeItem={changeItems} />
+
+      {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}
+
+      <div className="fixed-item">
+        {/* {props.text == "github" && (
+          <div>
+            <br /> <CalendarTest></CalendarTest> <br />
+            커밋 아직 안했으면 "아직 커밋 전입니다" <br />
+            커밋 했으면 "커밋 완료!"
+            <br />
+            같은 문구 띄우기
+          </div>
+        )} */}
+      </div>
+    </div>
+  );
 }
 
 export default BoardContent;

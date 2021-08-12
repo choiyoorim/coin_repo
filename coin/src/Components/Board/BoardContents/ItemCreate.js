@@ -5,7 +5,6 @@ import StyledModalDiv from "../StyledModalDiv";
 import StyledModalArticle from "../StyledModalArticle";
 
 class ItemCreate extends Component {
-  //this.props.onUpdate
   render() {
     return (
       <StyledModalDiv>
@@ -35,12 +34,7 @@ class ItemCreate extends Component {
                 </p>
 
                 <p>
-                  <input
-                    required
-                    type="text"
-                    name="link"
-                    placeholder="url"
-                  ></input>
+                  <input type="text" name="link" placeholder="url"></input>
                 </p>
 
                 <p>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 
+import styled from "styled-components";
 import StyledItem from "../StyledItem";
 
 const StyleBtn = styled.div`
@@ -32,15 +31,14 @@ const StyleBtn = styled.div`
   }
 `;
 
-class FilterItems extends Component {
+class ItemRead extends Component {
   constructor(props) {
     super(props);
-
     this.changeItem = this.changeItem.bind(this);
   }
-
   changeItem(e) {
-    this.props.onChangeItem(e.target.value, e.target.className);
+    console.log(e.target.className, e.target.value);
+    this.props.onChangeItem(e.target.className, e.target.value);
   }
 
   getItem() {
@@ -51,13 +49,11 @@ class FilterItems extends Component {
             <div
               className="filter-name"
               onClick={() => {
-                window.location.href = item.link;
+                var openNewWindow = window.open("about:blank");
+                openNewWindow.location.href = item.link;
               }}
             >
-              {item.name}
-              {/* <Link to={{ pathname: `${item.link}` }} target="_blank">
-                {item.name}
-              </Link> */}
+              {item.title}
             </div>
 
             <div className="filter-desc">{item.desc}</div>
@@ -83,6 +79,7 @@ class FilterItems extends Component {
         );
       }.bind(this)
     );
+
     return article;
   }
 
@@ -95,4 +92,4 @@ class FilterItems extends Component {
   }
 }
 
-export default FilterItems;
+export default ItemRead;

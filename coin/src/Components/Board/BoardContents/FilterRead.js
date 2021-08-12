@@ -8,23 +8,20 @@ class FilterOptions extends Component {
     };
   }
 
-  changeOption = (type, e) => {
+  changeOption = (e) => {
     var val = e.target.value;
-    console.log("changeoption");
-    console.log(val); //=== option id
-    console.log(type); //==="read"
     this.setState(
       {
         value: val,
       },
       () => {
-        this.props.changeOption(this.state.value, type);
+        this.props.changeOption(this.state.value);
       }
     );
   };
 
   render() {
-    const valueArray = this.props.benderOptions;
+    const valueArray = this.props.allOptions;
 
     return (
       <div className="filter-options">
@@ -32,7 +29,7 @@ class FilterOptions extends Component {
           <select
             id="valuename"
             value={this.state.value}
-            onChange={this.changeOption.bind(this, "value")}
+            onChange={this.changeOption.bind(this)}
             style={{ height: 30, width: 80, borderRadius: 5, padding: 5 }}
           >
             {valueArray.map(function (option) {
