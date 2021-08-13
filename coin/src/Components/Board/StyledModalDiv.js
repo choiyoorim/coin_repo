@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledModalDiv = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
