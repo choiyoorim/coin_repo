@@ -12,13 +12,6 @@ class PopUp extends Component {
                         <header class="popUpTitle">
                             <button className="close" onClick={close}> &times; </button>
                         </header>
-                        <div class="exProfile"></div>
-                        <span class="arrow1">
-                            &rarr;
-                        </span>
-                        <div class ="howTo1">
-                            프로필 확인
-                        </div>
 
                         <div class="exToggle"></div>
                         <span class="arrow2">

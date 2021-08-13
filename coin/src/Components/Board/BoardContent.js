@@ -12,16 +12,20 @@ import ItemRead from "./BoardContents/ItemRead";
 import ItemCreate from "./BoardContents/ItemCreate";
 import ItemUpdate from "./BoardContents/ItemUpdate";
 
+import CalendarTest from "../../Pages/CalendarTest";
+
 function BoardContent(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
   const [options, setoptions] = useState([{ id: 0, value: "All" }]);
+
   const [contents, setcontents] = useState([]);
 
   const [selectedOpValue, setselectedOpValue] = useState({
     id: 0,
     value: "All",
   });
+
   const [filteredItem, setfilteredItem] = useState(contents);
 
   const [hidden, sethidden] = useState(false);
@@ -242,20 +246,36 @@ function BoardContent(props) {
       <Resizer onResize={handleResize}></Resizer>
       <BoardInfo onDrag={handleDrag} text={props.text} />
       <div className="option-container">
-        <FilterRead
+        {props.text != "github" && props.text != "baekjoon"? (
+          <>
+            <FilterRead
+            optionValue={selectedOpValue.id} //현재 옵션 전달
+            allOptions={options} //전체 옵션
+            changeOption={filterItems} //함수 처리
+          />
+            <MoreButton currOption={selectedOpValue} changeBoard={changeOption} />
+          </>
+        ) : null
+        }
+        {props.text === "baekjoon" &&
+          <FilterRead
           optionValue={selectedOpValue.id} //현재 옵션 전달
           allOptions={options} //전체 옵션
           changeOption={filterItems} //함수 처리
         />
-
-        {props.text === "bookmark" || "programmers" ? (
-          <MoreButton currOption={selectedOpValue} changeBoard={changeOption} />
-        ) : null}
+        }
       </div>
+      {props.text != "github" ? (
+        <div className="item-createtab" onClick={onCreateHandler}>
+          내용 추가하기
+        </div>
+      ) :
+        <div>
+            <br /> <CalendarTest></CalendarTest> <br />
+        </div>
+        }
 
-      <div className="item-createtab" onClick={onCreateHandler}>
-        내용 추가하기
-      </div>
+
       {hidden && <ItemCreate onSubmit={createItems} />}
 
       <div className="item-container" ref={itemRef}>
@@ -264,17 +284,6 @@ function BoardContent(props) {
 
       {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}
 
-      <div className="fixed-item">
-        {/* {props.text == "github" && (
-          <div>
-            <br /> <CalendarTest></CalendarTest> <br />
-            커밋 아직 안했으면 "아직 커밋 전입니다" <br />
-            커밋 했으면 "커밋 완료!"
-            <br />
-            같은 문구 띄우기
-          </div>
-        )} */}
-      </div>
     </div>
   );
 }
