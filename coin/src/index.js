@@ -18,7 +18,6 @@ const createStoreWithMiddleware = applyMiddleware(
 
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider
       store={createStoreWithMiddleware(
         reducer,
@@ -29,7 +28,7 @@ ReactDOM.render(
       <App />
     </Provider>
       
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 

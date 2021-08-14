@@ -5,9 +5,8 @@ import BoardInfo from '../../Components/Board/BoardInfo';
 import Menu from '../../Components/Menu';
 import face from '../../img/face.PNG';
 import { logoutUser } from '../../action/userAction';
-import * as actions from '../../../src/action/userAction';
-import {request} from '../../utils/axios';
 import LogoutButton from '../../Components/LogoutButton';
+import UserInfoId from '../../Components/UserInfoId';
 
 const mainProfile = {
     width: '45px',
@@ -50,7 +49,8 @@ class Main extends Component{
             <>
                 <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} ondrop = "return false" ondragover="return false">
                     <img src={face} alt="여기요" style={mainProfile}/>
-                    <span><b> 아이디 들어갈 부분</b> 님
+                    <span>
+                        <UserInfoId></UserInfoId>
                         <LogoutButton></LogoutButton>
                     </span>
                 </div>

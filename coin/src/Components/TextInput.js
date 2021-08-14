@@ -40,9 +40,10 @@ const LastTextInputBlock = styled.div`
 `
 
 
-function TextInput({init},{num}){
+function TextInput({ init }){
     const ref=useRef(null);
     const [text,setText] = useState(init);
+    console.log(text);
     const [editable,setEditable] = useState(false);
 
     const editOn = () =>{
@@ -63,30 +64,16 @@ function TextInput({init},{num}){
         window.addEventListener("click",handleClickOutside,true);
     });
 
-    if(num===-1){
-        return(
-            <LastTextInputBlock>
-                <div className="text-box" ref={ref}>
-                    {editable ? (<input type="text" value={text} onChange={(e)=>handleChange(e)} onKeyDown={handleKeyDown} />
-                    ) : (
-                    <div onClick={()=>editOn()}>{text}</div>
-                    )}
-                </div>
-            </LastTextInputBlock>
-        );
-    }
-    else{
-        return(
-            <TextInputBlock>
-                <div className="text-box" ref={ref}>
-                    {editable ? (<input type="text" value={text} onChange={(e)=>handleChange(e)} onKeyDown={handleKeyDown} />
-                    ) : (
-                    <div onClick={()=>editOn()}>{text}</div>
-                    )}
-                </div>
-            </TextInputBlock>
-        );
-    }
+    return(
+        <TextInputBlock>
+            <div className="text-box" ref={ref}>
+                {editable ? (<input type="text" value={text} onChange={(e)=>handleChange(e)} onKeyDown={handleKeyDown} />
+                ) : (
+                <div onClick={()=>editOn()}>{text}</div>
+                )}
+            </div>
+        </TextInputBlock>
+    )
 }
 
 export default TextInput;

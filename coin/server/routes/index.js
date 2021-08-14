@@ -44,6 +44,7 @@ router.post("/user/login",(req,res) =>{
     const params2 = [req.body.id,req.body.password]
     db.query('SELECT password FROM usersinfo WHERE id=?',params2[0],(err,rows,fields)=>{
         if(err||!rows[0]){
+            console.log(err);
             return res.json({
                 loginSuccess:false,
                 message:"존재하지 않는 아이디입니다.",
@@ -78,9 +79,11 @@ router.post("/user/login",(req,res) =>{
 })
 
 router.get('/user/auth',authUtil,(req,res) =>{
+    var token = req.cookies.x_auth;
+    let decoded = jwt.verify(token,secretKey);
     res.status(200).json({
         isAuth:true,
-        id: req.body.id,
+        id: decoded,
     })
 })
 
@@ -91,5 +94,34 @@ router.get('/user/logout',authUtil,(req,res)=>{
               .json({ success: true,  });
 })
 
+router.post('/userinfo',authUtil,(req,res)=>{
+    console.log('흠?')
+    var id = req.body.id;
+    console.log(id);
+    
+    db.query('SELECT nickname,email FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
+        console.log(rows);
+        console.log(rows[0].nickname);
+        
+        
+        if(err||!rows[0]){
+            return res.json({
+                success:false,
+                message:"존재하지 않는 아이디입니다.",
+            })
+        }
+        else{
+            console.log('durl?')
+            return res
+                .status(200)
+                .json({
+                    success:true,
+                    nickname:rows[0].nickname,
+                    email:rows[0].email
+            })
+        }
+    })
+    
+})
 
 module.exports = router;

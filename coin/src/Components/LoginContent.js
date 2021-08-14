@@ -32,6 +32,7 @@ function LoginContent({history}) {
         if (res.payload.loginSuccess) {
           alert("login 성공");
           history.push('/main')
+          console.log(res.payload);
         } else {
           alert(res.payload.message);
         }
