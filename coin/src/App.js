@@ -11,7 +11,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SendMail from "./Pages/Sendmail/Sendmail";
 import FindPw from "./Pages/FindPw/FindPw";
 import Quit from "./Pages/Quit/Quit";
-import Auth from "./hoc/auth";
+import Auth from "./_hoc/auth";
 import GithubTest from "./Pages/GithubTest";
 
 function App() {

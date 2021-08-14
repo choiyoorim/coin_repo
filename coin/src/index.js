@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import promiseMiddleware from "redux-promise";
 import reduxThunk from "redux-thunk";
-import reducer from "./reducer";
+import reducer from "./_reducer";
 
 const createStoreWithMiddleware = applyMiddleware(
   promiseMiddleware,
