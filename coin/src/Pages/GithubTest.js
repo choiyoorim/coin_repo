@@ -30,28 +30,31 @@ async function getContributions(token, username) {
     headers: headers,
   });
   const data = await response.json();
+  console.log(data);
   const data2 =
     data.data.user.contributionsCollection.contributionCalendar.weeks[0]
       .contributionDays[0];
   return data2;
 }
+
 function ContributionData() {
-  const data2 = {};
-  const data = getContributions(token, "plum-king").then(
-    (result) => {
-      console.log(result);
-    },
-    function (result) {
-      data2 = result;
-    }
-  );
-  console.log(data2);
-  return <h3>testing...</h3>;
+  let data = getContributions(token, "plum-king").then((result) => {
+    console.log(result);
+    return result;
+  });
+  console.log(data);
+  let myydata = JSON.stringify(data);
+  console.log(myydata);
+  let mydata = JSON.parse(JSON.stringify(data));
+  console.log(mydata);
+  console.log(data);
+
+  return <h2>why</h2>;
 }
 function GithubTest() {
   return (
     <div>
-      <h2>My first Github Scrapping :rocket:</h2>
+      <h2>My first Github Scrapping 🚀</h2>
       <ContributionData />
     </div>
   );

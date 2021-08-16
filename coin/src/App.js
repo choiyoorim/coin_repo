@@ -19,7 +19,7 @@ function App() {
     <>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Auth(Home, null)} />
+          <Route exact path="/" component={Auth(Main, null)} />
           <Route path="/login" component={Login} />
           <Route path="/main" component={Auth(Main, null)} />
           <Route path="/mypage" component={Auth(MyPage, true)} />

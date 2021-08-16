@@ -240,41 +240,50 @@ function BoardContent(props) {
   const onCreateHandler = () => {
     sethidden(true);
   };
+  //보드 삭제 기능
+  const onRemove = (e) => {
+    console.log(e.target.value);
+    props.onClick(e.target.value);
+  };
 
   return (
     <div className="boardcontent" ref={boardRef}>
+      <button class="delete_board" value={props.value} onClick={onRemove}>
+        &times;
+      </button>
       <Resizer onResize={handleResize}></Resizer>
       <BoardInfo onDrag={handleDrag} text={props.text} />
       <div className="option-container">
-        {props.text != "github" && props.text != "baekjoon"? (
+        {props.text != "github" && props.text != "baekjoon" ? (
           <>
             <FilterRead
+              optionValue={selectedOpValue.id} //현재 옵션 전달
+              allOptions={options} //전체 옵션
+              changeOption={filterItems} //함수 처리
+            />
+            <MoreButton
+              currOption={selectedOpValue}
+              changeBoard={changeOption}
+            />
+          </>
+        ) : null}
+        {props.text === "baekjoon" && (
+          <FilterRead
             optionValue={selectedOpValue.id} //현재 옵션 전달
             allOptions={options} //전체 옵션
             changeOption={filterItems} //함수 처리
           />
-            <MoreButton currOption={selectedOpValue} changeBoard={changeOption} />
-          </>
-        ) : null
-        }
-        {props.text === "baekjoon" &&
-          <FilterRead
-          optionValue={selectedOpValue.id} //현재 옵션 전달
-          allOptions={options} //전체 옵션
-          changeOption={filterItems} //함수 처리
-        />
-        }
+        )}
       </div>
       {props.text != "github" ? (
         <div className="item-createtab" onClick={onCreateHandler}>
           내용 추가하기
         </div>
-      ) :
+      ) : (
         <div>
-            <br /> <CalendarTest></CalendarTest> <br />
+          <br /> <CalendarTest></CalendarTest> <br />
         </div>
-        }
-
+      )}
 
       {hidden && <ItemCreate onSubmit={createItems} />}
 
@@ -283,7 +292,6 @@ function BoardContent(props) {
       </div>
 
       {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}
-
     </div>
   );
 }

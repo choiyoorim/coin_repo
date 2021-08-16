@@ -91,4 +91,42 @@ router.get("/user/auth", authUtil, (req, res) => {
   });
 });
 
+router.get("/content/board", (req, res) => {
+  const sql = "SELECT * FROM boards WHERE usersinfo_id=?";
+  db.query(sql, "lis", (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(data);
+    }
+  });
+});
+
+router.post("/content/board_create", (req, res) => {
+  const params3 = req.body.text;
+  const sql = "INSERT INTO boards (`name`, `usersinfo_id`) VALUES (?, ?)";
+  db.query(sql, [params3, "lis"], (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    console.log("insert data success");
+    return res
+      .status(200)
+      .json({ success: true, data: data.insertId, data2: params3 });
+  });
+});
+
+router.post("/content/board_delete", (req, res) => {
+  const params4 = req.body.id;
+  console.log(params4);
+  const sql = "DELETE FROM boards WHERE board_ID=? AND usersinfo_id=?";
+  db.query(sql, [params4, "lis"], (err, data) => {
+    if (err) {
+      res.send(err);
+    }
+    console.log("delete data success");
+    return res.status(200).json({ success: true, data: params4 });
+  });
+});
+
 module.exports = router;
