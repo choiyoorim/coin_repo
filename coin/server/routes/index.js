@@ -99,7 +99,7 @@ router.post('/userinfo',authUtil,(req,res)=>{
     var id = req.body.id;
     console.log(id);
     
-    db.query('SELECT nickname,email FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
+    db.query('SELECT nickname,email,gitId,baekjoonId FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
         console.log(rows);
         console.log(rows[0].nickname);
         
@@ -117,11 +117,146 @@ router.post('/userinfo',authUtil,(req,res)=>{
                 .json({
                     success:true,
                     nickname:rows[0].nickname,
-                    email:rows[0].email
+                    email:rows[0].email,
+                    gitId:rows[0].gitId,
+                    baekjoonId:rows[0].baekjoonId
             })
         }
     })
     
+})
+
+router.post("/gitchange",(req,res)=>{
+    console.log('여기!')
+    const id = req.body.id
+    const gitId = req.body.gitId
+    db.query("UPDATE usersinfo SET gitId=? WHERE id=?",
+    [gitId,id],function(err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({success:true})
+        }
+    })
+})
+
+router.post("/baekjoonchange",(req,res)=>{
+    console.log('여기!')
+    const id = req.body.id
+    const baekjoonId = req.body.baekjoonId
+    db.query("UPDATE usersinfo SET baekjoonId=? WHERE id=?",
+    [baekjoonId,id],function(err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({success:true})
+        }
+    })
+})
+
+router.post("/emailchange",(req,res)=>{
+    console.log('여기!')
+    const id = req.body.id
+    const email = req.body.email
+    db.query("UPDATE usersinfo SET email=? WHERE id=?",
+    [email,id],function(err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({success:true})
+        }
+    })
+})
+
+router.post("/nicknamechange",(req,res)=>{
+    console.log('여기!')
+    const id = req.body.id
+    const nickname = req.body.nickname
+    db.query("UPDATE usersinfo SET nickname=? WHERE id=?",
+    [nickname,id],function(err,result) {
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.send({success:true})
+        }
+    })
+})
+
+router.post("/pwchange",(req,res)=>{
+    console.log('여기!')
+    const id = req.body.id;
+    const newPw = req.body.password;
+    bcrypt.genSalt(10,function(err,salt){
+        if(err){
+            console.log('bcrypt.gensalt() error : ',err.message);
+        }
+        else{
+            bcrypt.hash(newPw,salt,null,function(err,hash){
+                if(err) {console.log('bcrypt.hash() error: ',err.message)}
+                else{
+                    console.log(hash);
+                    db.query("UPDATE usersinfo SET password=? WHERE id=?" , [hash,id], (err,row) =>{
+                        if(err){
+                            console.log(err)
+                            return res.json({success:false,err})
+                        }
+                        return res.status(200).json({success:true});
+                    })
+                }
+            })
+        }
+    })
+})
+
+router.post("/pwcheck",(req,res)=>{
+    const id = req.body.id;
+    const password = req.body.password;
+    db.query('SELECT password FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
+        if(err||!rows[0]){
+            console.log(err);
+            return res.json({
+                success:false,
+                message:"존재하지 않는 아이디입니다.",
+            })
+        }
+        else{
+            bcrypt.compare(password,rows[0].password,function(err,res2){
+                if(err){
+                    console.log('bcrypt. compare() error : ',err.message);
+                }
+                else{
+                    if(res2){
+                        return res
+                                .status(200)
+                                .json({ success: true });
+                    }
+                    else{
+                        return res.json({
+                            success:false,
+                            message:"비밀번호가 일치하지 않습니다",
+                        })
+                    }
+                }
+            })
+        }
+    })
+})
+
+router.post("/quit",(req,res)=>{
+    const id = req.body.id;
+    db.query('DELETE FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
+        if(err){
+            res.json({success:false})
+        }
+        else{
+            res.clearCookie('x_auth')
+               .json({success:true})
+        }
+    })
 })
 
 module.exports = router;

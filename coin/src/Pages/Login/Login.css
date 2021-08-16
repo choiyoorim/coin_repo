@@ -70,8 +70,9 @@ code {
   border-radius: 5px;
 }
 
-a {
-  text-align: center;
+.etc {
+  position: relative;
+  left:67px;
   text-decoration: none;
   color: #6c8ba7;
 }

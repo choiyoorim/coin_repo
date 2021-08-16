@@ -59,9 +59,8 @@ function LoginContent({history}) {
       </form>  
 
         <br />
-        <a>카카오톡으로 로그인하기</a>
-        <br />
-        <a target="_blank" id="pw-inquiry" href="#">
+
+        <a className='etc' target="_blank" id="pw-inquiry" href="#">
         <Link to="signup">회원가입</Link> | <Link to="findpw">비밀번호 찾기</Link>
         </a>
 

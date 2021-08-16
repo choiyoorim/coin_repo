@@ -63,14 +63,12 @@ function SignUpContent({history}) {
           <label>ID</label>
           <div id="id-input">
             <input class="input_id" required type="text" placeholder="id" onChange={onIdHandler}/>
-            <button class="btn">중복 체크</button>
           </div>
 
           <br />
           <label>이메일</label>
           <div id="email-input">
             <input class="input_email" required type="email" placeholder="email" onChange={onEmailHandler} />
-            <button class="btn">중복 체크</button>
           </div>
 
           <br />
@@ -88,9 +86,6 @@ function SignUpContent({history}) {
           <br />
           <button class="btn" type="submit">Sign Up</button>
           <br />
-          <a target="_blank" id="kakao-login" href="#">
-            카카오톡으로 가입하기
-          </a>
         </form>
       </div>
     );
