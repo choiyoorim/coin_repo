@@ -1,3 +1,10 @@
+.Findpw{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .email_h1{
     margin-top: 100px;
     margin-bottom:50px;
@@ -12,11 +19,11 @@
 }
 
 .btn3{
-    margin-left: 43.5%;
     background-color: #6C8BA7;
     height: 30px;
     width: 200px;
     border-radius: 5px;
+    margin: auto;
 }
 
 .email_input{
@@ -24,12 +31,11 @@
     height: 40px;
     font-size: 15px;
     background-color: #eae8e6;
-    margin: 5px 0px;
     border-radius: 5px;
     padding: 5px 15px 5px 15px;
-    margin-left: 40%;
+    margin: auto;
 }
 
 .linkFindK{
-    margin-left: 43.5%;
+    margin: auto;
 }

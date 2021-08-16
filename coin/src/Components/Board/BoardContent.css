@@ -1,6 +1,8 @@
 .boardcontent{
     width:300px;
     height:700px;
+    min-width: 300px;
+    min-height: 600px;
     background-color:#F9FBFD;
     border-radius: 10px;
 

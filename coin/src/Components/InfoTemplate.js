@@ -11,6 +11,9 @@ const InfoTemplateBlock = styled.div`
     top:80px;
     left:120px;
     float:left;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 function InfoTemplate({children}){
