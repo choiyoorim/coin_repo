@@ -1,11 +1,14 @@
 const express = require('express');
 const app = express();
-const api = require('./routes/index');
-const cors = require('cors');
-
-app.use(cors());
-app.use('/api',api);
-
+const route = require('./routes/index');
+//const cors = require('cors');
 const port = 5000;
-app.listen(port,()=>console.log(`Listening on port ${port}`));
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+//app.use(cors());
+app.use('/api',route);
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(cookieParser());
 
+app.listen(port,()=>console.log(`Listening on port ${port}`));

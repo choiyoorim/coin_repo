@@ -41,7 +41,7 @@ code {
   flex-direction: column;
 }
 
-.input_email, .input_pwd {
+.input_id, .input_pwd {
   font-size: 15px;
   background-color: #eae8e6;
   width: 285px;
@@ -70,8 +70,9 @@ code {
   border-radius: 5px;
 }
 
-a {
-  text-align: center;
+.etc {
+  position: relative;
+  left:67px;
   text-decoration: none;
   color: #6c8ba7;
 }

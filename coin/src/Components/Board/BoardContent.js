@@ -4,6 +4,7 @@ import Resizer from './Resizer';
 import { Direction } from './Direction';
 import './BoardContent.css';
 import BoardInfo from './BoardInfo';
+import CalendarTest from '../../Pages/CalendarTest';
 
 function BoardContent(props){
     const boardRef = useRef(null);
@@ -73,13 +74,19 @@ function BoardContent(props){
             default:
                 break
         }
-    }
+    }                                                                                                                                                                         
 
     return(
         <div className = "boardcontent" ref={boardRef}>
             <Resizer onResize={handleResize}></Resizer>
             <BoardInfo onDrag = {handleDrag} text={props.text}/>
-            
+                                       {props.text == "github" && <div> 
+                <br/> <CalendarTest></CalendarTest> <br /> 
+                커밋 아직 안했으면 "아직 커밋 전입니다" <br/>
+                커밋 했으면 "커밋 완료!"<br />
+                같은 문구 띄우기
+                </div>
+            }
         </div>
                 
     );
