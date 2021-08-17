@@ -20,6 +20,8 @@ const StyledBtn = styled.div`
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    position: relative;
+    right: 13px;  
   }
 `;
 

@@ -31,6 +31,14 @@ const StyledDiv = styled.div`
   .control-li :hover {
     background-color: rgba(108, 139, 167, 0.1);
   }
+
+  .control-input {
+    text-decoration: none;
+    padding-top: 3px;
+    padding-left: 3px;
+    color: #354356;
+    display: block;
+  }
 `;
 
 class FilterControl extends Component {
@@ -65,8 +73,8 @@ class FilterControl extends Component {
             </li>
             <li className="control-li">
               <a
-                href="/delete"
-                className="control-a"
+              href="/delete"
+                className="control-input"
                 onClick={function (e) {
                   e.preventDefault();
                   this.props.onChangeMode("delete");

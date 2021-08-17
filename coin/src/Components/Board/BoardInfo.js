@@ -14,7 +14,6 @@ const BoardInfoBlock = styled.div`
 
 const BoardInfo = ({ onDrag, text }) => {
   const [mouseDown, setMouseDown] = useState(false);
-
   useEffect(() => {
     const handleMouseUp = () => setMouseDown(false);
     window.addEventListener("mouseup", handleMouseUp);

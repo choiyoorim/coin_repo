@@ -52,3 +52,18 @@
   width: 0px;
   height: 0px;
 }
+.boardcontent{
+    width:300px;
+    height:700px;
+    min-width: 300px;
+    min-height: 700px;
+    background-color:#F9FBFD;
+    border-radius: 10px;
+
+    position:absolute;
+    top:50px;
+    left:50px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 1px #6C8BA7;
+    z-index: 2;
+}
