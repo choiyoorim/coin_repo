@@ -41,7 +41,7 @@ class FilterControl extends Component {
           <ul className="control-ul">
             <li className="control-li">
               <a
-                href="/create"
+                href="/option_create"
                 className="control-a"
                 onClick={function (e) {
                   e.preventDefault();
@@ -53,7 +53,7 @@ class FilterControl extends Component {
             </li>
             <li className="control-li">
               <a
-                href="/update"
+                href="/option_update"
                 className="control-a"
                 onClick={function (e) {
                   e.preventDefault();
@@ -65,7 +65,7 @@ class FilterControl extends Component {
             </li>
             <li className="control-li">
               <a
-                href="/delete"
+                href="/option_delete"
                 className="control-a"
                 onClick={function (e) {
                   e.preventDefault();

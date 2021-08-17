@@ -129,4 +129,19 @@ router.post("/content/board_delete", (req, res) => {
   });
 });
 
+router.post("/content/option", (req, res) => {
+  const user_id = req.body.id;
+  const sql =
+    "SELECT option_ID, option_name, boards_board_ID FROM `options` WHERE boards_usersinfo_id=?;";
+  db.query(sql, user_id, (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.status(200).json({ success: true, data });
+    }
+  });
+});
+
 module.exports = router;

@@ -21,8 +21,7 @@ class FilterRead extends Component {
   };
 
   render() {
-    const valueArray = this.props.allOptions;
-
+    const valueArray = this.props.allOptions; //보드에서 넘어온 옵션 배열
     return (
       <div className="filter-options">
         <div className="filter-option">
@@ -32,10 +31,10 @@ class FilterRead extends Component {
             onChange={this.changeOption.bind(this)}
             style={{ height: 30, width: 80, borderRadius: 5, padding: 5 }}
           >
-            {valueArray.map(function (option) {
+            {valueArray.map(function (rowData) {
               return (
-                <option key={option.id} value={option.id}>
-                  {option.value}
+                <option key={rowData.option_ID} value={rowData.option_ID}>
+                  {rowData.option_name}
                 </option>
               );
             })}

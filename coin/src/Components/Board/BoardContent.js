@@ -4,36 +4,48 @@ import Resizer from "./Resizer";
 import { Direction } from "./Direction";
 import "./BoardContent.css";
 import BoardInfo from "./BoardInfo";
-
+import BoardBaek from "./BoardBaek";
 import FilterRead from "./BoardContents/FilterRead";
 import MoreButton from "./MoreButton";
-
 import ItemRead from "./BoardContents/ItemRead";
 import ItemCreate from "./BoardContents/ItemCreate";
 import ItemUpdate from "./BoardContents/ItemUpdate";
-
 import CalendarTest from "../../Pages/CalendarTest";
+
+import { createOption } from "../../_action/optionAction";
+import { useSelector, useDispatch } from "react-redux";
 
 function BoardContent(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
-  const [options, setoptions] = useState([{ id: 0, value: "All" }]);
-
+  const [options, setoptions] = useState([]);
   const [contents, setcontents] = useState([]);
-
   const [selectedOpValue, setselectedOpValue] = useState({
-    id: 0,
-    value: "All",
+    option_ID: 0,
+    option_name: "All",
   });
-
   const [filteredItem, setfilteredItem] = useState(contents);
-
   const [hidden, sethidden] = useState(false);
   const [itemMode, setitemMode] = useState({ mode: "read", item_id: 0 });
+  const dispatch = useDispatch();
+  const option = useSelector((state) => state.option);
 
   useEffect(() => {
-    filterItems(selectedOpValue.id);
-  }, [contents]);
+    let _option = option.data.filter(
+      (rowData) => rowData.boards_board_ID === props.value
+    );
+    _option.unshift({
+      option_ID: 0,
+      option_name: "All",
+      boards_board_ID: props.value,
+    }); //맨 처음 옵션 프론트에만 추가
+    setoptions(_option);
+  }, []);
+  console.log(options);
+
+  // useEffect(() => {
+  //   filterItems(selectedOpValue.id);
+  // }, [contents]);
 
   const handleDrag = (movementX, movementY) => {
     const board = boardRef.current;
@@ -111,24 +123,25 @@ function BoardContent(props) {
 
     let i = 0;
     while (i < options.length) {
-      if (val === options[i].id) {
-        setselectedOpValue(options[i]);
+      if (val === options[i].option_ID) {
+        setselectedOpValue(options[i]); //현재 옵션 지정
         break;
       }
       i = i + 1;
     }
-    if (val !== 0) {
-      setfilteredItem(
-        contents.filter(function (item) {
-          return item.option_id === val;
-        })
-      );
-    } else {
-      setfilteredItem(contents);
-    }
+    // if (options[i].id !== 0) {
+    //   setfilteredItem(
+    //     contents.filter(function (item) {
+    //       return item.option_id === options[i].id;   //아이템 필터링
+    //     })
+    //   );
+    // } else {
+    //   setfilteredItem(contents);
+    // }
   };
+  console.log(selectedOpValue);
 
-  const changeOption = (mode, value) => {
+  const modOption = (mode, value) => {
     let _options = options.concat();
     let _contents = contents.concat();
 
@@ -142,11 +155,8 @@ function BoardContent(props) {
         break;
 
       case "create":
-        const lastIndex = _options[_options.length - 1].id;
-        _options.push({
-          id: lastIndex + 1,
-          value: value,
-        });
+        let body = {};
+        // dispatch(createOption(body));
         setoptions(_options);
         break;
 
@@ -176,7 +186,6 @@ function BoardContent(props) {
 
   const updateItems = (_mode, _id) => {
     let article = null;
-
     var _contents = contents.concat();
     var i = 0;
     var editItem = {};
@@ -216,7 +225,6 @@ function BoardContent(props) {
         alert("삭제되었습니다.");
       }
     }
-
     return article;
   };
 
@@ -241,8 +249,8 @@ function BoardContent(props) {
     sethidden(true);
   };
   //보드 삭제 기능
+
   const onRemove = (e) => {
-    console.log(e.target.value);
     props.onClick(e.target.value);
   };
 
@@ -253,44 +261,35 @@ function BoardContent(props) {
       </button>
       <Resizer onResize={handleResize}></Resizer>
       <BoardInfo onDrag={handleDrag} text={props.text} />
-      <div className="option-container">
-        {props.text != "github" && props.text != "baekjoon" ? (
-          <>
+      {props.text != "github" && props.text != "baekjoon" && (
+        <>
+          <div className="option-container">
             <FilterRead
               optionValue={selectedOpValue.id} //현재 옵션 전달
               allOptions={options} //전체 옵션
               changeOption={filterItems} //함수 처리
             />
-            <MoreButton
-              currOption={selectedOpValue}
-              changeBoard={changeOption}
-            />
-          </>
-        ) : null}
-        {props.text === "baekjoon" && (
-          <FilterRead
-            optionValue={selectedOpValue.id} //현재 옵션 전달
-            allOptions={options} //전체 옵션
-            changeOption={filterItems} //함수 처리
-          />
-        )}
-      </div>
-      {props.text != "github" ? (
-        <div className="item-createtab" onClick={onCreateHandler}>
-          내용 추가하기
-        </div>
-      ) : (
-        <div>
-          <br /> <CalendarTest></CalendarTest> <br />
+            <MoreButton currOption={selectedOpValue} changeBoard={modOption} />
+          </div>
+          <div className="item-createtab" onClick={onCreateHandler}>
+            내용 추가하기
+          </div>
+          {hidden && <ItemCreate onSubmit={createItems} />}
+          <div className="item-container" ref={itemRef}>
+            <ItemRead data={filteredItem} onChangeItem={changeItems} />
+          </div>
+        </>
+      )}
+      {props.text == "github" && (
+        <div ref={itemRef}>
+          <br /> <CalendarTest /> <br />
         </div>
       )}
-
-      {hidden && <ItemCreate onSubmit={createItems} />}
-
-      <div className="item-container" ref={itemRef}>
-        <ItemRead data={filteredItem} onChangeItem={changeItems} />
-      </div>
-
+      {props.text == "baekjoon" && (
+        <div ref={itemRef}>
+          <BoardBaek />
+        </div>
+      )}
       {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}
     </div>
   );

@@ -9,7 +9,7 @@ import { request } from "../utils/axios";
 const OPTION_URL = "api/content";
 
 export function createOption(dataToSubmit) {
-  const data = request("get", OPTION_URL + "/option_create", dataToSubmit);
+  const data = request("post", OPTION_URL + "/option_create", dataToSubmit);
   return {
     type: OPTION_CREATE,
     payload: data,
@@ -17,7 +17,7 @@ export function createOption(dataToSubmit) {
 }
 
 export function readOption(dataToSubmit) {
-  const data = request("get", OPTION_URL + "/option", dataToSubmit);
+  const data = request("post", OPTION_URL + "/option", dataToSubmit);
   return {
     type: OPTION_READ,
     payload: data,
@@ -25,7 +25,7 @@ export function readOption(dataToSubmit) {
 }
 
 export function updateOption(dataToSubmit) {
-  const data = request("get", OPTION_URL + "/option_update", dataToSubmit);
+  const data = request("post", OPTION_URL + "/option_update", dataToSubmit);
   return {
     type: OPTION_UPDATE,
     payload: data,
@@ -33,7 +33,7 @@ export function updateOption(dataToSubmit) {
 }
 
 export function deleteOption(dataToSubmit) {
-  const data = request("get", OPTION_URL + "/option_delete", dataToSubmit);
+  const data = request("post", OPTION_URL + "/option_delete", dataToSubmit);
   return {
     type: OPTION_DELETE,
     payload: data,

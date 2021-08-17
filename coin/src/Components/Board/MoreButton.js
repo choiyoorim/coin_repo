@@ -92,7 +92,6 @@ export default class MoreButton extends Component {
             isToggleOn: !prevState.isToggleOn,
           }));
         }.bind(this)}
-        // 외부 클릭 감지 추가하기
       />
     );
     return article;

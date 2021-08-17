@@ -5,21 +5,24 @@ import {
   OPTION_DELETE,
 } from "../_action/types";
 
-export default function (state = {}, action) {
-  switch (action.type) {
+let initOption = {
+  data: [],
+  selectedData: {},
+};
+
+export default function (option = initOption, action) {
+  const { type, payload } = action;
+  console.log(option);
+  switch (type) {
     case OPTION_CREATE:
-      return { ...state, optionCSuccess: action.payload };
-      break;
+      return initOption.data;
     case OPTION_READ:
-      return { ...state, optionRSuccess: action.payload };
-      break;
+      return { data: payload.data, selectedData: 0 };
     case OPTION_UPDATE:
-      return { ...state, optionUSuccess: action.payload };
-      break;
+      return initOption.data;
     case OPTION_DELETE:
-      return { ...state, optionDSuccess: action.payload };
-      break;
+      return initOption.data;
     default:
-      return state;
+      return option;
   }
 }

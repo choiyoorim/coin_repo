@@ -6,6 +6,7 @@ export const BOARD_CREATE = "BOARD_CREATE";
 export const BOARD_READ = "BOARD_READ";
 export const BOARD_DELETE = "BOARD_DELETE";
 
+export const OPTION_SELECT = "OPTION_SELECT";
 export const OPTION_CREATE = "OPTION_CREATE";
 export const OPTION_READ = "OPTION_READ";
 export const OPTION_UPDATE = "OPTION_UPDATE";
