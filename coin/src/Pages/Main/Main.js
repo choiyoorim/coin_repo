@@ -6,6 +6,7 @@ import face from "../../img/face.PNG";
 import { createBoard, readBoard, deleteBoard } from "../../_action/boardAction";
 import { useSelector, useDispatch } from "react-redux";
 import { readOption } from "../../_action/optionAction";
+import { readItem } from "../../_action/itemAction";
 
 const mainProfile = {
   width: "45px",
@@ -20,15 +21,17 @@ function Main() {
   const id = useSelector((state) => state.id); //사용자 아이디
 
   useEffect(() => {
-    dispatch(readBoard());
     let body = {
       id: "lis", //사용자 아이디 받아오기
     };
+    dispatch(readBoard(body));
     dispatch(readOption(body));
+    dispatch(readItem(body));
   }, []);
 
   const parentFunction = (data) => {
     const _inputData = {
+      id: "lis",
       text: data,
     };
     dispatch(createBoard(_inputData));
@@ -38,6 +41,7 @@ function Main() {
     id = parseInt(id);
     const _inputData = {
       id: id,
+      user: "lis",
     };
     dispatch(deleteBoard(_inputData));
   };

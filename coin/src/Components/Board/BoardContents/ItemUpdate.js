@@ -10,8 +10,8 @@ class ItemUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.data.id,
-      _option_id: this.props.data.option_id,
+      _id: this.props.data.item_ID,
+      _option_id: this.props.data.options_option_ID,
       _title: this.props.data.title,
       _link: this.props.data.link,
       _desc: this.props.data.desc,

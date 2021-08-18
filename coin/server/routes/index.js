@@ -91,9 +91,10 @@ router.get("/user/auth", authUtil, (req, res) => {
   });
 });
 
-router.get("/content/board", (req, res) => {
+router.post("/content/board", (req, res) => {
+  const param = req.body.id;
   const sql = "SELECT * FROM boards WHERE usersinfo_id=?";
-  db.query(sql, "lis", (err, data) => {
+  db.query(sql, param, (err, data) => {
     if (err) {
       res.send(err);
     } else {
@@ -103,29 +104,30 @@ router.get("/content/board", (req, res) => {
 });
 
 router.post("/content/board_create", (req, res) => {
-  const params3 = req.body.text;
+  const params3 = [req.body.text, req.body.id];
   const sql = "INSERT INTO boards (`name`, `usersinfo_id`) VALUES (?, ?)";
-  db.query(sql, [params3, "lis"], (err, data) => {
+  db.query(sql, params3, (err, data) => {
     if (err) {
       res.send(err);
+    } else {
+      console.log("insert data success");
+      return res
+        .status(200)
+        .json({ success: true, data: data.insertId, data2: params3 });
     }
-    console.log("insert data success");
-    return res
-      .status(200)
-      .json({ success: true, data: data.insertId, data2: params3 });
   });
 });
 
 router.post("/content/board_delete", (req, res) => {
-  const params4 = req.body.id;
-  console.log(params4);
+  const params4 = [req.body.id, req.body.user];
   const sql = "DELETE FROM boards WHERE board_ID=? AND usersinfo_id=?";
-  db.query(sql, [params4, "lis"], (err, data) => {
+  db.query(sql, params4, (err, data) => {
     if (err) {
       res.send(err);
+    } else {
+      console.log("delete data success");
+      return res.status(200).json({ success: true, data: params4[0] });
     }
-    console.log("delete data success");
-    return res.status(200).json({ success: true, data: params4 });
   });
 });
 
@@ -138,8 +140,131 @@ router.post("/content/option", (req, res) => {
       console.log("err");
       res.send(err);
     } else {
-      console.log(data);
       res.status(200).json({ success: true, data });
+    }
+  });
+});
+
+router.post("/content/option_create", (req, res) => {
+  const params = [
+    req.body.option_name,
+    req.body.boards_board_ID,
+    req.body.user,
+  ];
+  const sql =
+    "INSERT INTO `options` (`option_name`, `boards_board_ID`, `boards_usersinfo_id`) VALUES (?, ?, ?)";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("insert data success");
+      return res
+        .status(200)
+        .json({ success: true, data: data.insertId, data2: params });
+    }
+  });
+});
+
+router.post("/content/option_update", (req, res) => {
+  const params = [req.body.option_name, req.body.option_ID];
+  const sql = "UPDATE `options` SET `option_name`=? WHERE `option_ID`=?;";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("update data success");
+      return res.status(200).json({
+        success: true,
+        data: req.body.option_ID,
+        data2: req.body.option_name,
+      });
+    }
+  });
+});
+
+router.delete("/content/option_delete", (req, res) => {
+  const params = req.body.option_ID;
+  const sql = "DELETE FROM `options` WHERE option_ID=?;";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("delete data success");
+      return res.status(200).json({ deleteSuccess: true, data: params });
+    }
+  });
+});
+
+router.post("/content/item", (req, res) => {
+  const user_id = req.body.id;
+  const sql =
+    "SELECT `item_ID`, `title`, `link`, `desc`, `options_option_ID`, `options_boards_board_ID` FROM items WHERE options_boards_usersinfo_id=?";
+  db.query(sql, user_id, (err, data) => {
+    if (err) {
+      console.log("err!");
+      res.send(err);
+    } else {
+      res.status(200).json({ success: true, data });
+    }
+  });
+});
+
+router.post("/content/item_create", (req, res) => {
+  const params = [
+    req.body.title,
+    req.body.link,
+    req.body.desc,
+    req.body.option_ID,
+    req.body.board_ID,
+    req.body.user,
+  ];
+  const sql =
+    "INSERT INTO `items` (`title`, `link`, `desc`, `options_option_ID`, `options_boards_board_ID`, `options_boards_usersinfo_id`) VALUES (?, ?, ?, ?, ?, ?);";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("insert data success");
+      return res
+        .status(200)
+        .json({ success: true, data: data.insertId, data2: params });
+    }
+  });
+});
+
+router.post("/content/item_update", (req, res) => {
+  const params = [
+    req.body.title,
+    req.body.link,
+    req.body.desc,
+    req.body.option_ID,
+    req.body.item_ID,
+  ];
+  const sql =
+    "UPDATE `items` SET `title`=?, `link`=?, `desc`=?, options_option_ID=? WHERE `item_ID`=?;";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("update data success");
+      return res.status(200).json({
+        success: true,
+        data: params[4],
+        data2: params,
+      });
+    }
+  });
+});
+
+router.delete("/content/item_delete", (req, res) => {
+  const params = req.body.item_ID;
+  const sql = "DELETE FROM `items` WHERE item_ID=?;";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("delete data success");
+      return res.status(200).json({ deleteSuccess: true, data: params });
     }
   });
 });

@@ -33,7 +33,7 @@ export function updateOption(dataToSubmit) {
 }
 
 export function deleteOption(dataToSubmit) {
-  const data = request("post", OPTION_URL + "/option_delete", dataToSubmit);
+  const data = request("delete", OPTION_URL + "/option_delete", dataToSubmit);
   return {
     type: OPTION_DELETE,
     payload: data,

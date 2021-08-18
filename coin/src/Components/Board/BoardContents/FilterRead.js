@@ -22,6 +22,7 @@ class FilterRead extends Component {
 
   render() {
     const valueArray = this.props.allOptions; //보드에서 넘어온 옵션 배열
+    console.log(this.props.optionValue);
     return (
       <div className="filter-options">
         <div className="filter-option">

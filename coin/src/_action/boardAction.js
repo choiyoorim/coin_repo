@@ -12,7 +12,7 @@ export function createBoard(dataToSubmit) {
 }
 
 export function readBoard(dataToSubmit) {
-  const data = request("get", BOARD_URL + "/board", dataToSubmit);
+  const data = request("post", BOARD_URL + "/board", dataToSubmit);
   return {
     type: BOARD_READ,
     payload: data,

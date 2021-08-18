@@ -5,23 +5,35 @@ import {
   OPTION_DELETE,
 } from "../_action/types";
 
-let initOption = {
-  data: [],
-  selectedData: {},
-};
+let initOption = [];
 
 export default function (option = initOption, action) {
   const { type, payload } = action;
-  console.log(option);
+  console.log(payload);
+
   switch (type) {
     case OPTION_CREATE:
-      return initOption.data;
+      const _inputData = {
+        option_ID: payload.data,
+        option_name: payload.data2[0],
+        boards_board_ID: payload.data2[1],
+      };
+      return [...option, _inputData];
     case OPTION_READ:
-      return { data: payload.data, selectedData: 0 };
+      return payload.data;
     case OPTION_UPDATE:
-      return initOption.data;
+      return option.map((rowData) => {
+        if (rowData.option_ID === payload.data) {
+          return {
+            ...rowData,
+            option_name: payload.data2,
+          };
+        } else {
+          return rowData;
+        }
+      });
     case OPTION_DELETE:
-      return initOption.data;
+      return option.filter((rowData) => rowData.option_ID !== payload.data);
     default:
       return option;
   }

@@ -12,13 +12,18 @@ import ItemCreate from "./BoardContents/ItemCreate";
 import ItemUpdate from "./BoardContents/ItemUpdate";
 import CalendarTest from "../../Pages/CalendarTest";
 
-import { createOption } from "../../_action/optionAction";
+import {
+  createOption,
+  deleteOption,
+  updateOption,
+} from "../../_action/optionAction";
 import { useSelector, useDispatch } from "react-redux";
+import { createItem, updateItem, deleteItem } from "../../_action/itemAction";
 
 function BoardContent(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
-  const [options, setoptions] = useState([]);
+
   const [contents, setcontents] = useState([]);
   const [selectedOpValue, setselectedOpValue] = useState({
     option_ID: 0,
@@ -26,26 +31,33 @@ function BoardContent(props) {
   });
   const [filteredItem, setfilteredItem] = useState(contents);
   const [hidden, sethidden] = useState(false);
-  const [itemMode, setitemMode] = useState({ mode: "read", item_id: 0 });
+  const [itemMode, setitemMode] = useState({ mode: "read", item_ID: 0 });
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
+  const item = useSelector((state) => state.item);
+
+  console.log(item);
+
+  let itemList = item.filter(
+    (rowData) => rowData.options_boards_board_ID === props.value
+  );
+
+  let optionList = option.filter(
+    (rowData) => rowData.boards_board_ID === props.value
+  );
+  optionList.unshift({
+    option_ID: 0,
+    option_name: "All",
+    boards_board_ID: props.value,
+  });
 
   useEffect(() => {
-    let _option = option.data.filter(
-      (rowData) => rowData.boards_board_ID === props.value
+    console.log("item updated!");
+    itemList = item.filter(
+      (rowData) => rowData.options_boards_board_ID === props.value
     );
-    _option.unshift({
-      option_ID: 0,
-      option_name: "All",
-      boards_board_ID: props.value,
-    }); //맨 처음 옵션 프론트에만 추가
-    setoptions(_option);
-  }, []);
-  console.log(options);
-
-  // useEffect(() => {
-  //   filterItems(selectedOpValue.id);
-  // }, [contents]);
+    filterItems(selectedOpValue.option_ID);
+  }, [item]);
 
   const handleDrag = (movementX, movementY) => {
     const board = boardRef.current;
@@ -120,59 +132,56 @@ function BoardContent(props) {
 
   const filterItems = (val) => {
     val = parseInt(val);
-
+    console.log("in option");
     let i = 0;
-    while (i < options.length) {
-      if (val === options[i].option_ID) {
-        setselectedOpValue(options[i]); //현재 옵션 지정
+    while (i < optionList.length) {
+      if (val === optionList[i].option_ID) {
+        setselectedOpValue(optionList[i]); //현재 옵션 지정
         break;
       }
       i = i + 1;
     }
-    // if (options[i].id !== 0) {
-    //   setfilteredItem(
-    //     contents.filter(function (item) {
-    //       return item.option_id === options[i].id;   //아이템 필터링
-    //     })
-    //   );
-    // } else {
-    //   setfilteredItem(contents);
-    // }
+
+    if (val !== 0) {
+      setfilteredItem(
+        itemList.filter(function (rowData) {
+          return rowData.options_option_ID === val; //아이템 필터링
+        })
+      );
+    } else {
+      setfilteredItem(itemList);
+    }
   };
+  console.log(filteredItem);
   console.log(selectedOpValue);
 
   const modOption = (mode, value) => {
-    let _options = options.concat();
-    let _contents = contents.concat();
+    let body = {};
 
     switch (mode) {
       case "delete":
-        setoptions(_options.filter((op) => op.id !== selectedOpValue.id));
-        setselectedOpValue({ id: 0, value: "All" });
-        setcontents(
-          _contents.filter((co) => co.option_id !== selectedOpValue.id)
-        );
+        body = {
+          option_ID: selectedOpValue.option_ID,
+        };
+        dispatch(deleteOption(body));
+        setselectedOpValue({ option_ID: 0, option_name: "All" });
         break;
 
       case "create":
-        let body = {};
-        // dispatch(createOption(body));
-        setoptions(_options);
+        body = {
+          option_name: value,
+          boards_board_ID: props.value,
+          user: "lis",
+        };
+        dispatch(createOption(body));
         break;
 
       case "update":
-        var i = 0;
-        while (i < _options.length) {
-          if (_options[i].id === selectedOpValue.id) {
-            _options[i] = {
-              id: _options[i].id,
-              value: value,
-            };
-            break;
-          }
-          i = i + 1;
-        }
-        setoptions(_options);
+        body = {
+          option_name: value,
+          option_ID: selectedOpValue.option_ID,
+        };
+        dispatch(updateOption(body));
     }
   };
 
@@ -186,41 +195,42 @@ function BoardContent(props) {
 
   const updateItems = (_mode, _id) => {
     let article = null;
-    var _contents = contents.concat();
+    let op = optionList.concat();
+    op.shift();
     var i = 0;
-    var editItem = {};
-    while (i < _contents.length) {
-      if (_id === _contents[i].id) {
-        editItem = _contents[i];
+    var editItem = {}; //현재 아이템
+    while (i < filteredItem.length) {
+      if (_id === filteredItem[i].item_ID) {
+        editItem = filteredItem[i];
         break;
       }
       i = i + 1;
     }
+    let body = {};
 
     if (_mode === "item-update") {
       article = (
         <ItemUpdate
           data={editItem}
-          optionValue={editItem.option_id} //현재 옵션 전달 = 2
-          allOptions={options} //옵션 배열 전달
+          optionValue={editItem.options_option_ID} //현재 옵션 전달 = 2
+          allOptions={op} //옵션 배열 전달
           onSubmit={function (_option_id, _title, _link, _desc) {
-            _contents[i] = {
-              id: _id,
-              option_id: _option_id,
+            body = {
+              item_ID: _id,
+              option_ID: _option_id,
               title: _title,
               link: _link,
               desc: _desc,
             };
-
+            dispatch(updateItem(body)).then(filterItems(0));
             setitemMode({ mode: "read", item_id: null });
-            setcontents(_contents);
           }}
         ></ItemUpdate>
       );
     } else if (_mode === "item-delete") {
       if (window.confirm("현재 아이템를 삭제합니다.")) {
-        _contents.splice(i, 1);
-        setcontents(_contents);
+        body = { item_ID: editItem.item_ID };
+        dispatch(deleteItem(body));
         setitemMode({ mode: "read", item_id: null });
         alert("삭제되었습니다.");
       }
@@ -229,29 +239,24 @@ function BoardContent(props) {
   };
 
   const createItems = (_title, _link, _desc) => {
-    let _contents = contents.concat();
-    let lastIndex = 0;
-    if (_contents.length !== 0) {
-      lastIndex = _contents[_contents.length - 1].id + 1;
-    }
-    _contents.push({
-      id: lastIndex,
-      option_id: selectedOpValue.id,
+    let body = {
       title: _title,
       link: _link,
       desc: _desc,
-    });
-    setcontents(_contents);
+      option_ID: selectedOpValue.option_ID,
+      board_ID: props.value,
+      user: "lis",
+    };
+    dispatch(createItem(body)).then(filterItems(selectedOpValue.option_ID));
     sethidden(false);
   };
 
   const onCreateHandler = () => {
     sethidden(true);
   };
-  //보드 삭제 기능
 
   const onRemove = (e) => {
-    props.onClick(e.target.value);
+    props.onClick(e.target.value); //보드 삭제 기능
   };
 
   return (
@@ -265,16 +270,21 @@ function BoardContent(props) {
         <>
           <div className="option-container">
             <FilterRead
-              optionValue={selectedOpValue.id} //현재 옵션 전달
-              allOptions={options} //전체 옵션
+              optionValue={selectedOpValue.option_ID} //현재 옵션 전달
+              allOptions={optionList} //전체 옵션
               changeOption={filterItems} //함수 처리
             />
             <MoreButton currOption={selectedOpValue} changeBoard={modOption} />
           </div>
-          <div className="item-createtab" onClick={onCreateHandler}>
-            내용 추가하기
-          </div>
+
+          {selectedOpValue.option_ID !== 0 && (
+            <div className="item-createtab" onClick={onCreateHandler}>
+              내용 추가하기
+            </div>
+          )}
+
           {hidden && <ItemCreate onSubmit={createItems} />}
+
           <div className="item-container" ref={itemRef}>
             <ItemRead data={filteredItem} onChangeItem={changeItems} />
           </div>

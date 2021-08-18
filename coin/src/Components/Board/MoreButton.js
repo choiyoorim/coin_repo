@@ -75,10 +75,12 @@ export default class MoreButton extends Component {
       <FilterControl
         onChangeMode={function (_mode) {
           if (_mode === "delete") {
-            if (option.id === 0) {
+            if (option.option_ID === 0) {
               alert("현재 옵션은 삭제할 수 없습니다.");
             } else if (
-              window.confirm(`${option.value} 안의 모든 데이터가 삭제됩니다.`)
+              window.confirm(
+                `${option.option_name} 안의 모든 데이터가 삭제됩니다.`
+              )
             ) {
               this.props.changeBoard(_mode);
               alert("deleted!");

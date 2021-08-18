@@ -45,7 +45,7 @@ class ItemRead extends Component {
     var article = this.props.data.map(
       function (item) {
         return (
-          <div key={item.id} className="filter-item">
+          <div key={item.item_ID} className="filter-item">
             <div
               className="filter-name"
               onClick={() => {
@@ -63,14 +63,14 @@ class ItemRead extends Component {
             <StyleBtn>
               <div className="button-set">
                 <button
-                  value={item.id}
+                  value={item.item_ID}
                   className="item-update"
                   onClick={this.changeItem}
                 >
                   수정
                 </button>
                 <button
-                  value={item.id}
+                  value={item.item_ID}
                   className="item-delete"
                   onClick={this.changeItem}
                 >
