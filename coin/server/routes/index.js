@@ -259,4 +259,33 @@ router.post("/quit",(req,res)=>{
     })
 })
 
+router.post("/findpw",(req,res)=>{
+    const id = req.body.id;
+    console.log("여기:"+id);
+    const email = req.body.email;
+    db.query('SELECT email FROM usersinfo WHERE id=?',id,(err,rows,fields)=>{
+        console.log(rows);
+        if(err||!rows[0]){
+            console.log(err);
+            return res.json({
+                success:false,
+                message:"가입이 필요합니다",
+            })
+        }
+        else{
+            if(email == rows[0].email){
+                return res
+                        .status(200)
+                        .json({ success: true });
+            }
+            else{
+                return res.json({
+                    success:false,
+                    message:"정보가 일치하지 않습니다",
+                })
+            }
+        }
+    })
+})
+
 module.exports = router;

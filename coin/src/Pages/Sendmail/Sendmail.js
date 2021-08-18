@@ -3,11 +3,18 @@ import './Sendmail.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
 import LoginHeader from "../../Components/LoginHeader";
+import { withRouter } from "react-router";
+import {useLocation} from 'react-router';
 
-function Sendmail(){
+
+function Sendmail({history}){
     const {id} = useSelector(state=>({
         id : state.user.Id,
     }))
+    const location = useLocation();
+    const newid = location.state.newid;
+
+    console.log({newid})
     const [Password,setPassword] = useState("");
     const [ConfirmPassword,setConfirmPassword] = useState("");
     
@@ -22,21 +29,41 @@ function Sendmail(){
     const onChangePassword = (event) =>{
         event.preventDefault();
         if(Password==ConfirmPassword){
-            axios({
-                method:'post',
-                url:'/api/pwchange',
-                data:{
-                    id:id,
-                    password:Password,
-                }
-            }).then((res)=>{
-                if(res.data.success){
-                    alert('수정 완료')
-                }
-                else{
-                    console.log('오류')
-                }
-            })
+            if(!id){
+                axios({
+                    method:'post',
+                    url:'/api/pwchange',
+                    data:{
+                        id:newid,
+                        password:Password,
+                    }
+                }).then((res)=>{
+                    if(res.data.success){
+                        alert('수정 완료')
+                        history.push('/main');
+                    }
+                    else{
+                        console.log('오류')
+                    }
+                })
+            }
+            else{
+                axios({
+                    method:'post',
+                    url:'/api/pwchange',
+                    data:{
+                        id:id,
+                        password:Password,
+                    }
+                }).then((res)=>{
+                    if(res.data.success){
+                        alert('수정 완료')
+                    }
+                    else{
+                        console.log('오류')
+                    }
+                })
+            }
         }
     }
     return(
@@ -61,4 +88,4 @@ function Sendmail(){
     )
 }
 
-export default Sendmail;
+export default withRouter(Sendmail);
