@@ -1,7 +1,7 @@
 import "./App.css";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import {BrowserRouter, Switch, Route, Router} from "react-router-dom";
+import { BrowserRouter, Switch, Route, Router } from "react-router-dom";
 
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
@@ -11,7 +11,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import SendMail from "./Pages/Sendmail/Sendmail";
 import FindPw from "./Pages/FindPw/FindPw";
 import Quit from "./Pages/Quit/Quit";
-import Auth from "./_hoc/auth";
+import Auth from "./hoc/auth";
 
 function App() {
   return (
@@ -26,7 +26,6 @@ function App() {
           <Route path="/sendmail" component={Auth(SendMail, null)} />
           <Route path="/findpw" component={Auth(FindPw, null)} />
           <Route path="/quit" component={Auth(Quit, true)} />
-          {/* <Route path="/github" component={GithubTest} /> */}
         </Switch>
       </BrowserRouter>
     </>

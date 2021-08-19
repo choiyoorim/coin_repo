@@ -6,6 +6,7 @@ import BoardInfo from "./BoardInfo";
 import BoardBaek from "./BoardBaek";
 import FilterRead from "./BoardContents/FilterRead";
 import MoreButton from "./MoreButton";
+import CalendarTest from "../../Pages/CalendarTest";
 
 import ItemRead from "./BoardContents/ItemRead";
 import ItemCreate from "./BoardContents/ItemCreate";
@@ -15,9 +16,9 @@ import {
   createOption,
   deleteOption,
   updateOption,
-} from "../../_action/optionAction";
+} from "../../action/optionAction";
 import { useSelector, useDispatch } from "react-redux";
-import { createItem, updateItem, deleteItem } from "../../_action/itemAction";
+import { createItem, updateItem, deleteItem } from "../../action/itemAction";
 
 function BoardContent(props) {
   const boardRef = useRef(null);
@@ -54,7 +55,7 @@ function BoardContent(props) {
     itemList = item.filter(
       (rowData) => rowData.options_boards_board_ID === props.value
     );
-    filterItems(selectedOpValue.option_ID);
+    filterItems(selectedOpValue.id);
   }, [item]);
 
   const handleDrag = (movementX, movementY) => {
@@ -131,9 +132,14 @@ function BoardContent(props) {
   const filterItems = (val) => {
     val = parseInt(val);
     let i = 0;
+    let data;
     while (i < optionList.length) {
       if (val === optionList[i].option_ID) {
-        setselectedOpValue(optionList[i]); //현재 옵션 지정
+        data = {
+          id: optionList[i].option_ID,
+          value: optionList[i].option_name,
+        };
+        setselectedOpValue(data); //현재 옵션 지정
         break;
       }
       i = i + 1;
@@ -156,10 +162,10 @@ function BoardContent(props) {
     switch (mode) {
       case "delete":
         body = {
-          option_ID: selectedOpValue.option_ID,
+          option_ID: selectedOpValue.id,
         };
         dispatch(deleteOption(body));
-        setselectedOpValue({ option_ID: 0, option_name: "All" });
+        setselectedOpValue({ id: 0, option_name: "All" });
         break;
 
       case "create":
@@ -174,7 +180,7 @@ function BoardContent(props) {
       case "update":
         body = {
           option_name: value,
-          option_ID: selectedOpValue.option_ID,
+          option_ID: selectedOpValue.id,
         };
         dispatch(updateOption(body));
         break;
@@ -240,11 +246,11 @@ function BoardContent(props) {
       title: _title,
       link: _link,
       desc: _desc,
-      option_ID: selectedOpValue.option_ID,
+      option_ID: selectedOpValue.id,
       board_ID: props.value,
       user: "lis",
     };
-    dispatch(createItem(body)).then(filterItems(selectedOpValue.option_ID));
+    dispatch(createItem(body)).then(filterItems(selectedOpValue.id));
     sethidden(false);
   };
 
@@ -268,17 +274,14 @@ function BoardContent(props) {
         <>
           <div className="option-container">
             <FilterRead
-              optionValue={selectedOpValue.option_ID} //현재 옵션 전달
+              optionValue={selectedOpValue.id} //현재 옵션 전달
               allOptions={optionList} //전체 옵션
               changeOption={filterItems} //함수 처리
             />
-            <MoreButton
-              currOption={selectedOpValue}
-              changeBoard={changeOption}
-            />
+            <MoreButton currOption={selectedOpValue} changeBoard={modOption} />
           </div>
 
-          {selectedOpValue.option_ID !== 0 && (
+          {selectedOpValue.id !== 0 && (
             <div className="item-createtab" onClick={onCreateHandler}>
               내용 추가하기
             </div>

@@ -1,4 +1,4 @@
-import { BOARD_CREATE, BOARD_READ, BOARD_DELETE } from "../_action/types";
+import { BOARD_CREATE, BOARD_READ, BOARD_DELETE } from "../action/types";
 
 let initBoard = [];
 

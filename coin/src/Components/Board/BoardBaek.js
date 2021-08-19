@@ -5,7 +5,7 @@ import { Direction } from "./Direction";
 import FilterRead from "./BoardContents/FilterRead";
 import ItemReadB from "./BoardContents/ItemReadB";
 import { useSelector, useDispatch } from "react-redux";
-import { createTodo, deleteTodo } from "../../_action/bojAction";
+import { createTodo, deleteTodo } from "../../action/bojAction";
 import FilterCreate from "./BoardContents/FilterCreate";
 import Resizer from "./Resizer";
 

@@ -3,7 +3,7 @@ import {
   ITEM_READ,
   ITEM_UPDATE,
   ITEM_DELETE,
-} from "../_action/types";
+} from "../action/types";
 
 let initItem = [];
 

@@ -315,7 +315,7 @@ router.post("/content/calendar_post", (req, res) => {
   const param5 = req.body.date;
   const user_id = req.body.id;
   const sql = "INSERT INTO github (`date`, `usersinfo_id`) VALUES (?, ?)";
-  db.query(sql, [param5, "lis"], (err, data) => {
+  db.query(sql, [param5, user_id], (err, data) => {
     if (err) {
       console.log("err");
       res.send(err);

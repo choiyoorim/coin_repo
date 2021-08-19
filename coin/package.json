@@ -20,6 +20,7 @@
     "github-calendar": "^2.2.7",
     "history": "^4.10.1",
     "http-proxy-middleware": "^2.0.1",
+    "jquery": "^3.6.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",

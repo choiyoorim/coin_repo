@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import axios from "axios";
-import { registerUser } from "../_action/userAction";
+import { registerUser } from "../action/userAction";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router";
 function SignUpContent({ history }) {

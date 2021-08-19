@@ -3,7 +3,7 @@ import {
   TODO_READ,
   TODO_UPDATE,
   TODO_DELETE,
-} from "../_action/types";
+} from "../action/types";
 
 let initTodo = [];
 

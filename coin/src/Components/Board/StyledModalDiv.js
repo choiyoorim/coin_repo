@@ -7,7 +7,7 @@ const StyledModalDiv = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  z-index: 0;
+  z-index: 1;
 `;
 
 export default StyledModalDiv;

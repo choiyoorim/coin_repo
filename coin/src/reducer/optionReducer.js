@@ -3,7 +3,7 @@ import {
   OPTION_READ,
   OPTION_UPDATE,
   OPTION_DELETE,
-} from "../_action/types";
+} from "../action/types";
 
 let initOption = [];
 

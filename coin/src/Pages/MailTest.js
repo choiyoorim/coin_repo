@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from "react";
+import React, { useState, useEffect, Component } from "react";
 import styled from "styled-components";
 import emailjs from "emailjs-com";
 import $ from "jquery";
@@ -10,7 +10,7 @@ class MailTest extends Component {
       $("#btn_commit_count_zero").trigger("click");
     });
 
-    function sendEmail(e) {
+    const sendEmail = (e) => {
       e.preventDefault();
       emailjs
         .sendForm(
@@ -27,7 +27,7 @@ class MailTest extends Component {
             console.log(error.text);
           }
         );
-    }
+    };
 
     const today = new Date(); //오늘 날짜 + 시간 받아오기
     let hours = today.getHours(); // 시
@@ -45,7 +45,7 @@ class MailTest extends Component {
 
     return (
       <div>
-        {checktime_now == "1800" ? ( //18시가 되면 커밋했는지 체크 -> 18시에 새로고침해야되는데 특정 시간에 새로고침하는 방법 못찾음
+        {checktime_now == "1800" ? (
           <form class="findpw" onSubmit={sendEmail}>
             <input
               type="hidden"

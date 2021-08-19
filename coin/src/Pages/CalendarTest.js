@@ -1,7 +1,7 @@
 import React from "react";
-import {useState, useCallback, useEffect, Component} from "react";
+import { useState, useCallback, useEffect, Component } from "react";
 import Calendar from "react-calendar";
-import {calendarGet, calendarPost} from "../_action/calendarAction";
+import { calendarGet, calendarPost } from "../action/calendarAction";
 import moment from "moment";
 import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
@@ -92,7 +92,7 @@ function CalendarTest() {
   }
 
   function ContributionData() {
-    let data = getContributions(token, "listenyoon").then((result) => {
+    let data = getContributions(token, "plum-king").then((result) => {
       //아이디 바꿔야돼
       return result;
     });
@@ -100,7 +100,7 @@ function CalendarTest() {
   }
 
   const changeCheck = (data) => {
-    let data2 = {date: "2001-01-01"};
+    let data2 = { date: "2001-01-01" };
     setMark(mark.concat(data2));
     setCheck(data);
   };
@@ -115,7 +115,7 @@ function CalendarTest() {
             <Calendar
               value={value}
               onChange={onChange}
-              tileClassName={({date, view}) => {
+              tileClassName={({ date, view }) => {
                 if (
                   mark.find((x) => x.date === moment(date).format("YYYY-MM-DD"))
                 ) {

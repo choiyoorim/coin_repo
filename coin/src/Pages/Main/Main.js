@@ -3,11 +3,11 @@ import BoardContent from "../../Components/Board/BoardContent";
 import Menu from "../../Components/Menu";
 import face from "../../img/face.PNG";
 
-import { createBoard, readBoard, deleteBoard } from "../../_action/boardAction";
+import { createBoard, readBoard, deleteBoard } from "../../action/boardAction";
 import { useSelector, useDispatch } from "react-redux";
-import { readOption } from "../../_action/optionAction";
-import { readItem } from "../../_action/itemAction";
-import { readTodo } from "../../_action/bojAction";
+import { readOption } from "../../action/optionAction";
+import { readItem } from "../../action/itemAction";
+import { readTodo } from "../../action/bojAction";
 
 const mainProfile = {
   width: "45px",
@@ -45,11 +45,10 @@ function Main() {
       id: id,
       user: "lis",
     };
-    if (window.confirm("현재 보드를 삭제합니다.")){
+    if (window.confirm("현재 보드를 삭제합니다.")) {
       dispatch(deleteBoard(_inputData));
       alert("삭제되었습니다.");
     }
-    
   };
 
   const titleList = board.map((row) => (

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Axios from "axios";
 import { useDispatch } from "react-redux";
-import { authUser } from "../_action/userAction";
+import { authUser } from "../action/userAction";
 
 export default function (SpecificComponent, option, adminRoute = null) {
   // null => 아무나 출입이 가능한 페이지

@@ -1,4 +1,9 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER, GIT_USER } from "../_action/types";
+import {
+  LOGIN_USER,
+  REGISTER_USER,
+  AUTH_USER,
+  GIT_USER,
+} from "../action/types";
 
 export default function (state = {}, action) {
   switch (action.type) {
@@ -12,7 +17,7 @@ export default function (state = {}, action) {
       return { ...state, isAuth: action.payload };
       break;
     case GIT_USER:
-      return {...state, gitSuccess: action.payload};
+      return { ...state, gitSuccess: action.payload };
     default:
       return state;
   }
