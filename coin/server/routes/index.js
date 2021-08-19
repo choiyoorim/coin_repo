@@ -14,6 +14,60 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(cookieParser());
 
+const { getSolved, getFailed } = require("../crawl");
+
+async function handleAsync(id) {
+  const problems = await getSolved(id);
+  return problems;
+}
+async function handleAsync2(id) {
+  const problems = await getFailed(id);
+  return problems;
+}
+
+let id;
+
+router.get("/baekjoon/solved", (req, res) => {
+  console.log("===");
+  console.log(id);
+  const query = "SELECT baekjoonId FROM usersinfo WHERE id=?";
+  db.query(query, id, async (err, rows) => {
+    if (err || !rows[0]) {
+      return res.json({
+        success: false,
+        message: "오류가 발생했습니다.",
+      });
+    } else {
+      let _id = rows[0].baekjoonId;
+      const problems = await handleAsync(_id);
+      return res.json({
+        success: true,
+        data: problems,
+      });
+    }
+  });
+});
+
+router.get("/baekjoon/failed", (req, res) => {
+  console.log(id);
+  const query = "SELECT baekjoonId FROM usersinfo WHERE id=?";
+  db.query(query, id, async (err, rows) => {
+    if (err || !rows[0]) {
+      return res.json({
+        success: false,
+        message: "오류가 발생했습니다.",
+      });
+    } else {
+      let _id = rows[0].baekjoonId;
+      const problems = await handleAsync2(_id);
+      return res.json({
+        success: true,
+        data: problems,
+      });
+    }
+  });
+});
+
 router.post("/user/register", (req, res) => {
   var param = [
     req.body.id,
@@ -90,6 +144,7 @@ router.post("/user/login", (req, res) => {
 router.get("/user/auth", authUtil, (req, res) => {
   var token = req.cookies.x_auth;
   let decoded = jwt.verify(token, secretKey);
+  id = decoded;
   res.status(200).json({
     isAuth: true,
     id: decoded,
@@ -589,4 +644,22 @@ router.post("/getgithub", (req, res) => {
     }
   });
 });
+
+router.post("/githubmail", (req, res) => {
+  const id = req.body.id;
+  const sql = "SELECT email FROM usersinfo WHERE id=?";
+  db.query(sql, id, (err, rows, fields) => {
+    if (err || !rows[0]) {
+      return res.json({
+        success: false,
+      });
+    } else {
+      return res.json({
+        success: true,
+        email: rows[0].email,
+      });
+    }
+  });
+});
+
 module.exports = router;

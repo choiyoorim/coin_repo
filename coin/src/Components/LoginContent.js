@@ -31,7 +31,8 @@ function LoginContent({ history }) {
       .then((res) => {
         if (res.payload.loginSuccess) {
           alert("login 성공");
-          history.push("/main");
+          history.push("/mypage");
+          alert("GitID와 BaekjoonId를 입력하세요");
           console.log(res.payload);
         } else {
           alert(res.payload.message);

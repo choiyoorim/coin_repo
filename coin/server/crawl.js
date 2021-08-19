@@ -2,6 +2,8 @@ const axios = require("axios");
 const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
 
+let html = "";
+
 async function getHtml(_id) {
   try {
     return await axios.get(`https://www.acmicpc.net/user/${_id}`);
@@ -10,9 +12,9 @@ async function getHtml(_id) {
   }
 }
 
-async function getSolved() {
+async function getSolved(id) {
   if (!html) {
-    html = await getHtml();
+    html = await getHtml(id);
   }
   const $ = cheerio.load(html.data);
   const leng = $(".panel.panel-default").length;
@@ -28,9 +30,9 @@ async function getSolved() {
   return solved;
 }
 
-async function getFailed() {
+async function getFailed(id) {
   if (!html) {
-    html = await getHtml();
+    html = await getHtml(id);
   }
   const $ = cheerio.load(html.data);
   const leng = $(".panel.panel-default").length;

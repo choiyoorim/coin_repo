@@ -139,7 +139,7 @@ function CalendarTest() {
         </CalendarStyle>
         <div>
           {mark[mark.length - 1].date !==
-            moment(today).format("YYYY-MM-DD") && <MailTest />}
+            moment(today).format("YYYY-MM-DD") && <MailTest id={_id} />}
         </div>
       </>
     );

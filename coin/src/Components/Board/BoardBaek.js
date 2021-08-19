@@ -91,29 +91,44 @@ function BoardBaek(props) {
   };
 
   useEffect(() => {
-    axios
-      .post({
-        method: "post",
-        url: "http://localhost:5000/getbaekjoon",
-        data: {
-          id: _id,
-        },
-      })
-      .then({
-        function(response) {
-          console.log(response);
-        },
-      });
-    fetch("api/baekjoon/solved")
+    // axios
+    //   .post({
+    //     method: "post",
+    //     url: "http://localhost:5000/getbaekjoon",
+    //     data: {
+    //       id: _id,
+    //     },
+    //   })
+    //   .then({
+    //     function(response) {
+    //       console.log(response);
+    //     },
+    //   });
+    axios({
+      method: "get",
+      url: "/api/baekjoon/solved",
+    }).then(function (response) {
+      setSolved(Solved.concat(response.data.data));
+    });
+
+    axios({
+      method: "get",
+      url: "/api/baekjoon/failed",
+    }).then(function (response) {
+      setFailed(Failed.concat(response.data.data));
+    });
+    /*axios
+      .get("/api/baekjoon/solved")
       .then((res) => res.json())
       .then((data) => {
         setSolved(Solved.concat(data));
       });
-    fetch("api/baekjoon/failed")
+    axios
+      .get("/api/baekjoon/failed")
       .then((res) => res.json())
       .then((data) => {
         setFailed(Failed.concat(data));
-      });
+      });*/
     setfilteredItemBaek(todo);
   }, []);
 

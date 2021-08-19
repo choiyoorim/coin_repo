@@ -1,7 +1,6 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 import MenuActive from "./MenuActive";
-
 const GlobalStyle = createGlobalStyle`
 .menu {
     height: 70px;
@@ -17,11 +16,9 @@ const GlobalStyle = createGlobalStyle`
     border-style: none;
     box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.1);
   }
-  
   .menu:active {
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, 0.1);
   }
-  
   .toggleMenu {
     background-color: #F9FBFD;
     color: #354356;
@@ -33,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
     right: 30px;
     bottom: 30px;
   }
-  
   .toggleMenu > * {
     font-size: 20px;
     position: relative;
@@ -42,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
     top: 50px;
     padding-bottom: 15px;
   }
-
   .makeBoard{
       background-color:#F9FBFD;
       padding: 0 0 20px 0;
@@ -50,12 +45,10 @@ const GlobalStyle = createGlobalStyle`
       outline:0;
       text-align:left;
   }
-  
   .control {
     margin:0;
-    color: #6c8ba7;
+    color: #6C8BA7;
   }
-
   .modal {
     display: none;
     position: fixed;
@@ -70,16 +63,13 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     border: 0;
   }
-  .modal > section {
-    width: 100%;
-    height: 100%;
+  .modal > .popUpSection {
     margin:0 auto;
     border-radius: .3rem;
     animation: modal-show .3s;
     overflow: hidden;
   }
-  
-  .modal > section > .popUpTitle button {
+  .modal > .popUpSection > .popUpTitle button {
     position: absolute;
     top: 10px;
     left: 13px;
@@ -92,7 +82,6 @@ const GlobalStyle = createGlobalStyle`
     height: 0;
     background-color: rgba(0, 0, 0, 0.0);
   }
-
   .modal.openModal {
     display: flex;
     align-items: center;
@@ -116,7 +105,6 @@ const GlobalStyle = createGlobalStyle`
         opacity: 1;
     }
   }
-  
   .exToggle{
     position: absolute;
     border: 3px solid white;
@@ -126,7 +114,6 @@ const GlobalStyle = createGlobalStyle`
     right: 55px;
     bottom: 160px;
   }
-
   .exSet{
     position: absolute;
     border: 3px solid white;
@@ -136,7 +123,6 @@ const GlobalStyle = createGlobalStyle`
     right: 55px;
     bottom: 107px;
   }
-
   .exPopUp{
     position: absolute;
     border: 3px solid white;
@@ -146,7 +132,6 @@ const GlobalStyle = createGlobalStyle`
     right: 55px;
     bottom: 65px;
   }
-
   .arrow2{
     position: absolute;
     right: 290px;
@@ -154,7 +139,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 70px;
     color: white;
   }
-
   .arrow3{
     position: absolute;
     right: 290px;
@@ -162,7 +146,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 70px;
     color: white;
   }
-
   .arrow4{
     position: absolute;
     right: 290px;
@@ -170,7 +153,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 70px;
     color: white;
   }
-
   .howTo2{
     position: absolute;
     right: 380px;
@@ -180,7 +162,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 25px;
     color: white;
   }
-
   .howTo3{
     position: absolute;
     right: 380px;
@@ -190,7 +171,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 25px;
     color: white;
   }
-
   .howTo4{
     position: absolute;
     right: 380px;
@@ -201,28 +181,23 @@ const GlobalStyle = createGlobalStyle`
     color: white;
   }
 `;
-
 class Menu extends React.Component {
   constructor() {
     super();
     this.state = { isToggleOn: false };
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
-
   childFunction = (data) => {
     this.props.parentFunction(data);
   };
-
   parentSecondFunction = (data) => {
     this.childFunction(data);
   };
-
   onMenuHandler() {
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
   }
-
   render() {
     return (
       <div>
@@ -237,5 +212,4 @@ class Menu extends React.Component {
     );
   }
 }
-
 export default Menu;
