@@ -1,7 +1,6 @@
 var express = require("express");
 const path = require("path");
 var router = express.Router();
-//const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const db = require("../db_info");
 const bcrypt = require("bcrypt-nodejs");
@@ -11,7 +10,7 @@ const secretKey = require("../config/secretKey").secretKey;
 const options = require("../config/secretKey").options;
 
 router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+router.use(express.urlencoded({extended: true}));
 router.use(cookieParser());
 
 router.post("/user/register", (req, res) => {
@@ -37,9 +36,9 @@ router.post("/user/register", (req, res) => {
             (err, row) => {
               if (err) {
                 console.log(err);
-                return res.json({ success: false, err });
+                return res.json({success: false, err});
               }
-              return res.status(200).json({ success: true });
+              return res.status(200).json({success: true});
             }
           );
         }
@@ -70,7 +69,7 @@ router.post("/user/login", (req, res) => {
               return res
                 .cookie("x_auth", jwkToken)
                 .status(200)
-                .json({ loginSuccess: true, userId: req.body.id });
+                .json({loginSuccess: true, userId: req.body.id});
             } else {
               return res.json({
                 loginSuccess: false,
@@ -112,7 +111,7 @@ router.post("/content/board_create", (req, res) => {
     console.log("insert data success");
     return res
       .status(200)
-      .json({ success: true, data: data.insertId, data2: params3 });
+      .json({success: true, data: data.insertId, data2: params3});
   });
 });
 
@@ -125,21 +124,64 @@ router.post("/content/board_delete", (req, res) => {
       res.send(err);
     }
     console.log("delete data success");
-    return res.status(200).json({ success: true, data: params4 });
+    return res.status(200).json({success: true, data: params4});
   });
 });
 
 router.post("/content/option", (req, res) => {
   const user_id = req.body.id;
   const sql =
-    "SELECT option_ID, option_name, boards_board_ID FROM `options` WHERE boards_usersinfo_id=?;";
+    "SELECT option_ID, option_name, boards_board_ID FROM `options` WHERE boards_usersinfo_id=?";
   db.query(sql, user_id, (err, data) => {
     if (err) {
       console.log("err");
       res.send(err);
     } else {
       console.log(data);
-      res.status(200).json({ success: true, data });
+      res.status(200).json({success: true, data});
+    }
+  });
+});
+
+router.get("/user/github", (req, res) => {
+  const user_id = req.body.id;
+  const sql = "SELECT GithibID FROM 'usersinfo' WHERE id =?";
+  db.query(sql, "lis", (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.status(200).json({gitSuccess: true, data: data});
+    }
+  });
+});
+
+router.post("/content/calendar_get", (req, res) => {
+  const user_id = req.body.id;
+  const sql = "SELECT date FROM `github` WHERE usersinfo_id =?";
+  db.query(sql, user_id, (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.send(data);
+    }
+  });
+});
+
+router.post("/content/calendar_post", (req, res) => {
+  const param5 = req.body.date;
+  const user_id = req.body.id;
+  const sql = "INSERT INTO github (`date`, `usersinfo_id`) VALUES (?, ?)";
+  db.query(sql, [param5, "lis"], (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.status(200).json({success: true, data});
     }
   });
 });

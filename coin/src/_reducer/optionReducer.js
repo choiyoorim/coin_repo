@@ -11,13 +11,12 @@ let initOption = {
 };
 
 export default function (option = initOption, action) {
-  const { type, payload } = action;
-  console.log(option);
+  const {type, payload} = action;
   switch (type) {
     case OPTION_CREATE:
       return initOption.data;
     case OPTION_READ:
-      return { data: payload.data, selectedData: 0 };
+      return {data: payload.data, selectedData: 0};
     case OPTION_UPDATE:
       return initOption.data;
     case OPTION_DELETE:

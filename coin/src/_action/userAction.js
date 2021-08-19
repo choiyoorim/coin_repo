@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "./types";
+import { LOGIN_USER, REGISTER_USER, AUTH_USER, GIT_USER } from "./types";
 import {request} from '../utils/axios';
 
 const USER_URL = "api/user";
@@ -24,5 +24,13 @@ export function authUser(){
     return{
         type:AUTH_USER,
         payload:data,
+    }
+}
+
+export function gitUser(){
+    const data = request("get",USER_URL+"/github");
+    return{
+        type: GIT_USER,
+        payload: data,
     }
 }

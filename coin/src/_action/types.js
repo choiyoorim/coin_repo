@@ -16,3 +16,7 @@ export const ITEM_CREATE = "ITEM_CREATE";
 export const ITEM_READ = "ITEM_READ";
 export const ITEM_UPDATE = "ITEM_UPDATE";
 export const ITEM_DELETE = "ITEM_DELETE";
+
+export const CALENDAR_GET = "CALENDAR_GET";
+export const CALENDAR_POST = "CALENDAR_POST";
+export const GIT_USER = "GIT_USER";
