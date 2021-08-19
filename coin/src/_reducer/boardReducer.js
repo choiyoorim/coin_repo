@@ -4,7 +4,6 @@ let initBoard = [];
 
 export default function (board = initBoard, action) {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
     case BOARD_CREATE:
       const _inputData = { board_ID: payload.data, name: payload.data2[0] };

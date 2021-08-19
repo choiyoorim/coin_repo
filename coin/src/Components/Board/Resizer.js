@@ -1,55 +1,72 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 
-import './Resizer.css';
-import {Direction} from './Direction';
+import "./Resizer.css";
+import { Direction } from "./Direction";
 
-const Resizer = ({onResize}) => {
-    const [direction,setDirection] = useState('');
-    const [mouseDown, setMouseDown] = useState(false);
-    
-    useEffect(() => {
-        const handleMouseMove = (e) => {
-            if(!direction) return;
+const Resizer = ({ onResize }) => {
+  const [direction, setDirection] = useState("");
+  const [mouseDown, setMouseDown] = useState(false);
 
-            onResize(direction,e.movementX, e.movementY);
-        }
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!direction) return;
 
-        if(mouseDown){
-            window.addEventListener('mousemove',handleMouseMove);
-        }
+      onResize(direction, e.movementX, e.movementY);
+    };
 
-        return () => {
-            window.removeEventListener('mousemove',handleMouseMove);
-        };
-    },[mouseDown,direction,onResize]);
-
-    useEffect(() => {
-        const handleMouseUp = () => setMouseDown(false);
-
-        window.addEventListener('mouseup',handleMouseUp);
-
-        return()=>{
-            window.removeEventListener('mouseup',handleMouseUp);
-        };
-    },[]);
-
-    const handleMouseDown = (direction) => () => {
-        console.log(direction);
-        setDirection(direction);
-        setMouseDown(true);
+    if (mouseDown) {
+      window.addEventListener("mousemove", handleMouseMove);
     }
-    return(
-        <>
-            <div className="top-left" onMouseDown={handleMouseDown(Direction.TopLeft)}></div>
-            <div className="top" onMouseDown={handleMouseDown(Direction.Top)}></div>
-            <div className="top-right" onMouseDown={handleMouseDown(Direction.TopRight)}></div>
-            <div className="right" onMouseDown={handleMouseDown(Direction.Right)}></div>
-            <div className="right-bottom" onMouseDown={handleMouseDown(Direction.BottomRight)}></div>
-            <div className="bottom" onMouseDown={handleMouseDown(Direction.Bottom)}></div>
-            <div className="bottom-left" onMouseDown={handleMouseDown(Direction.BottomLeft)}></div>
-            <div className="left" onMouseDown={handleMouseDown(Direction.Left)}></div>
-        </>
-    )
-}
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [mouseDown, direction, onResize]);
+
+  useEffect(() => {
+    const handleMouseUp = () => setMouseDown(false);
+
+    window.addEventListener("mouseup", handleMouseUp);
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  const handleMouseDown = (direction) => () => {
+    setDirection(direction);
+    setMouseDown(true);
+  };
+  return (
+    <>
+      <div
+        className="top-left"
+        onMouseDown={handleMouseDown(Direction.TopLeft)}
+      ></div>
+      <div className="top" onMouseDown={handleMouseDown(Direction.Top)}></div>
+      <div
+        className="top-right"
+        onMouseDown={handleMouseDown(Direction.TopRight)}
+      ></div>
+      <div
+        className="right"
+        onMouseDown={handleMouseDown(Direction.Right)}
+      ></div>
+      <div
+        className="right-bottom"
+        onMouseDown={handleMouseDown(Direction.BottomRight)}
+      ></div>
+      <div
+        className="bottom"
+        onMouseDown={handleMouseDown(Direction.Bottom)}
+      ></div>
+      <div
+        className="bottom-left"
+        onMouseDown={handleMouseDown(Direction.BottomLeft)}
+      ></div>
+      <div className="left" onMouseDown={handleMouseDown(Direction.Left)}></div>
+    </>
+  );
+};
 
 export default Resizer;

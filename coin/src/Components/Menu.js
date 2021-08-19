@@ -221,7 +221,6 @@ class Menu extends React.Component {
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
-    console.log(this.state);
   }
 
   render() {

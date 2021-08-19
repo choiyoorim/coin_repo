@@ -16,3 +16,8 @@ export const ITEM_CREATE = "ITEM_CREATE";
 export const ITEM_READ = "ITEM_READ";
 export const ITEM_UPDATE = "ITEM_UPDATE";
 export const ITEM_DELETE = "ITEM_DELETE";
+
+export const TODO_CREATE = "TODO_CREATE";
+export const TODO_READ = "TODO_READ";
+export const TODO_UPDATE = "TODO_UPDATE";
+export const TODO_DELETE = "TODO_DELETE";

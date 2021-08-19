@@ -36,8 +36,6 @@ function BoardContent(props) {
   const option = useSelector((state) => state.option);
   const item = useSelector((state) => state.item);
 
-  console.log(item);
-
   let itemList = item.filter(
     (rowData) => rowData.options_boards_board_ID === props.value
   );
@@ -132,7 +130,6 @@ function BoardContent(props) {
 
   const filterItems = (val) => {
     val = parseInt(val);
-    console.log("in option");
     let i = 0;
     while (i < optionList.length) {
       if (val === optionList[i].option_ID) {
@@ -152,8 +149,6 @@ function BoardContent(props) {
       setfilteredItem(itemList);
     }
   };
-  console.log(filteredItem);
-  console.log(selectedOpValue);
 
   const modOption = (mode, value) => {
     let body = {};
@@ -182,6 +177,7 @@ function BoardContent(props) {
           option_ID: selectedOpValue.option_ID,
         };
         dispatch(updateOption(body));
+        break;
     }
   };
 
@@ -266,7 +262,7 @@ function BoardContent(props) {
       </button>
       <Resizer onResize={handleResize}></Resizer>
       <BoardInfo onDrag={handleDrag} text={props.text} />
-      {props.text != "github" && props.text != "baekjoon" && (
+      {props.text != "GITHUB" && props.text != "BAEKJOON" && (
         <>
           <div className="option-container">
             <FilterRead
@@ -290,12 +286,12 @@ function BoardContent(props) {
           </div>
         </>
       )}
-      {props.text == "github" && (
+      {props.text == "GITHUB" && (
         <div ref={itemRef}>
           <br /> <CalendarTest /> <br />
         </div>
       )}
-      {props.text == "baekjoon" && (
+      {props.text == "BAEKJOON" && (
         <div ref={itemRef}>
           <BoardBaek />
         </div>

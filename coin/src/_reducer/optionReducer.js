@@ -9,7 +9,6 @@ let initOption = [];
 
 export default function (option = initOption, action) {
   const { type, payload } = action;
-  console.log(payload);
 
   switch (type) {
     case OPTION_CREATE:

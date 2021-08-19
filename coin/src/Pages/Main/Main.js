@@ -7,6 +7,7 @@ import { createBoard, readBoard, deleteBoard } from "../../_action/boardAction";
 import { useSelector, useDispatch } from "react-redux";
 import { readOption } from "../../_action/optionAction";
 import { readItem } from "../../_action/itemAction";
+import { readTodo } from "../../_action/bojAction";
 
 const mainProfile = {
   width: "45px",
@@ -27,6 +28,7 @@ function Main() {
     dispatch(readBoard(body));
     dispatch(readOption(body));
     dispatch(readItem(body));
+    dispatch(readTodo(body));
   }, []);
 
   const parentFunction = (data) => {

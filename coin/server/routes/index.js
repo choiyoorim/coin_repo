@@ -269,4 +269,48 @@ router.delete("/content/item_delete", (req, res) => {
   });
 });
 
+router.post("/content/todo", (req, res) => {
+  const user_id = req.body.id;
+  const sql = "SELECT * FROM baekjoon WHERE usersinfo_id=?";
+  db.query(sql, user_id, (err, data) => {
+    if (err) {
+      console.log("err!");
+      res.send(err);
+    } else {
+      console.log("success");
+      console.log(data);
+      res.status(200).json({ success: true, data });
+    }
+  });
+});
+
+router.post("/content/todo_create", (req, res) => {
+  const params = [req.body.number, req.body.user];
+  const sql =
+    "INSERT INTO `baekjoon` (`number`, `usersinfo_id`) VALUES (?, ?);";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("insert data success");
+      return res
+        .status(200)
+        .json({ success: true, data: data.insertId, data2: params });
+    }
+  });
+});
+
+router.delete("/content/todo_delete", (req, res) => {
+  const params = req.body.id;
+  const sql = "DELETE FROM `baekjoon` WHERE boj_ID=?;";
+  db.query(sql, params, (err, data) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("delete data success");
+      return res.status(200).json({ deleteSuccess: true, data: params });
+    }
+  });
+});
+
 module.exports = router;

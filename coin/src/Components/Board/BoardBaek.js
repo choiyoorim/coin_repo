@@ -1,137 +1,182 @@
 import React, { useState, useRef, useEffect } from "react";
-import Draggable from "react-draggable";
-import Resizer from "./Resizer";
-import { Direction } from "./Direction";
+
 import "./BoardContent.css";
-import BoardInfo from "./BoardInfo";
+import { Direction } from "./Direction";
 import FilterRead from "./BoardContents/FilterRead";
-import ItemRead from "./BoardContents/ItemRead";
-import ItemCreate from "./BoardContents/ItemCreate";
-import ItemUpdate from "./BoardContents/ItemUpdate";
+import ItemReadB from "./BoardContents/ItemReadB";
+import { useSelector, useDispatch } from "react-redux";
+import { createTodo, deleteTodo } from "../../_action/bojAction";
+import FilterCreate from "./BoardContents/FilterCreate";
+import Resizer from "./Resizer";
+
 function BoardBaek(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
   const [optionsBaek, setoptionsBaek] = useState([
-    { id: 0, value: "All" },
-    { id: 1, value: "내가 풀 문제" },
-    { id: 2, value: "내가 맞은 문제" },
-    { id: 3, value: "내가 틀린 문제" },
-    { id: 4, value: "만점이 아닌 문제" },
+    { option_ID: 0, option_name: "TODO" },
+    { option_ID: 1, option_name: "SOLVED" },
+    { option_ID: 2, option_name: "FAILED" },
   ]);
-  const [contentsBaek, setcontentsBaek] = useState([]);
-  const [selectedOpValueBaek, setselectedOpValueBaek] = useState({
-    id: 0,
-    value: "내가 풀 문제",
-  });
-  const [filteredItemBaek, setfilteredItemBaek] = useState(contentsBaek);
+  const [selectedOpValueBaek, setselectedOpValueBaek] = useState(0);
+  const [filteredItemBaek, setfilteredItemBaek] = useState([]);
   const [hidden, sethidden] = useState(false);
-  const [itemMode, setitemMode] = useState({ mode: "read", item_id: 0 });
+  const [itemMode, setitemMode] = useState({ mode: "read", id: 0 });
+  const dispatch = useDispatch();
+  const todo = useSelector((state) => state.todo);
+
+  const [Solved, setSolved] = useState([]); //배열에 각각 저장
+  const [Failed, setFailed] = useState([]);
+
+  const handleResize = (direction, movementX, movementY) => {
+    const board = boardRef.current;
+    const item = itemRef.current;
+    if (!board) return;
+    if (!item) return;
+
+    const { width, height, x, y } = board.getBoundingClientRect();
+    const resizeTop = () => {
+      board.style.height = `${height - movementY}px`;
+      board.style.top = `${y + movementY}`;
+      item.style.height = `${height + movementY - 150}px`;
+    };
+
+    const resizeRight = () => {
+      board.style.width = `${width + movementX}px`;
+    };
+
+    const resizeBottom = () => {
+      board.style.height = `${height + movementY}px`;
+      item.style.height = `${height + movementY - 150}px`;
+    };
+
+    const resizeLeft = () => {
+      board.style.width = `${width - movementX}px`;
+      board.style.left = `${x + movementX}px`;
+    };
+
+    switch (direction) {
+      case Direction.TopLeft:
+        resizeTop();
+        resizeLeft();
+        break;
+      case Direction.Top:
+        resizeTop();
+        break;
+      case Direction.TopRight:
+        resizeTop();
+        resizeRight();
+        break;
+      case Direction.Right:
+        resizeRight();
+        break;
+      case Direction.BottomRight:
+        resizeBottom();
+        resizeRight();
+        break;
+      case Direction.Bottom:
+        resizeBottom();
+        break;
+      case Direction.BottomLeft:
+        resizeBottom();
+        resizeLeft();
+        break;
+      case Direction.Left:
+        resizeLeft();
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
-    filterItems(selectedOpValueBaek.id);
-  }, [contentsBaek]);
+    fetch("api/baekjoon/solved")
+      .then((res) => res.json())
+      .then((data) => {
+        setSolved(Solved.concat(data));
+      });
+    fetch("api/baekjoon/failed")
+      .then((res) => res.json())
+      .then((data) => {
+        setFailed(Failed.concat(data));
+      });
+    setfilteredItemBaek(todo);
+  }, []);
+
+  useEffect(() => {
+    setfilteredItemBaek(todo);
+    filterItems(0);
+  }, [todo]);
+
   const filterItems = (val) => {
     val = parseInt(val);
-    let i = 0;
-    while (i < optionsBaek.length) {
-      if (val === optionsBaek[i].id) {
-        setselectedOpValueBaek(optionsBaek[i]);
-        break;
-      }
-      i = i + 1;
-    }
-    if (optionsBaek[i].id !== 0) {
-      setfilteredItemBaek(
-        contentsBaek.filter(function (item) {
-          return item.option_id === optionsBaek[i].id;
-        })
-      );
+    setselectedOpValueBaek(val);
+
+    if (val === 0) {
+      setfilteredItemBaek(todo);
+    } else if (val === 1) {
+      setfilteredItemBaek(Solved);
     } else {
-      setfilteredItemBaek(contentsBaek);
+      setfilteredItemBaek(Failed);
     }
   };
-  const changeItems = (_mode, _id) => {
+
+  const changeItems = (_id) => {
     _id = parseInt(_id);
     setitemMode({
-      mode: _mode,
-      item_id: _id,
+      mode: "item-delete",
+      id: _id,
     });
   };
-  const updateItems = (_mode, _id) => {
+
+  const deleteItems = (_mode, _id) => {
     let article = null;
-    var _contents = contentsBaek.concat();
-    var i = 0;
-    var editItem = {};
-    while (i < _contents.length) {
-      if (_id === _contents[i].id) {
-        editItem = _contents[i];
-        break;
-      }
-      i = i + 1;
-    }
-    if (_mode === "item-update") {
-      article = (
-        <ItemUpdate
-          data={editItem}
-          optionValue={editItem.option_id} //현재 옵션 전달 = 2
-          allOptions={optionsBaek} //옵션 배열 전달
-          onSubmit={function (_option_id, _title, _link, _desc) {
-            _contents[i] = {
-              id: _id,
-              option_id: _option_id,
-              title: _title,
-              link: _link,
-              desc: _desc,
-            };
-            setitemMode({ mode: "read", item_id: null });
-            setcontentsBaek(_contents);
-          }}
-        ></ItemUpdate>
-      );
-    } else if (_mode === "item-delete") {
+    let body;
+
+    if (_mode === "item-delete") {
       if (window.confirm("현재 아이템를 삭제합니다.")) {
-        _contents.splice(i, 1);
-        setcontentsBaek(_contents);
-        setitemMode({ mode: "read", item_id: null });
+        body = { id: _id };
+        dispatch(deleteTodo(body));
+        setitemMode({ mode: "read", id: null });
         alert("삭제되었습니다.");
       }
     }
     return article;
   };
-  const createItems = (_title, _link, _desc) => {
-    let _contents = contentsBaek.concat();
-    let lastIndex = 0;
-    if (_contents.length !== 0) {
-      lastIndex = _contents[_contents.length - 1].id + 1;
-    }
-    _contents.push({
-      id: lastIndex,
-      option_id: selectedOpValueBaek.id,
-      title: _title,
-      link: _link,
-      desc: _desc,
-    });
-    setcontentsBaek(_contents);
+
+  const createItems = (_number) => {
+    let body = {
+      number: _number,
+      user: "lis",
+    };
+    dispatch(createTodo(body)).then(filterItems(1));
     sethidden(false);
   };
+
   const onCreateHandler = () => {
     sethidden(true);
   };
+
   return (
     <>
-      <div className="option-container">
-        <FilterRead
-          optionValue={selectedOpValueBaek.id} //현재 옵션 전달
-          allOptions={optionsBaek} //전체 옵션
-          changeOption={filterItems} //함수 처리
-        />
-      </div>
-      <div className="item-createtab" onClick={onCreateHandler}>
-        내용 추가하기
-      </div>
-      {hidden && <ItemCreate onSubmit={createItems} />}
-      <div className="item-container">
-        <ItemRead data={filteredItemBaek} onChangeItem={changeItems} />
+      <div className="baekjoon-board" ref={boardRef}>
+        <Resizer onResize={handleResize}></Resizer>
+        <div className="option-container">
+          <FilterRead
+            optionValue={selectedOpValueBaek} //현재 옵션 전달
+            allOptions={optionsBaek} //전체 옵션
+            changeOption={filterItems} //함수 처리
+          />
+        </div>
+        {selectedOpValueBaek == 0 && (
+          <div className="item-createtab" onClick={onCreateHandler}>
+            풀 문제 추가하기
+          </div>
+        )}
+        {hidden && <FilterCreate onSubmit={createItems} />}
+        <div className="item-container" ref={itemRef}>
+          <ItemReadB data={filteredItemBaek} onChangeItem={changeItems} />
+        </div>
+        {itemMode.mode !== "read" && deleteItems(itemMode.mode, itemMode.id)}
       </div>
     </>
   );

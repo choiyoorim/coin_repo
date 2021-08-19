@@ -28,25 +28,25 @@ class MenuActive extends Component {
       <div className="toggleMenu">
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`github`)}
+          onClick={() => this.childSecondFunction(`GITHUB`)}
         >
           + Github
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`baekjoon`)}
+          onClick={() => this.childSecondFunction(`BAEKJOON`)}
         >
           + BaekJoon
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`bookmark`)}
+          onClick={() => this.childSecondFunction(`BOOKMARK`)}
         >
           + BookMark
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`programmers`)}
+          onClick={() => this.childSecondFunction(`PROGRAMMERS`)}
         >
           + Programmers
         </button>
@@ -64,7 +64,7 @@ class MenuActive extends Component {
             title="제목"
           ></PopUp>
         </div>
-      </div>      
+      </div>
     );
   }
 }
