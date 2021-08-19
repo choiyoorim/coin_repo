@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { calendarPost } from "../action/calendarAction";
+import { useSelector } from "react-redux";
 
 const token = require("./GithubToken");
 async function getContributions(token, username) {
@@ -47,6 +48,7 @@ async function getContributions(token, username) {
 }
 
 function GithubTest(props) {
+  const _id = useSelector((state) => state.user.Id); //사용자 아이디
   const postCheck = () => {
     props.onCheck(true);
   };
@@ -60,7 +62,7 @@ function GithubTest(props) {
     let data = getContributions(token, "plum-king").then((result) => {
       for (let i = 0; i < result.length; i++) {
         body = {
-          id: "lis",
+          id: _id,
           date: result[i],
         };
         calendarPost(body);

@@ -1,4 +1,4 @@
-import React, { useState, useRef, Component } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
 import reactDom from "react-dom";
 import BoardContent from "../../Components/Board/BoardContent";
 import BoardInfo from "../../Components/Board/BoardInfo";
@@ -24,11 +24,11 @@ const mainProfile = {
 function Main() {
   const dispatch = useDispatch();
   const board = useSelector((state) => state.board);
-  const id = useSelector((state) => state.id); //사용자 아이디
+  const _id = useSelector((state) => state.user.Id); //사용자 아이디
 
   useEffect(() => {
     let body = {
-      id: "lis", //사용자 아이디 받아오기
+      id: _id, //사용자 아이디 받아오기
     };
     dispatch(readBoard(body));
     dispatch(readOption(body));
@@ -38,7 +38,7 @@ function Main() {
 
   const parentFunction = (data) => {
     const _inputData = {
-      id: "lis",
+      id: _id,
       text: data,
     };
     dispatch(createBoard(_inputData));
@@ -48,7 +48,7 @@ function Main() {
     id = parseInt(id);
     const _inputData = {
       id: id,
-      user: "lis",
+      user: _id,
     };
     if (window.confirm("현재 보드를 삭제합니다.")) {
       dispatch(deleteBoard(_inputData));

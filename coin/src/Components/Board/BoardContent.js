@@ -37,6 +37,7 @@ function BoardContent(props) {
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
   const item = useSelector((state) => state.item);
+  const _id = useSelector((state) => state.user.Id); //사용자 아이디
 
   let itemList = item.filter(
     (rowData) => rowData.options_boards_board_ID === props.value
@@ -172,7 +173,7 @@ function BoardContent(props) {
         body = {
           option_name: value,
           boards_board_ID: props.value,
-          user: "lis",
+          user: _id,
         };
         dispatch(createOption(body));
         break;
@@ -248,7 +249,7 @@ function BoardContent(props) {
       desc: _desc,
       option_ID: selectedOpValue.id,
       board_ID: props.value,
-      user: "lis",
+      user: _id,
     };
     dispatch(createItem(body)).then(filterItems(selectedOpValue.id));
     sethidden(false);

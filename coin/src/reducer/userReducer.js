@@ -12,7 +12,11 @@ export default function (state = {}, action) {
       return { ...state, success: action.payload };
       break;
     case LOGIN_USER:
-      return { ...state, loginSuccess: action.payload.loginSuccess };
+      return {
+        ...state,
+        loginSuccess: action.payload.loginSuccess,
+        id: action.payload.userId,
+      };
       break;
     case AUTH_USER:
       return {

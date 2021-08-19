@@ -17,12 +17,21 @@ async function handleAsync2() {
   return problems;
 }
 
+var _id;
+app.post("/getbaekjoon", (req, res) => {
+  _id = req.body._id;
+  console.log("id:" + _id);
+  return res.json({
+    success: "true",
+  });
+});
+
 app.get("/api/baekjoon/solved", async (req, res) => {
-  const problems = await handleAsync();
+  const problems = await handleAsync(_id);
   res.send(problems);
 });
 app.get("/api/baekjoon/failed", async (req, res) => {
-  const problems = await handleAsync2();
+  const problems = await handleAsync2(_id);
   res.send(problems);
 });
 

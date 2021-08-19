@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { createTodo, deleteTodo } from "../../action/bojAction";
 import FilterCreate from "./BoardContents/FilterCreate";
 import Resizer from "./Resizer";
+import axios from "axios";
 
 function BoardBaek(props) {
   const boardRef = useRef(null);
@@ -23,6 +24,7 @@ function BoardBaek(props) {
   const [itemMode, setitemMode] = useState({ mode: "read", id: 0 });
   const dispatch = useDispatch();
   const todo = useSelector((state) => state.todo);
+  const _id = useSelector((state) => state.user.Id); //사용자 아이디
 
   const [Solved, setSolved] = useState([]); //배열에 각각 저장
   const [Failed, setFailed] = useState([]);
@@ -89,6 +91,19 @@ function BoardBaek(props) {
   };
 
   useEffect(() => {
+    axios
+      .post({
+        method: "post",
+        url: "http://localhost:5000/getbaekjoon",
+        data: {
+          id: _id,
+        },
+      })
+      .then({
+        function(response) {
+          console.log(response);
+        },
+      });
     fetch("api/baekjoon/solved")
       .then((res) => res.json())
       .then((data) => {
@@ -146,7 +161,7 @@ function BoardBaek(props) {
   const createItems = (_number) => {
     let body = {
       number: _number,
-      user: "lis",
+      user: _id,
     };
     dispatch(createTodo(body)).then(filterItems(1));
     sethidden(false);

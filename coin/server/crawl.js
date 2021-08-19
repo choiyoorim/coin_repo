@@ -1,10 +1,10 @@
 const axios = require("axios");
+const bodyParser = require("body-parser");
 const cheerio = require("cheerio");
-let html = "";
 
-async function getHtml() {
+async function getHtml(_id) {
   try {
-    return await axios.get("https://www.acmicpc.net/user/madmaninthebox");
+    return await axios.get(`https://www.acmicpc.net/user/${_id}`);
   } catch (error) {
     console.error(error);
   }

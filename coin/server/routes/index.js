@@ -87,46 +87,12 @@ router.post("/user/login", (req, res) => {
   );
 });
 
-router.post("/user/login", (req, res) => {
-  const params2 = [req.body.id, req.body.password];
-  db.query(
-    "SELECT password FROM usersinfo WHERE id=?",
-    params2[0],
-    (err, rows, fields) => {
-      if (err || !rows[0]) {
-        return res.json({
-          loginSuccess: false,
-          message: "존재하지 않는 아이디입니다.",
-        });
-      } else {
-        bcrypt.compare(params2[1], rows[0].password, function (err, res2) {
-          if (err) {
-            console.log("bcrypt. compare() error : ", err.message);
-          } else {
-            if (res2) {
-              const jwkToken = jwt.sign(params2[0], secretKey, options);
-              console.log(jwkToken);
-              return res
-                .cookie("x_auth", jwkToken)
-                .status(200)
-                .json({ loginSuccess: true, userId: req.body.id });
-            } else {
-              return res.json({
-                loginSuccess: false,
-                message: "비밀번호가 일치하지 않습니다",
-              });
-            }
-          }
-        });
-      }
-    }
-  );
-});
-
 router.get("/user/auth", authUtil, (req, res) => {
+  var token = req.cookies.x_auth;
+  let decoded = jwt.verify(token, secretKey);
   res.status(200).json({
     isAuth: true,
-    id: req.body.id,
+    id: decoded,
   });
 });
 
@@ -326,12 +292,11 @@ router.post("/content/todo", (req, res) => {
 router.get("/user/github", (req, res) => {
   const user_id = req.body.id;
   const sql = "SELECT GithibID FROM 'usersinfo' WHERE id =?";
-  db.query(sql, "lis", (err, data) => {
+  db.query(sql, user_id, (err, data) => {
     if (err) {
       console.log("err");
       res.send(err);
     } else {
-      console.log(data);
       res.status(200).json({ gitSuccess: true, data: data });
     }
   });
@@ -345,7 +310,6 @@ router.post("/content/calendar_get", (req, res) => {
       console.log("err");
       res.send(err);
     } else {
-      console.log(data);
       res.send(data);
     }
   });
@@ -360,7 +324,6 @@ router.post("/content/calendar_post", (req, res) => {
       console.log("err");
       res.send(err);
     } else {
-      console.log(data);
       res.status(200).json({ success: true, data });
     }
   });
@@ -610,4 +573,20 @@ router.delete("/content/todo_delete", (req, res) => {
   });
 });
 
+router.post("/getgithub", (req, res) => {
+  const id = req.body.id;
+  const sql = "SELECT gitId FROM usersinfo WHERE id=?";
+  db.query(sql, id, (err, rows, fields) => {
+    if (err || !rows[0]) {
+      return res.json({
+        success: false,
+      });
+    } else {
+      return res.json({
+        success: true,
+        gitId: rows[0].gitId,
+      });
+    }
+  });
+});
 module.exports = router;

@@ -8,6 +8,8 @@ import "react-calendar/dist/Calendar.css";
 import GithubTest from "./GithubTest";
 import token from "./GithubToken";
 import MailTest from "./MailTest";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const CalendarStyle = styled.div`
   .highlight {
@@ -21,12 +23,22 @@ const today = new Date(); //오늘 날짜 + 시간 받아오기
 function CalendarTest() {
   const [mark, setMark] = useState([]);
   const [check, setCheck] = useState(false);
+  const _id = useSelector((state) => state.user.Id); //사용자 아이디를 이용해서 githubid 갖고오기
   useEffect(() => {
     let body = {
-      id: "lis",
+      id: _id,
     };
     calendarGet(body).then((res) => {
       setMark(res.payload);
+    });
+    axios({
+      method: "post",
+      url: "/api/getgithub",
+      data: {
+        id: _id,
+      },
+    }).then(function (response) {
+      console.log(response);
     });
   }, []);
 
@@ -83,7 +95,7 @@ function CalendarTest() {
       mark[mark.length - 1].date !== moment(today).format("YYYY-MM-DD")
     ) {
       let body = {
-        id: "lis",
+        id: _id,
         date: moment(today).format("YYYY-MM-DD"),
       };
       calendarPost(body);
