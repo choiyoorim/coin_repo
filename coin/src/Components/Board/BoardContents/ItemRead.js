@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 
+import styled from "styled-components";
 import StyledItem from "../StyledItem";
 
 const StyleBtn = styled.div`
@@ -32,46 +31,46 @@ const StyleBtn = styled.div`
   }
 `;
 
-class FilterItems extends Component {
+class ItemRead extends Component {
   constructor(props) {
     super(props);
-
     this.changeItem = this.changeItem.bind(this);
   }
-
   changeItem(e) {
-    this.props.onChangeItem(e.target.value, e.target.className);
+    console.log(e.target.className, e.target.value);
+    this.props.onChangeItem(e.target.className, e.target.value);
   }
 
   getItem() {
     var article = this.props.data.map(
       function (item) {
         return (
-          <div key={item.id} className="filter-item">
+          <div key={item.item_ID} className="filter-item">
             <div
               className="filter-name"
               onClick={() => {
-                window.location.href = item.link;
+                var openNewWindow = window.open("about:blank");
+                openNewWindow.location.href = item.link;
+              }}
+              style={{
+                cursor: "pointer",
               }}
             >
-              {item.name}
-              {/* <Link to={{ pathname: `${item.link}` }} target="_blank">
-                {item.name}
-              </Link> */}
+              {item.title}
             </div>
 
             <div className="filter-desc">{item.desc}</div>
             <StyleBtn>
               <div className="button-set">
                 <button
-                  value={item.id}
+                  value={item.item_ID}
                   className="item-update"
                   onClick={this.changeItem}
                 >
                   수정
                 </button>
                 <button
-                  value={item.id}
+                  value={item.item_ID}
                   className="item-delete"
                   onClick={this.changeItem}
                 >
@@ -83,6 +82,7 @@ class FilterItems extends Component {
         );
       }.bind(this)
     );
+
     return article;
   }
 
@@ -95,4 +95,4 @@ class FilterItems extends Component {
   }
 }
 
-export default FilterItems;
+export default ItemRead;

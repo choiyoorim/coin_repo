@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #F9FBFD;
     color: #354356;
     opacity: 0.6;
-    position: absolute;
+    position: fixed;
     border-radius: 35px;
     height: 350px;
     width: 250px;
@@ -116,17 +116,7 @@ const GlobalStyle = createGlobalStyle`
         opacity: 1;
     }
   }
-
-  .exProfile{
-    position: absolute;
-    border: 3px solid white;
-    border-radius: 35px;
-    height: 45px;
-    width: 230px;
-    top: 3px;
-    right:5px;
-  }
-
+  
   .exToggle{
     position: absolute;
     border: 3px solid white;
@@ -157,14 +147,6 @@ const GlobalStyle = createGlobalStyle`
     bottom: 65px;
   }
 
-  .arrow1{
-    position: absolute;
-    right: 290px;
-    top: -28px;
-    font-size: 70px;
-    color: white;
-  }
-
   .arrow2{
     position: absolute;
     right: 290px;
@@ -186,16 +168,6 @@ const GlobalStyle = createGlobalStyle`
     right: 290px;
     bottom: 43px;
     font-size: 70px;
-    color: white;
-  }
-
-  .howTo1{
-    position: absolute;
-    right: 380px;
-    top: 10px;
-    text-align: right;
-    border-radius: 35px;
-    font-size: 25px;
     color: white;
   }
 
@@ -249,7 +221,6 @@ class Menu extends React.Component {
     this.setState((prevState) => ({
       isToggleOn: !prevState.isToggleOn,
     }));
-    console.log(this.state);
   }
 
   render() {

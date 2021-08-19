@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { calendarPost } from "../action/calendarAction";
+
+const token = require("./GithubToken");
 async function getContributions(token, username) {
   const headers = {
     Authorization: `bearer ${token}`,
@@ -6,7 +9,7 @@ async function getContributions(token, username) {
   const body = {
     query: `query {
           user(login: "${username}") {
-            contributionsCollection(from: "2021-08-01T00:00:00Z" to:"2021-08-01T00:00:00Z") {
+            contributionsCollection {
               contributionCalendar {
                 weeks {
                   contributionDays {
@@ -24,33 +27,48 @@ async function getContributions(token, username) {
     body: JSON.stringify(body),
     headers: headers,
   });
+  const saveDate = [];
   const data = await response.json();
-  const data2 =
-    data.data.user.contributionsCollection.contributionCalendar.weeks[0]
-      .contributionDays[0];
-  return data2;
-}
-function ContributionData() {
-  const data2 = {};
-  const data = getContributions(
-    "plum-king"
-  ).then(
-    (result) => {
-      console.log(result);
-    },
-    function (result) {
-      data2 = result;
+  let calendar = data.data.user.contributionsCollection.contributionCalendar;
+
+  //한 달만큼의 정보 저장
+  for (let i = 48; i < 52; i++) {
+    for (let j = 0; j < 7; j++) {
+      if (calendar.weeks[i].contributionDays[j].contributionCount !== 0)
+        saveDate.push(calendar.weeks[i].contributionDays[j].date);
     }
-  );
-  console.log(data2);
-  return <h3>testing...</h3>;
+  }
+  let days = calendar.weeks[52];
+  for (let j = 0; j < days.contributionDays.length; j++) {
+    if (days.contributionDays[j].contributionCount !== 0)
+      saveDate.push(days.contributionDays[j].date);
+  }
+  return saveDate;
 }
-function GithubTest() {
-  return (
-    <div>
-      <h2>My first Github Scrapping :rocket:</h2>
-      <ContributionData />
-    </div>
-  );
+
+function GithubTest(props) {
+  const postCheck = () => {
+    props.onCheck(true);
+  };
+  //한 달 날짜 가져오기
+  useEffect(() => {
+    ContributionData();
+    postCheck();
+  }, []);
+  const ContributionData = () => {
+    let body;
+    let data = getContributions(token, "plum-king").then((result) => {
+      for (let i = 0; i < result.length; i++) {
+        body = {
+          id: "lis",
+          date: result[i],
+        };
+        calendarPost(body);
+      }
+    });
+    return;
+  };
+  return <div>{ContributionData}</div>;
 }
+
 export default GithubTest;

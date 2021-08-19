@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 server/db_info.js
 server/config/secretKey.js
+
+server/config/
+
+GithubToken.js

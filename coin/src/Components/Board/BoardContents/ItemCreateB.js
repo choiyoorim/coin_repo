@@ -4,7 +4,7 @@ import SubmitButton from "../SubmitButton";
 import StyledModalDiv from "../StyledModalDiv";
 import StyledModalArticle from "../StyledModalArticle";
 
-class ItemCreate extends Component {
+class ItemCreateB extends Component {
   render() {
     return (
       <StyledModalDiv>
@@ -19,7 +19,6 @@ class ItemCreate extends Component {
                   e.preventDefault();
                   this.props.onSubmit(
                     e.target.title.value,
-                    e.target.link.value,
                     e.target.desc.value
                   );
                 }.bind(this)}
@@ -31,10 +30,6 @@ class ItemCreate extends Component {
                     name="title"
                     placeholder="title"
                   ></input>
-                </p>
-
-                <p>
-                  <input type="text" name="link" placeholder="url"></input>
                 </p>
 
                 <p>
@@ -59,4 +54,4 @@ class ItemCreate extends Component {
     );
   }
 }
-export default ItemCreate;
+export default ItemCreateB;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class FilterOptions extends Component {
+class FilterRead extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,37 +8,34 @@ class FilterOptions extends Component {
     };
   }
 
-  changeOption = (type, e) => {
+  changeOption = (e) => {
     var val = e.target.value;
-    console.log("changeoption");
-    console.log(val); //=== option id
-    console.log(type); //==="read"
     this.setState(
       {
         value: val,
       },
       () => {
-        this.props.changeOption(this.state.value, type);
+        this.props.changeOption(this.state.value);
       }
     );
   };
 
   render() {
-    const valueArray = this.props.benderOptions;
-
+    const valueArray = this.props.allOptions; //보드에서 넘어온 옵션 배열
+    console.log(this.props.optionValue);
     return (
       <div className="filter-options">
         <div className="filter-option">
           <select
             id="valuename"
             value={this.state.value}
-            onChange={this.changeOption.bind(this, "value")}
+            onChange={this.changeOption.bind(this)}
             style={{ height: 30, width: 80, borderRadius: 5, padding: 5 }}
           >
-            {valueArray.map(function (option) {
+            {valueArray.map(function (rowData) {
               return (
-                <option key={option.id} value={option.id}>
-                  {option.value}
+                <option key={rowData.option_ID} value={rowData.option_ID}>
+                  {rowData.option_name}
                 </option>
               );
             })}
@@ -48,4 +45,4 @@ class FilterOptions extends Component {
     );
   }
 }
-export default FilterOptions;
+export default FilterRead;

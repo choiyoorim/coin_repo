@@ -8,8 +8,8 @@ class FilterUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _value: this.props.data.value,
-      _id: this.props.data.id,
+      _value: this.props.data.option_name,
+      _id: this.props.data.option_ID,
     };
     this.inputFormHandler = this.inputFormHandler.bind(this);
   }

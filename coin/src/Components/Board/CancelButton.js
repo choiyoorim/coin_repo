@@ -20,8 +20,7 @@ export default class CancelButton extends Component {
             height: "40px",
           }}
           onClick={function (e) {
-            history.goBack();
-            history.goForward();
+            window.location.replace("/main");
           }}
         >
           취소

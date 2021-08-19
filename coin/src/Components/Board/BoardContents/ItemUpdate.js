@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FilterOptions from "./FilterOptions";
+import FilterRead from "./FilterRead";
 import CancelButton from "../CancelButton";
 
 import SubmitButton from "../SubmitButton";
@@ -10,10 +10,10 @@ class ItemUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: this.props.data.id,
-      _option_id: this.props.data.option_id,
+      _id: this.props.data.item_ID,
+      _option_id: this.props.data.options_option_ID,
+      _title: this.props.data.title,
       _link: this.props.data.link,
-      _name: this.props.data.name,
       _desc: this.props.data.desc,
     };
     this.inputFormHandler = this.inputFormHandler.bind(this);
@@ -25,7 +25,7 @@ class ItemUpdate extends Component {
     this.setState({ [name]: value });
   }
 
-  changeOption = (val, type) => {
+  changeOption = (val) => {
     this.setState({
       _option_id: parseInt(val),
     });
@@ -46,9 +46,8 @@ class ItemUpdate extends Component {
                   console.log("on submit");
                   console.log(this.state._option_id);
                   this.props.onSubmit(
-                    this.state._id,
                     this.state._option_id,
-                    this.state._name,
+                    this.state._title,
                     this.state._link,
                     this.state._desc
                   );
@@ -56,18 +55,19 @@ class ItemUpdate extends Component {
               >
                 <input type="hidden" name="id" value={this.state._id}></input>
                 <div>
-                  <FilterOptions
+                  <FilterRead
                     optionValue={this.props.optionValue}
-                    benderOptions={this.props.benderOptions}
+                    allOptions={this.props.allOptions}
                     changeOption={this.changeOption}
-                  ></FilterOptions>
+                  ></FilterRead>
                 </div>
                 <p>
                   <input
+                    required
                     type="text"
-                    name="_name"
+                    name="_title"
                     placeholder="title"
-                    value={this.state._name}
+                    value={this.state._title}
                     onChange={this.inputFormHandler}
                   ></input>
                 </p>
