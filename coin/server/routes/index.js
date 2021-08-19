@@ -1,7 +1,6 @@
 var express = require("express");
 const path = require("path");
 var router = express.Router();
-//const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser");
 const db = require("../db_info");
 const bcrypt = require("bcrypt-nodejs");
@@ -134,7 +133,7 @@ router.post("/content/board_delete", (req, res) => {
 router.post("/content/option", (req, res) => {
   const user_id = req.body.id;
   const sql =
-    "SELECT option_ID, option_name, boards_board_ID FROM `options` WHERE boards_usersinfo_id=?;";
+    "SELECT option_ID, option_name, boards_board_ID FROM `options` WHERE boards_usersinfo_id=?";
   db.query(sql, user_id, (err, data) => {
     if (err) {
       console.log("err");
@@ -278,6 +277,49 @@ router.post("/content/todo", (req, res) => {
       res.send(err);
     } else {
       console.log("success");
+      console.log(data);
+      res.status(200).json({ success: true, data });
+    }
+  });
+});
+
+router.get("/user/github", (req, res) => {
+  const user_id = req.body.id;
+  const sql = "SELECT GithibID FROM 'usersinfo' WHERE id =?";
+  db.query(sql, "lis", (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.status(200).json({ gitSuccess: true, data: data });
+    }
+  });
+});
+
+router.post("/content/calendar_get", (req, res) => {
+  const user_id = req.body.id;
+  const sql = "SELECT date FROM `github` WHERE usersinfo_id =?";
+  db.query(sql, user_id, (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
+      console.log(data);
+      res.send(data);
+    }
+  });
+});
+
+router.post("/content/calendar_post", (req, res) => {
+  const param5 = req.body.date;
+  const user_id = req.body.id;
+  const sql = "INSERT INTO github (`date`, `usersinfo_id`) VALUES (?, ?)";
+  db.query(sql, [param5, "lis"], (err, data) => {
+    if (err) {
+      console.log("err");
+      res.send(err);
+    } else {
       console.log(data);
       res.status(200).json({ success: true, data });
     }

@@ -45,7 +45,11 @@ function Main() {
       id: id,
       user: "lis",
     };
-    dispatch(deleteBoard(_inputData));
+    if (window.confirm("현재 보드를 삭제합니다.")){
+      dispatch(deleteBoard(_inputData));
+      alert("삭제되었습니다.");
+    }
+    
   };
 
   const titleList = board.map((row) => (

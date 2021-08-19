@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import Draggable from "react-draggable";
 import Resizer from "./Resizer";
 import { Direction } from "./Direction";
 import "./BoardContent.css";
@@ -7,10 +6,10 @@ import BoardInfo from "./BoardInfo";
 import BoardBaek from "./BoardBaek";
 import FilterRead from "./BoardContents/FilterRead";
 import MoreButton from "./MoreButton";
+
 import ItemRead from "./BoardContents/ItemRead";
 import ItemCreate from "./BoardContents/ItemCreate";
 import ItemUpdate from "./BoardContents/ItemUpdate";
-import CalendarTest from "../../Pages/CalendarTest";
 
 import {
   createOption,
@@ -23,13 +22,15 @@ import { createItem, updateItem, deleteItem } from "../../_action/itemAction";
 function BoardContent(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
-
   const [contents, setcontents] = useState([]);
+
   const [selectedOpValue, setselectedOpValue] = useState({
-    option_ID: 0,
-    option_name: "All",
+    id: 0,
+    value: "All",
   });
+
   const [filteredItem, setfilteredItem] = useState(contents);
+
   const [hidden, sethidden] = useState(false);
   const [itemMode, setitemMode] = useState({ mode: "read", item_ID: 0 });
   const dispatch = useDispatch();
@@ -50,7 +51,6 @@ function BoardContent(props) {
   });
 
   useEffect(() => {
-    console.log("item updated!");
     itemList = item.filter(
       (rowData) => rowData.options_boards_board_ID === props.value
     );
@@ -231,6 +231,7 @@ function BoardContent(props) {
         alert("삭제되었습니다.");
       }
     }
+
     return article;
   };
 
@@ -251,6 +252,7 @@ function BoardContent(props) {
     sethidden(true);
   };
 
+  //보드 삭제 기능
   const onRemove = (e) => {
     props.onClick(e.target.value); //보드 삭제 기능
   };
@@ -270,7 +272,10 @@ function BoardContent(props) {
               allOptions={optionList} //전체 옵션
               changeOption={filterItems} //함수 처리
             />
-            <MoreButton currOption={selectedOpValue} changeBoard={modOption} />
+            <MoreButton
+              currOption={selectedOpValue}
+              changeBoard={changeOption}
+            />
           </div>
 
           {selectedOpValue.option_ID !== 0 && (
@@ -288,12 +293,12 @@ function BoardContent(props) {
       )}
       {props.text == "GITHUB" && (
         <div ref={itemRef}>
-          <br /> <CalendarTest /> <br />
+          <br /> <CalendarTest></CalendarTest> <br />
         </div>
       )}
       {props.text == "BAEKJOON" && (
         <div ref={itemRef}>
-          <BoardBaek />
+          <BoardBaek></BoardBaek>
         </div>
       )}
       {itemMode.mode !== "read" && updateItems(itemMode.mode, itemMode.item_id)}

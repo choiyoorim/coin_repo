@@ -21,3 +21,6 @@ export const TODO_CREATE = "TODO_CREATE";
 export const TODO_READ = "TODO_READ";
 export const TODO_UPDATE = "TODO_UPDATE";
 export const TODO_DELETE = "TODO_DELETE";
+export const CALENDAR_GET = "CALENDAR_GET";
+export const CALENDAR_POST = "CALENDAR_POST";
+export const GIT_USER = "GIT_USER";
