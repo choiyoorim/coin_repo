@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from "react";
 
 import "./BoardContent.css";
-import { Direction } from "./Direction";
+import {Direction} from "./Direction";
 import FilterRead from "./BoardContents/FilterRead";
 import ItemReadB from "./BoardContents/ItemReadB";
-import { useSelector, useDispatch } from "react-redux";
-import { createTodo, deleteTodo } from "../../action/bojAction";
+import {useSelector, useDispatch} from "react-redux";
+import {createTodo, deleteTodo} from "../../action/bojAction";
 import FilterCreate from "./BoardContents/FilterCreate";
 import Resizer from "./Resizer";
 
@@ -13,14 +13,14 @@ function BoardBaek(props) {
   const boardRef = useRef(null);
   const itemRef = useRef(null);
   const [optionsBaek, setoptionsBaek] = useState([
-    { option_ID: 0, option_name: "TODO" },
-    { option_ID: 1, option_name: "SOLVED" },
-    { option_ID: 2, option_name: "FAILED" },
+    {option_ID: 0, option_name: "TODO"},
+    {option_ID: 1, option_name: "SOLVED"},
+    {option_ID: 2, option_name: "FAILED"},
   ]);
   const [selectedOpValueBaek, setselectedOpValueBaek] = useState(0);
   const [filteredItemBaek, setfilteredItemBaek] = useState([]);
   const [hidden, sethidden] = useState(false);
-  const [itemMode, setitemMode] = useState({ mode: "read", id: 0 });
+  const [itemMode, setitemMode] = useState({mode: "read", id: 0});
   const dispatch = useDispatch();
   const todo = useSelector((state) => state.todo);
 
@@ -33,7 +33,7 @@ function BoardBaek(props) {
     if (!board) return;
     if (!item) return;
 
-    const { width, height, x, y } = board.getBoundingClientRect();
+    const {width, height, x, y} = board.getBoundingClientRect();
     const resizeTop = () => {
       board.style.height = `${height - movementY}px`;
       board.style.top = `${y + movementY}`;
@@ -134,9 +134,9 @@ function BoardBaek(props) {
 
     if (_mode === "item-delete") {
       if (window.confirm("현재 아이템를 삭제합니다.")) {
-        body = { id: _id };
+        body = {id: _id};
         dispatch(deleteTodo(body));
-        setitemMode({ mode: "read", id: null });
+        setitemMode({mode: "read", id: null});
         alert("삭제되었습니다.");
       }
     }
@@ -146,7 +146,7 @@ function BoardBaek(props) {
   const createItems = (_number) => {
     let body = {
       number: _number,
-      user: "lis",
+      user: "yoon",
     };
     dispatch(createTodo(body)).then(filterItems(1));
     sethidden(false);

@@ -1,7 +1,7 @@
 import React from "react";
-import { useState, useCallback, useEffect, Component } from "react";
+import {useState, useCallback, useEffect, Component} from "react";
 import Calendar from "react-calendar";
-import { calendarGet, calendarPost } from "../action/calendarAction";
+import {calendarGet, calendarPost} from "../action/calendarAction";
 import moment from "moment";
 import styled from "styled-components";
 import "react-calendar/dist/Calendar.css";
@@ -23,7 +23,7 @@ function CalendarTest() {
   const [check, setCheck] = useState(false);
   useEffect(() => {
     let body = {
-      id: "lis",
+      id: "yoon",
     };
     calendarGet(body).then((res) => {
       setMark(res.payload);
@@ -83,7 +83,7 @@ function CalendarTest() {
       mark[mark.length - 1].date !== moment(today).format("YYYY-MM-DD")
     ) {
       let body = {
-        id: "lis",
+        id: "yoon",
         date: moment(today).format("YYYY-MM-DD"),
       };
       calendarPost(body);
@@ -100,7 +100,7 @@ function CalendarTest() {
   }
 
   const changeCheck = (data) => {
-    let data2 = { date: "2001-01-01" };
+    let data2 = {date: "2001-01-01"};
     setMark(mark.concat(data2));
     setCheck(data);
   };
@@ -115,7 +115,7 @@ function CalendarTest() {
             <Calendar
               value={value}
               onChange={onChange}
-              tileClassName={({ date, view }) => {
+              tileClassName={({date, view}) => {
                 if (
                   mark.find((x) => x.date === moment(date).format("YYYY-MM-DD"))
                 ) {

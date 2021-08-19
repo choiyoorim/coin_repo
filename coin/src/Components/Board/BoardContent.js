@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, {useState, useRef, useEffect} from "react";
 import Resizer from "./Resizer";
-import { Direction } from "./Direction";
+import {Direction} from "./Direction";
 import "./BoardContent.css";
 import BoardInfo from "./BoardInfo";
 import BoardBaek from "./BoardBaek";
@@ -17,8 +17,8 @@ import {
   deleteOption,
   updateOption,
 } from "../../action/optionAction";
-import { useSelector, useDispatch } from "react-redux";
-import { createItem, updateItem, deleteItem } from "../../action/itemAction";
+import {useSelector, useDispatch} from "react-redux";
+import {createItem, updateItem, deleteItem} from "../../action/itemAction";
 
 function BoardContent(props) {
   const boardRef = useRef(null);
@@ -33,7 +33,7 @@ function BoardContent(props) {
   const [filteredItem, setfilteredItem] = useState(contents);
 
   const [hidden, sethidden] = useState(false);
-  const [itemMode, setitemMode] = useState({ mode: "read", item_ID: 0 });
+  const [itemMode, setitemMode] = useState({mode: "read", item_ID: 0});
   const dispatch = useDispatch();
   const option = useSelector((state) => state.option);
   const item = useSelector((state) => state.item);
@@ -62,7 +62,7 @@ function BoardContent(props) {
     const board = boardRef.current;
     if (!board) return;
 
-    const { x, y } = board.getBoundingClientRect();
+    const {x, y} = board.getBoundingClientRect();
 
     board.style.left = `${x + movementX}px`;
     board.style.top = `${y + movementY}px`;
@@ -74,7 +74,7 @@ function BoardContent(props) {
     if (!board) return;
     if (!item) return;
 
-    const { width, height, x, y } = board.getBoundingClientRect();
+    const {width, height, x, y} = board.getBoundingClientRect();
     const resizeTop = () => {
       board.style.height = `${height - movementY}px`;
       board.style.top = `${y + movementY}`;
@@ -165,14 +165,14 @@ function BoardContent(props) {
           option_ID: selectedOpValue.id,
         };
         dispatch(deleteOption(body));
-        setselectedOpValue({ id: 0, option_name: "All" });
+        setselectedOpValue({id: 0, option_name: "All"});
         break;
 
       case "create":
         body = {
           option_name: value,
           boards_board_ID: props.value,
-          user: "lis",
+          user: "yoon",
         };
         dispatch(createOption(body));
         break;
@@ -225,15 +225,15 @@ function BoardContent(props) {
               desc: _desc,
             };
             dispatch(updateItem(body)).then(filterItems(0));
-            setitemMode({ mode: "read", item_id: null });
+            setitemMode({mode: "read", item_id: null});
           }}
         ></ItemUpdate>
       );
     } else if (_mode === "item-delete") {
       if (window.confirm("현재 아이템를 삭제합니다.")) {
-        body = { item_ID: editItem.item_ID };
+        body = {item_ID: editItem.item_ID};
         dispatch(deleteItem(body));
-        setitemMode({ mode: "read", item_id: null });
+        setitemMode({mode: "read", item_id: null});
         alert("삭제되었습니다.");
       }
     }
@@ -248,7 +248,7 @@ function BoardContent(props) {
       desc: _desc,
       option_ID: selectedOpValue.id,
       board_ID: props.value,
-      user: "lis",
+      user: "yoon",
     };
     dispatch(createItem(body)).then(filterItems(selectedOpValue.id));
     sethidden(false);

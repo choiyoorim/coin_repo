@@ -10,7 +10,7 @@ const secretKey = require("../config/secretKey").secretKey;
 const options = require("../config/secretKey").options;
 
 router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+router.use(express.urlencoded({extended: true}));
 router.use(cookieParser());
 
 router.post("/user/register", (req, res) => {
@@ -36,9 +36,9 @@ router.post("/user/register", (req, res) => {
             (err, row) => {
               if (err) {
                 console.log(err);
-                return res.json({ success: false, err });
+                return res.json({success: false, err});
               }
-              return res.status(200).json({ success: true });
+              return res.status(200).json({success: true});
             }
           );
         }
@@ -69,7 +69,7 @@ router.post("/user/login", (req, res) => {
               return res
                 .cookie("x_auth", jwkToken)
                 .status(200)
-                .json({ loginSuccess: true, userId: req.body.id });
+                .json({loginSuccess: true, userId: req.body.id});
             } else {
               return res.json({
                 loginSuccess: false,
@@ -112,7 +112,7 @@ router.post("/content/board_create", (req, res) => {
       console.log("insert data success");
       return res
         .status(200)
-        .json({ success: true, data: data.insertId, data2: params3 });
+        .json({success: true, data: data.insertId, data2: params3});
     }
   });
 });
@@ -125,7 +125,7 @@ router.post("/content/board_delete", (req, res) => {
       res.send(err);
     } else {
       console.log("delete data success");
-      return res.status(200).json({ success: true, data: params4[0] });
+      return res.status(200).json({success: true, data: params4[0]});
     }
   });
 });
@@ -139,7 +139,7 @@ router.post("/content/option", (req, res) => {
       console.log("err");
       res.send(err);
     } else {
-      res.status(200).json({ success: true, data });
+      res.status(200).json({success: true, data});
     }
   });
 });
@@ -159,7 +159,7 @@ router.post("/content/option_create", (req, res) => {
       console.log("insert data success");
       return res
         .status(200)
-        .json({ success: true, data: data.insertId, data2: params });
+        .json({success: true, data: data.insertId, data2: params});
     }
   });
 });
@@ -189,7 +189,7 @@ router.delete("/content/option_delete", (req, res) => {
       res.send(err);
     } else {
       console.log("delete data success");
-      return res.status(200).json({ deleteSuccess: true, data: params });
+      return res.status(200).json({deleteSuccess: true, data: params});
     }
   });
 });
@@ -203,7 +203,7 @@ router.post("/content/item", (req, res) => {
       console.log("err!");
       res.send(err);
     } else {
-      res.status(200).json({ success: true, data });
+      res.status(200).json({success: true, data});
     }
   });
 });
@@ -226,7 +226,7 @@ router.post("/content/item_create", (req, res) => {
       console.log("insert data success");
       return res
         .status(200)
-        .json({ success: true, data: data.insertId, data2: params });
+        .json({success: true, data: data.insertId, data2: params});
     }
   });
 });
@@ -263,7 +263,7 @@ router.delete("/content/item_delete", (req, res) => {
       res.send(err);
     } else {
       console.log("delete data success");
-      return res.status(200).json({ deleteSuccess: true, data: params });
+      return res.status(200).json({deleteSuccess: true, data: params});
     }
   });
 });
@@ -278,7 +278,7 @@ router.post("/content/todo", (req, res) => {
     } else {
       console.log("success");
       console.log(data);
-      res.status(200).json({ success: true, data });
+      res.status(200).json({success: true, data});
     }
   });
 });
@@ -286,13 +286,13 @@ router.post("/content/todo", (req, res) => {
 router.get("/user/github", (req, res) => {
   const user_id = req.body.id;
   const sql = "SELECT GithibID FROM 'usersinfo' WHERE id =?";
-  db.query(sql, "lis", (err, data) => {
+  db.query(sql, "yoon", (err, data) => {
     if (err) {
       console.log("err");
       res.send(err);
     } else {
       console.log(data);
-      res.status(200).json({ gitSuccess: true, data: data });
+      res.status(200).json({gitSuccess: true, data: data});
     }
   });
 });
@@ -321,7 +321,7 @@ router.post("/content/calendar_post", (req, res) => {
       res.send(err);
     } else {
       console.log(data);
-      res.status(200).json({ success: true, data });
+      res.status(200).json({success: true, data});
     }
   });
 });
@@ -337,7 +337,7 @@ router.post("/content/todo_create", (req, res) => {
       console.log("insert data success");
       return res
         .status(200)
-        .json({ success: true, data: data.insertId, data2: params });
+        .json({success: true, data: data.insertId, data2: params});
     }
   });
 });
@@ -350,7 +350,7 @@ router.delete("/content/todo_delete", (req, res) => {
       res.send(err);
     } else {
       console.log("delete data success");
-      return res.status(200).json({ deleteSuccess: true, data: params });
+      return res.status(200).json({deleteSuccess: true, data: params});
     }
   });
 });

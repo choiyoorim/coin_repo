@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { calendarPost } from "../action/calendarAction";
+import React, {useEffect} from "react";
+import {calendarPost} from "../action/calendarAction";
 
 const token = require("./GithubToken");
 async function getContributions(token, username) {
@@ -60,7 +60,7 @@ function GithubTest(props) {
     let data = getContributions(token, "plum-king").then((result) => {
       for (let i = 0; i < result.length; i++) {
         body = {
-          id: "lis",
+          id: "yoon",
           date: result[i],
         };
         calendarPost(body);

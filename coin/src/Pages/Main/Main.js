@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import BoardContent from "../../Components/Board/BoardContent";
 import Menu from "../../Components/Menu";
 import face from "../../img/face.PNG";
 
-import { createBoard, readBoard, deleteBoard } from "../../action/boardAction";
-import { useSelector, useDispatch } from "react-redux";
-import { readOption } from "../../action/optionAction";
-import { readItem } from "../../action/itemAction";
-import { readTodo } from "../../action/bojAction";
+import {createBoard, readBoard, deleteBoard} from "../../action/boardAction";
+import {useSelector, useDispatch} from "react-redux";
+import {readOption} from "../../action/optionAction";
+import {readItem} from "../../action/itemAction";
+import {readTodo} from "../../action/bojAction";
 
 const mainProfile = {
   width: "45px",
@@ -23,7 +23,7 @@ function Main() {
 
   useEffect(() => {
     let body = {
-      id: "lis", //사용자 아이디 받아오기
+      id: "yoon", //사용자 아이디 받아오기
     };
     dispatch(readBoard(body));
     dispatch(readOption(body));
@@ -33,7 +33,7 @@ function Main() {
 
   const parentFunction = (data) => {
     const _inputData = {
-      id: "lis",
+      id: "yoon",
       text: data,
     };
     dispatch(createBoard(_inputData));
@@ -43,7 +43,7 @@ function Main() {
     id = parseInt(id);
     const _inputData = {
       id: id,
-      user: "lis",
+      user: "yoon",
     };
     if (window.confirm("현재 보드를 삭제합니다.")) {
       dispatch(deleteBoard(_inputData));
