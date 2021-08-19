@@ -1,5 +1,5 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import {createGlobalStyle} from "styled-components";
 import MenuActive from "./MenuActive";
 
 const GlobalStyle = createGlobalStyle`
@@ -70,16 +70,14 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     border: 0;
   }
-  .modal > section {
-    width: 100%;
-    height: 100%;
+  .modal > .popUpSection {
     margin:0 auto;
     border-radius: .3rem;
     animation: modal-show .3s;
     overflow: hidden;
   }
   
-  .modal > section > .popUpTitle button {
+  .modal > .popUpSection > .popUpTitle button {
     position: absolute;
     top: 10px;
     left: 13px;
@@ -205,7 +203,7 @@ const GlobalStyle = createGlobalStyle`
 class Menu extends React.Component {
   constructor() {
     super();
-    this.state = { isToggleOn: false };
+    this.state = {isToggleOn: false};
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
 

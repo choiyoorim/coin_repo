@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { createGlobalStyle } from "styled-components";
+import React, {useState, useEffect} from "react";
+import {createGlobalStyle} from "styled-components";
 import InfoTemplate from "../../Components/InfoTemplate";
 import ProfilePic from "../../Components/ProfilePic";
 import Profile from "../../Components/Profile";
 import InfoChangeTemplate from "../../Components/InfoChangeTemplate";
 import TextInput from "../../Components/TextInput";
-import { Link } from "react-router-dom";
-import { withRouter } from "react-router";
-import { useReducer } from "react";
+import {Link} from "react-router-dom";
+import {withRouter} from "react-router";
+import {useReducer} from "react";
 //회원정보 가져오는데 사용할 것
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { getUserinfo } from "../../action/userAction";
+import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {getUserinfo} from "../../action/userAction";
 import axios from "axios";
 import styled from "styled-components";
 import EditGithubModal from "../../Components/EditModal/EditGithubModal";
@@ -261,7 +261,7 @@ function MyPage() {
   const [GitId, setGitId] = useState("");
   const [BaekjoonId, setBaekjoonId] = useState("");
   const [state, setState] = useState("");
-  const { id } = useSelector((state) => ({
+  const {id} = useSelector((state) => ({
     id: state.user.Id,
   }));
   const [modalGitOpen, setModalGitOpen] = useState(false);
@@ -304,14 +304,14 @@ function MyPage() {
     setModalNicknameOpen(false);
   };
 
-  if ({ id }.id != undefined) {
-    console.log({ id });
+  if ({id}.id != undefined) {
+    console.log({id});
   }
 
   useEffect(() => {
-    if ({ id }.id != undefined) {
+    if ({id}.id != undefined) {
       let body = {
-        id: { id }.id,
+        id: {id}.id,
       };
       console.log(body);
       console.log(state);
