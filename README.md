@@ -16,5 +16,5 @@ git과 github (개발툴)
 <img src="./img/2.PNG" width = 350>
 <img src="./img/3.PNG" width = 350>
 <img src="./img/4.PNG" width = 350>
-<img src="./img/5.PNG" wdith = 350>
+<img src="./img/5.PNG" width = 350>
 
