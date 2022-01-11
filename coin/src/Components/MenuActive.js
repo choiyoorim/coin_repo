@@ -19,8 +19,8 @@ class MenuActive extends Component {
     this.setState({ modalOpen: false });
   };
 
-  childSecondFunction = (data) => {
-    this.props.parentSecondFunction(data);
+  sendBoardNameFromMenu = (data) => {
+    this.props.getBoardNameFromMenu(data);
   };
 
   render() {
@@ -28,25 +28,25 @@ class MenuActive extends Component {
       <div className="toggleMenu">
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`github`)}
+          onClick={() => this.sendBoardNameFromMenu(`github`)}
         >
           + Github
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`baekjoon`)}
+          onClick={() => this.sendBoardNameFromMenu(`baekjoon`)}
         >
           + BaekJoon
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`bookmark`)}
+          onClick={() => this.sendBoardNameFromMenu(`bookmark`)}
         >
           + BookMark
         </button>
         <button
           className="makeBoard"
-          onClick={() => this.childSecondFunction(`programmers`)}
+          onClick={() => this.sendBoardNameFromMenu(`programmers`)}
         >
           + Programmers
         </button>

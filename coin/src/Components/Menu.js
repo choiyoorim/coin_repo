@@ -237,12 +237,12 @@ class Menu extends React.Component {
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
 
-  childFunction = (data) => {
-    this.props.parentFunction(data);
+  sendBoardName = (data) => {
+    this.props.getBoardName(data);
   };
 
-  parentSecondFunction = (data) => {
-    this.childFunction(data);
+  getBoardNameFromMenu = (data) => {
+    this.sendBoardName(data);
   };
 
   onMenuHandler() {
@@ -260,7 +260,7 @@ class Menu extends React.Component {
           메뉴
         </button>
         {this.state.isToggleOn && (
-          <MenuActive parentSecondFunction={this.parentSecondFunction} />
+          <MenuActive getBoardNameFromMenu={this.getBoardNameFromMenu} />
         )}
       </div>
     );

@@ -30,7 +30,7 @@ class Main extends Component{
     }
 
     
-    parentFunction = (data) =>{
+    getBoardName = (data) =>{
         const {board} = this.state;
         this.setState({
             board: board.concat({id:this.id++,text:data})
@@ -43,8 +43,6 @@ class Main extends Component{
             <BoardContent key = {name.id} text = {name.text}>
             </BoardContent>)
 
-        
-
         return(
             <>
                 <div style={{display: 'inline-block', float: 'right', margin: '5px 20px 0px 0px'}} ondrop = "return false" ondragover="return false">
@@ -56,7 +54,7 @@ class Main extends Component{
                 </div>
 
                 <div>{titleList}</div>                  
-                <Menu parentFunction={this.parentFunction}></Menu>
+                <Menu getBoardName={this.getBoardName}></Menu>
                 
             </>
         );
