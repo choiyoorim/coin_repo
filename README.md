@@ -12,9 +12,9 @@
 - 피그마: 초기의 프로토타입 제작용 디자인 툴
 - git과 github (개발툴)
  
-<img src="./img/1.PNG" width = 350>
-<img src="./img/2.PNG" width = 350>
-<img src="./img/3.PNG" width = 350>
-<img src="./img/4.PNG" width = 350>
-<img src="./img/5.PNG" width = 350>
+<img width="663" alt="1" src="https://user-images.githubusercontent.com/84116086/149200666-974bf8bb-0b7a-48fa-a485-c21afcd698c9.png">
+<img width="663" alt="2" src="https://user-images.githubusercontent.com/84116086/149200670-5ae8efc6-a8c6-4c8d-9163-3b6bbcbce38e.png">
+<img width="661" alt="3" src="https://user-images.githubusercontent.com/84116086/149200672-cb273bb1-5c3d-42de-8b61-be8b0d0c60b7.png">
+<img width="662" alt="4" src="https://user-images.githubusercontent.com/84116086/149200675-9a11b7a5-fd1a-4327-9f0c-3a10a4344200.png">
+<img width="663" alt="5" src="https://user-images.githubusercontent.com/84116086/149200677-2d1cb898-2d85-4703-b632-632e213bb39d.png">
 
