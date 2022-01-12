@@ -36,7 +36,7 @@ function Main() {
     dispatch(readTodo(body));
   }, []);
 
-  const parentFunction = (data) => {
+  const getBoardName = (data) => {
     const _inputData = {
       id: _id,
       text: data,
@@ -86,7 +86,7 @@ function Main() {
       </div>
 
       <div>{titleList}</div>
-      <Menu parentFunction={parentFunction}></Menu>
+      <Menu getBoardName={getBoardName}></Menu>
     </div>
   );
 }
