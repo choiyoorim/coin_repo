@@ -188,7 +188,7 @@ class Menu extends React.Component {
     this.onMenuHandler = this.onMenuHandler.bind(this);
   }
   sendBoardName = (data) => {
-    this.props.parentFunction(data);
+    this.props.getBoardName(data);
   };
   getBoardNameFromMenu = (data) => {
     this.sendBoardName(data);
