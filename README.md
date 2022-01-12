@@ -11,7 +11,7 @@
 - node js: 백엔드
 - 피그마: 초기의 프로토타입 제작용 디자인 툴
 - git과 github (개발툴)
-
+ 
 <img src="./img/1.PNG" width = 350>
 <img src="./img/2.PNG" width = 350>
 <img src="./img/3.PNG" width = 350>
